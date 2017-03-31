@@ -1,16 +1,17 @@
 var mongoose = require('mongoose');
 
-var registeredUserSchema = mongoose.Schema({
+var ownerSchema = mongoose.Schema({
 
-    firstName:{
+    companyName:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
 
-    lastName:{
-        type:String,
-        required:true
-    },
+    businessPage:{
+      type:mongoose.Schema.type.ObjectId,
+      ref:'businessPage'
+    }
 
     username:{
         type:String,
@@ -18,7 +19,7 @@ var registeredUserSchema = mongoose.Schema({
         unique:true
     },
 
-    Password:{
+    password:{
         type:String,
         required:true
     },
@@ -39,6 +40,6 @@ var registeredUserSchema = mongoose.Schema({
     gender:String
 })
 
-var RegisteredUser = mongoose.model("registeredUser", registeredUserSchema);
+var Owner = mongoose.model("owner", ownerSchema);
 
-module.exports = RegisteredUser;
+module.exports = Owner;
