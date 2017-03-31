@@ -48,7 +48,6 @@ passport.deserializeUser(function(id, done) {
 
 
 
-app.set('view engine','angular');
 app.use(express.static(__dirname+ '/views'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({limit:'50mb',extended:false}));
