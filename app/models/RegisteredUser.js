@@ -2,41 +2,11 @@ var mongoose = require('mongoose');
 
 var registeredUserSchema = mongoose.Schema({
 
-    firstName:{
-        type:String,
-        required:true
-    },
+    user:{
+        type:mongoose.Schema.type.ObjectId,
+        ref:'user'
+    }
 
-    lastName:{
-        type:String,
-        required:true
-    },
-
-    username:{
-        type:String,
-        required:true,
-        unique:true
-    },
-
-    Password:{
-        type:String,
-        required:true
-    },
-
-    email:{
-        type:String,
-        required:true,
-        unique:true
-    },
-
-    mobileNumber:{
-        type:String,
-        required:true,
-        unique:true
-    },
-
-    address:String,
-    gender:String
 })
 
 var RegisteredUser = mongoose.model("registeredUser", registeredUserSchema);
