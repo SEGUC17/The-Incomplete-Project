@@ -1,0 +1,16 @@
+{
+  "name": "Project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "author": "islam",
+  "license": "ISC",
+  "dependencies": {
+    "express": "latest",
+    "body-parser": "latest",
+    "mongoose": "latest",
+    "ejs": "latest",
+    "express-session":"latest",
+    "cookie-parser":"latest"
+  }
+}
