@@ -10,7 +10,7 @@ var businessPageSchema = mongoose.Schema({
 
     images:[{
         content:String
-    }]
+    }],
 
     description:{
         type:String
