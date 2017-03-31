@@ -1,22 +1,22 @@
 let Owner = require('../models/Owner');
 let BusinessPage = require('../models/BusinessPage');
+let Profile = require('../models/Profile');
 
 let ownerController = {
 
 
-    viewProfilePage:function(req, res) {
+    viewProfile:function(req, res) {
 
-        let profilePageId = req.session.data.profilePage;
-        ProfilePage.findOne(profilePageId, function(err, profilePage) {
+        let profileId = req.session.data.profile;
+        Profile.findOne(profileId, function(err, profile) {
             if(err) {
                 res.send(err.message)
                 console.log(err);
-          }
+            }
 
             else {
-                req.session.data = profilePage;
-                res.render('profilePage', {profilePage});
-          }
+                res.render('profile', {profile});
+            }
 
         })
 
