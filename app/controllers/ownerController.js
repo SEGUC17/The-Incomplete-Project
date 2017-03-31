@@ -3,6 +3,7 @@ let BusinessPage = require('../models/BusinessPage');
 
 let ownerController = {
 
+
     viewProfilePage:function(req, res) {
 
         let profilePageId = req.session.data.profilePage;
@@ -19,7 +20,26 @@ let ownerController = {
 
         })
 
-    }
+    },
+
+
+    editProfile:function(req,res){
+      Owner.update({_id:session._id},{$set:{}},function(err,results){
+        if(err)
+          console.log(err.message);
+        else {
+
+        }
+      });
+      students.update({_id:session._id},{$set: {portfolio:port._id}},function(err,results){
+        if(err)
+          console.log(err.message);
+        else{
+          session.portfolio=port._id;
+          res.render('user/user_home',{session});
+        }
+      });
+    },
 
     viewBusinessPage:function(req, res) {
 
@@ -38,7 +58,5 @@ let ownerController = {
         })
 
     }
-
 }
-
 module.exports = ownerController;
