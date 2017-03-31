@@ -23,7 +23,7 @@ var eventSchema = mongoose.Schema({
         required:true
     },
 
-    images:{
+    image:{
         content:String
     }
 

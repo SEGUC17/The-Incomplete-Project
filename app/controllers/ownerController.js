@@ -18,7 +18,7 @@ let ownerController = {
                 // req.session.data = profilePage;
                 // res.render('profilePage', {profilePage});
           }
-          
+
         })
     },
     editProfile:function(req,res){
@@ -58,5 +58,7 @@ let ownerController = {
           }
         });
       }
+
+
 }
 module.exports = ownerController;

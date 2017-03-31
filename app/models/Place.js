@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+//var Event = require('./Event')
 
 var placeSchema = mongoose.Schema({
 
