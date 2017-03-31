@@ -5,7 +5,7 @@ var tripSchema = mongoose.Schema({
     event:{
         type:mongoose.Schema.type.ObjectId,
         ref:'event'
-    }
+    },
 
     bookedByAt:[{
         registeredUser:[{

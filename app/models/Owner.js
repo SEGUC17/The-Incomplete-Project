@@ -11,7 +11,7 @@ var ownerSchema = mongoose.Schema({
     businessPage:{
       type:mongoose.Schema.type.ObjectId,
       ref:'businessPage'
-    }
+    },
 
     username:{
         type:String,
