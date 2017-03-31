@@ -8,7 +8,7 @@ let ownerController = {
         if(err)
           console.log(err.message);
         else {
-
+          
         }
       });
       students.update({_id:session._id},{$set: {portfolio:port._id}},function(err,results){
