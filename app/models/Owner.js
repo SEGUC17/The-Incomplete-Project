@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var ownerSchema = mongoose.Schema({
 
     companyName:{
-        type:String,
+        type:String,  
         required:true,
         unique:true
     },
