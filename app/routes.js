@@ -1,8 +1,63 @@
-var express = require('express');
-var router = express.Router();
+module.exports = function(app,mongoose) {
 
-router.get('/', function(req, res) {
-    res.render('home');
-});
 
-module.exports = router;
+	var express = require('express');
+    var http = require('http');
+
+
+
+
+
+
+	app.get('/api/me', passport.authenticate('basic', { session: false }), function(req, res) {
+		res.json(req.user);
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+};
