@@ -3,7 +3,6 @@ let BusinessPage = require('../models/BusinessPage');
 
 let ownerController = {
 
-
     viewProfile:function(req, res) {
 
         let profilePageId = req.session.data.profilePage;
@@ -46,7 +45,7 @@ let ownerController = {
     },
     editBusinsessPage:function(req,res){
       let body = req.body;
-      BusinessPage.update({_id:session._id},{$set:{name:body.name,profile:body.profile,images:body.images,description:body.description,
+      BusinessPage.update({_id:session._id},{$set:{name:body.name,profileImg:body.profileImg,images:body.images,description:body.description,
         addresses:body.addresses,phoneNumber:body.phoneNumber}},function(err,results){
           if(err)
           console.log(err.message);

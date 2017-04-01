@@ -7,8 +7,8 @@ var businessPageSchema = mongoose.Schema({
         required:true,
         unique:true
     },
-    
-    profile: String,
+
+    profileImg: String,
 
     images:[{
         content:String
