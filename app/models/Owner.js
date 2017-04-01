@@ -8,11 +8,11 @@ var ownerSchema = mongoose.Schema({
         unique:true
     },
 
-    user:{
+    profile:{
         type:mongoose.Schema.type.ObjectId,
         ref:'user'
     },
-    
+
     businessPage:{
         type:mongoose.Schema.type.ObjectId,
         ref:'businessPage'

@@ -1,20 +1,24 @@
 let Owner = require('../models/Owner');
 let BusinessPage = require('../models/BusinessPage');
+let Profile = require('../models/Profile');
+let AnEvent = require('../models/Event');
 
 let ownerController = {
 
     viewProfile:function(req, res) {
 
-        let profilePageId = req.session.data.profilePage;
-        ProfilePage.findOne(profilePageId, function(err, profilePage) {
+        let profileId = req.session.data.profile;
+        Profile.findOne(profileId, function(err, profile) {
             if(err) {
                 res.send(err.message)
                 console.log(err);
+
           }
           else {
                 // req.session.data = profilePage;
                 // res.render('profilePage', {profilePage});
           }
+
         })
     },
     editProfile:function(req,res){
@@ -54,5 +58,39 @@ let ownerController = {
           }
         });
       }
+
+    addEvent:function(req, res) {
+
+      let body = req.body
+      let anEvent = new AnEvent({
+          anEvent.name = body.name,
+          anEvent.description = body.description,
+          anEvent.price = body.price,
+          anEvent.mustPay = body.mustPay,
+          anEvent.image = body.image
+      })
+
+      businessPageId = req.session.data.businessPage;
+
+      BusinessPage.update(
+        {_id: businessPageId},{$push: {events: anEvent}}, done
+      )
+    },
+
+    //req contains the id of the event
+    editEvent:function(req, res) {
+      let body = req.body
+      eventId = body.eventsId
+      AnEvent.findOne(eventId, function(err, anEvent){
+          anEvent.name = body.name
+          anEvent.description = body.description
+          anEvent.price = body.price
+          anEvent.mustPay = body.mustPay
+          anEvent.image = body.image
+          anEvent.save()
+      })
+
+    }
+
 }
 module.exports = ownerController;

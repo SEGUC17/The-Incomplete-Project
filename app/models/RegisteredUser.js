@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var registeredUserSchema = mongoose.Schema({
 
-    user:{
+    profile:{
         type:mongoose.Schema.type.ObjectId,
         ref:'user'
     }

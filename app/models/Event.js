@@ -23,12 +23,12 @@ var eventSchema = mongoose.Schema({
         required:true
     },
 
-    images:{
+    image:{
         content:String
     }
 
 })
 
-var Event = mongoose.model("event", eventSchema);
+var anEvent = mongoose.model("event", eventSchema);
 
-module.exports = Event;
+module.exports = anEvent;
