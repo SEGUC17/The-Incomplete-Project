@@ -6,33 +6,27 @@ let visitorController = {
 
   searchBusinessPages:function(req, res) {
     let body = req.body;
-    let businessPageId = req.session.data.businessPage;
     var searchWord = body.searchWord;
-    var businessPages
+    var businessPagesResult = [];
     // get all businessPages
-    BusinessPage.find({},function(err, businessPages) {
+    BusinessPage.find(function(err, businessPages) {
   			if(err){
   				console.log("calling failed");
   			}
   			else {
-  				//response.log(businessPages);
-          businessPages : businessPages;
-          var businessPages =  businessPages;
+  				// for loop to filter pages according to searchWord
+          for (var i = 0; i < businessPages.length; i++) {
+            if(businessPages[i].name.indexOf(searchWord)!=-1){
+              businessPagesResult.push(businessPages[i]);
+            }
+
+          }
+
+          res.send(businessPagesResult); //Need to be changed 
 
         //  res.render('home.ejs' , data);
         }
   	});
-    var businessPagesResult = [];
-
-    // for loop to filter pages according to searchWord
-    for (var i = 0; i < businessPages.length; i++) {
-      if(businessPages[i].name.indexOf(searchWord)!=-1){
-        businessPagesResult.push(businessPages[i]);
-      }
-
-    }
-
-    res.send(businessPagesResult);
 
   },
 
@@ -43,11 +37,11 @@ let visitorController = {
           if(err) {
               res.send(err.message)
               console.log(err);
-        }
-        else {
+          }
+          else {
               // req.session.data = businessPage;
               // res.render('businessPage', {businessPage});
-        }
+          }
       })
   }
 
