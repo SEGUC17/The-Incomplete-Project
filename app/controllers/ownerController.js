@@ -63,7 +63,7 @@ let ownerController = {
     addEvent:function(req, res) {
 
       let body = req.body
-      let anEvent = new anEvent({
+      let anEvent = new AnEvent({
           anEvent.name = body.name,
           anEvent.description = body.description,
           anEvent.price = body.price,
@@ -81,12 +81,8 @@ let ownerController = {
     //req contains the id of the event
     editEvent:function(req, res) {
       let body = req.body
-      let anEvent = new anEvent({
-
-      })
-
       eventId = body.eventsId
-      anEvent.findOne(eventId, function(err, anEvent){
+      AnEvent.findOne(eventId, function(err, anEvent){
           anEvent.name = body.name
           anEvent.description = body.description
           anEvent.price = body.price
