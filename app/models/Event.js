@@ -29,6 +29,6 @@ var eventSchema = mongoose.Schema({
 
 })
 
-var Event = mongoose.model("event", eventSchema);
+var anEvent = mongoose.model("event", eventSchema);
 
-module.exports = Event;
+module.exports = anEvent;
