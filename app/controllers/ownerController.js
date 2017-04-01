@@ -5,6 +5,28 @@ let AnEvent = require('../models/Event');
 
 let ownerController = {
 
+    requestsPageCreation:function(req,res) {
+      let profileId = req.session.data.profile;
+      let body = req.body;
+      Profile.findOne(profileId, function(err, profile) {
+          if(err) {
+              res.send(err.message)
+              console.log(err);
+
+        }
+        else {
+          let page = new businessPage({
+              businessPage.name = body.name,
+              businessPage.profileImg = body.profileImg,
+              businessPage.description = body.description,
+              businessPage.addresses = body.addresses,
+              businessPage.phoneNumber = body.phoneNumber
+          })
+        }
+
+      })
+
+    },
 
     viewProfile:function(req, res) {
 
@@ -78,7 +100,7 @@ let ownerController = {
       )
     },
 
-    //req contains the id of the event 
+    //req contains the id of the event
     editEvent:function(req, res) {
       let body = req.body
       let anEvent = new anEvent({
