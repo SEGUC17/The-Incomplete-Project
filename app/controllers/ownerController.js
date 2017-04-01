@@ -78,7 +78,7 @@ let ownerController = {
       )
     },
 
-    //req contains the id of the event 
+    //req contains the id of the event
     editEvent:function(req, res) {
       let body = req.body
       let anEvent = new anEvent({
