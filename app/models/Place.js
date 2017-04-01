@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var placeSchema = mongoose.Schema({
 
-    event:{
+    anEvent:{
         type:mongoose.Schema.type.ObjectId,
         ref:'event'
     },

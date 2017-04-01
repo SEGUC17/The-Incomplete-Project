@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var tripSchema = mongoose.Schema({
 
-    event:{
+    anEvent:{
         type:mongoose.Schema.type.ObjectId,
         ref:'event'
     },
