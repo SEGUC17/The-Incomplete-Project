@@ -22,7 +22,7 @@ let visitorController = {
 
           }
 
-          res.send(businessPagesResult); //Need to be changed 
+          res.send(businessPagesResult); //Need to be changed
 
         //  res.render('home.ejs' , data);
         }
@@ -39,8 +39,7 @@ let visitorController = {
               console.log(err);
           }
           else {
-              // req.session.data = businessPage;
-              // res.render('businessPage', {businessPage});
+              //lessa 3ayzeen negeeb el events beta3et el page
           }
       })
   }
