@@ -2,10 +2,12 @@ let Owner = require('../models/Owner');
 let BusinessPage = require('../models/BusinessPage');
 let Profile = require('../models/Profile');
 let AnEvent = require('../models/Event');
+let Place = require('../models/Place');
+let Trip = require('../models/Trip');
 
 // tareq's session// tareq's session// tareq's session// tareq's session// tareq's session
 
-let eventController  = {
+let eventController = {
   addEvent:function(req, res) {
 
     let body = req.body
@@ -44,20 +46,18 @@ let ownerController = {
 
     requestsPageCreation:function(req,res) {
       let body = req.body;
-      let page = new BusinessPage({
-          name: body.name,
-          profileImg: body.profileImg,
-          description: body.description,
-          addresses: body.addresses,
-          phoneNumber: body.phoneNumber
-      })
-          req.session.data.businessPage = page._id //mesh mota2kked ennaha keda ba2et saved 3and elowner
+      let pendingRequest = new PendingRequest(req.body)
+      pendingRequest.save(function(err, pendingRequest) {
+        if (err) {
+          res.send(err)
+        }else {
+          // tell the visitor (not an owner yet) that the request has been send
         }
-
       })
 
-    },
-      
+    }
+
+
     viewProfile:function(req, res) {
 
         let profileId = req.session.data.profile;
@@ -123,25 +123,33 @@ let ownerController = {
         image: body.image,
         isPlace: true
       })
-      eventController.addEvent(req,res);
-      new place({anEvent:anEvent._id,openingTimes:body.openingTimes,period:body.period});// take care
+      anEvent.save(function(err, anEvent) {
+        if (err)
+          res.send(err)
+        else
+          let place = new Place({anEvent:anEvent._id,openingTimes:body.openingTimes,period:body.period});
+          place.save(function(err, place) {
+            if (err)
+              res.send(err)
+            else
+              //refresh
+          })
+      })
     },
 
     editPlace:function(req,res){
       let body = req.body
-      let eventId = body.eventsId
+      let placeId = body.placeId
       eventController.editEvent(req,res);
       AnEvent.update(
-        {_id: eventId},{$set: {
+        {_id: placeId},{$set: {
           openingTimes: body.openingTimes,
           period: body.period
         }}
       )
     },
-      
+
     addTrip:function(req, res) {
-
-
       let body = req.body
       let anEvent = new AnEvent({
         name: body.name,
@@ -151,17 +159,28 @@ let ownerController = {
         image: body.image,
         isPlace: false
       })
-      eventController.addEvent(req,res);
-      // take care of the coming syntax
-      new place({anEvent:anEvent._id,startDate:body.startDate,endDate:body.endDate,maxPeople:body.maxPeople});
+
+      anEvent.save(function(err, anEvent) {
+        if (err)
+          res.send(err)
+        else{
+          let trip = new Trip({anEvent:anEvent._id,openingTimes:body.openingTimes,period:body.period});// take care
+          trip.save(function(err, trip) {
+            if (err)
+              res.send(err)
+            else
+              //refresh
+          })
+        }
+      })
     },
 
     editTrip:function(req,res){
       let body = req.body
-      let eventId = body.eventsId
+      let tripId = body.tripId
       eventController.editEvent(req,res);
-      AnEvent.update(
-        {_id: eventId},{$set: {
+      Trip.update(
+        {_id: tripId},{$set: {
           startDate: body.startDate,
           endDate: body.endDate,
           maxPeople: body.maxPeople
