@@ -55,7 +55,7 @@ let ownerController = {
         }
       })
 
-    }
+    },
 
 
     viewProfile:function(req, res) {
