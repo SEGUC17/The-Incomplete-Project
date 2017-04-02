@@ -42,6 +42,22 @@ let eventController  = {
 
 let ownerController = {
 
+    requestsPageCreation:function(req,res) {
+      let body = req.body;
+      let page = new BusinessPage({
+          name: body.name,
+          profileImg: body.profileImg,
+          description: body.description,
+          addresses: body.addresses,
+          phoneNumber: body.phoneNumber
+      })
+          req.session.data.businessPage = page._id //mesh mota2kked ennaha keda ba2et saved 3and elowner
+        }
+
+      })
+
+    },
+      
     viewProfile:function(req, res) {
 
         let profileId = req.session.data.profile;
@@ -50,11 +66,11 @@ let ownerController = {
                 res.send(err.message)
                 console.log(err);
 
-          }
-          else {
+            }
+            else {
                 // req.session.data = profilePage;
                 // res.render('profilePage', {profilePage});
-          }
+            }
 
         })
     },
@@ -100,12 +116,12 @@ let ownerController = {
 
       let body = req.body
       let anEvent = new AnEvent({
-        name: body.name
-        description: body.description
-        price: body.price
-        mustPay: body.mustPay
-        image: body.image
-        isPlace: true;
+        name: body.name,
+        description: body.description,
+        price: body.price,
+        mustPay: body.mustPay,
+        image: body.image,
+        isPlace: true
       })
       eventController.addEvent(req,res);
       new place({anEvent:anEvent._id,openingTimes:body.openingTimes,period:body.period});// take care
@@ -122,8 +138,9 @@ let ownerController = {
         }}
       )
     },
-
+      
     addTrip:function(req, res) {
+
 
       let body = req.body
       let anEvent = new AnEvent({
