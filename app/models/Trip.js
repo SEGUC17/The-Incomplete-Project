@@ -4,7 +4,8 @@ var tripSchema = mongoose.Schema({
 
     anEvent:{
         type:mongoose.Schema.type.ObjectId,
-        ref:'event'
+        ref:'event',
+        required:true
     },
 
     bookedByAt:[{
@@ -33,12 +34,7 @@ var tripSchema = mongoose.Schema({
         required:true
     },
 
-    maxPeople:Number,
-
-    available:{
-      type:Boolean,
-      required:true
-    }
+    maxPeople:Number
 
 })
 

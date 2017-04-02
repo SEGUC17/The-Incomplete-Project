@@ -5,7 +5,8 @@ var placeSchema = mongoose.Schema({
 
     anEvent:{
         type:mongoose.Schema.type.ObjectId,
-        ref:'event'
+        ref:'event',
+        required:true
     },
 
     bookedByAt:[{
@@ -22,8 +23,15 @@ var placeSchema = mongoose.Schema({
           ref:'registeredUser'
         },
         time:Date
-    }]
+    }],
 
+    openingTimes:{
+      type:[Date],
+      required:true;
+    },
+
+    //minutes
+    period:Number
 })
 
 var Place = mongoose.model("place", eventSchema);

@@ -3,8 +3,44 @@ let BusinessPage = require('../models/BusinessPage');
 let Profile = require('../models/Profile');
 let AnEvent = require('../models/Event');
 
-let ownerController = {
+// tareq's session// tareq's session// tareq's session// tareq's session// tareq's session
 
+let eventController  = {
+  addEvent:function(req, res) {
+
+    let body = req.body
+    let anEvent = new AnEvent(req.body)
+    businessPageId = req.session.data.businessPage;
+
+    BusinessPage.update(
+      {_id: businessPageId},{$push: {events: anEvent}}
+    )
+  },
+  //req contains the id of the event
+  editEvent:function(req, res) {
+    let body = req.body
+    let eventId = body.eventsId
+    AnEvent.update(
+      {_id: eventId},{$set: {
+        name: body.name,
+        description: body.description,
+        price: body.price,
+        mustPay: body.mustPay,
+        image: body.image
+      }}
+    )
+  },
+
+  removeEvent:function(req,res,id){
+    businessPageId = req.session.data.businessPage;
+    BusinessPage.update(
+      {_id: businessPageId},
+      {$pull: {events: {_id: id}}}
+    )
+  }
+}
+
+let ownerController = {
 
     viewProfile:function(req, res) {
 
@@ -50,7 +86,7 @@ let ownerController = {
     },
     editBusinsessPage:function(req,res){
       let body = req.body;
-      BusinessPage.update({_id:session._id},{$set:{name:body.name,profile:body.profile,images:body.images,description:body.description,
+      BusinessPage.update({_id:session._id},{$set:{name:body.name,profileImg:body.profileImg,images:body.images,description:body.description,
         addresses:body.addresses,phoneNumber:body.phoneNumber}},function(err,results){
           if(err)
           console.log(err.message);
@@ -58,39 +94,78 @@ let ownerController = {
             // res.render('profilePage',{profilePage});
           }
         });
-      }
+      },
 
-    addEvent:function(req, res) {
+    addPlace:function(req, res) {
 
       let body = req.body
       let anEvent = new AnEvent({
-          anEvent.name = body.name,
-          anEvent.description = body.description,
-          anEvent.price = body.price,
-          anEvent.mustPay = body.mustPay,
-          anEvent.image = body.image
+        name: body.name
+        description: body.description
+        price: body.price
+        mustPay: body.mustPay
+        image: body.image
+        isPlace: true;
       })
+      eventController.addEvent(req,res);
+      new place({anEvent:anEvent._id,openingTimes:body.openingTimes,period:body.period});// take care
+    },
 
-      businessPageId = req.session.data.businessPage;
-
-      BusinessPage.update(
-        {_id: businessPageId},{$push: {events: anEvent}}, done
+    editPlace:function(req,res){
+      let body = req.body
+      let eventId = body.eventsId
+      eventController.editEvent(req,res);
+      AnEvent.update(
+        {_id: eventId},{$set: {
+          openingTimes: body.openingTimes,
+          period: body.period
+        }}
       )
     },
 
-    //req contains the id of the event
-    editEvent:function(req, res) {
-      let body = req.body
-      eventId = body.eventsId
-      AnEvent.findOne(eventId, function(err, anEvent){
-          anEvent.name = body.name
-          anEvent.description = body.description
-          anEvent.price = body.price
-          anEvent.mustPay = body.mustPay
-          anEvent.image = body.image
-          anEvent.save()
-      })
+    addTrip:function(req, res) {
 
+      let body = req.body
+      let anEvent = new AnEvent({
+        name: body.name,
+        description: body.description,
+        price: body.price,
+        mustPay: body.mustPay,
+        image: body.image,
+        isPlace: false
+      })
+      eventController.addEvent(req,res);
+      // take care of the coming syntax
+      new place({anEvent:anEvent._id,startDate:body.startDate,endDate:body.endDate,maxPeople:body.maxPeople});
+    },
+
+    editTrip:function(req,res){
+      let body = req.body
+      let eventId = body.eventsId
+      eventController.editEvent(req,res);
+      AnEvent.update(
+        {_id: eventId},{$set: {
+          startDate: body.startDate,
+          endDate: body.endDate,
+          maxPeople: body.maxPeople
+        }}
+      )
+    },
+
+    removePlace:function(req,res){
+      let body = req.body;
+      let placeId = body.placeId
+      let eventId = body.eventId
+      eventController.removeEvent(req,res,eventId);
+      Place.remove({ _id: placeId });
+    },
+
+    removeTrip:function(req,res){
+      let body = req.body;
+      let tripId = body.tripId
+      let eventId = body.eventId
+      eventController.removeEvent(req,res,eventId);
+      Trip.remove({ _id: tripId });
     }
 
 }
