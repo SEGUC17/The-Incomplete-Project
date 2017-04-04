@@ -12,16 +12,14 @@ var tripSchema = mongoose.Schema({
         registeredUser:[{
           type:mongoose.Schema.Types.ObjectId,
           ref:'registeredusers'
-        }],
-        time:Date
+        }]
     }],
 
     bookedByAtWithPaying:[{
         registeredUser:[{
           type:mongoose.Schema.Types.ObjectId,
           ref:'registeredusers'
-        }],
-        time:Date
+        }]
     }],
 
     startDate:{
