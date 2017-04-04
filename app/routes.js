@@ -1,63 +1,31 @@
-module.exports = function(app,mongoose) {
-
-
-	var express = require('express');
-    var http = require('http');
-
-
-
-
-
-
-	app.get('/api/me', passport.authenticate('basic', { session: false }), function(req, res) {
-		res.json(req.user);
-	});
+var express = require('express');
+var http = require('http');
+var router = express.Router();
+var pendingRequestsController = require("./controllers/pendingRequestsController")
+var ownerController = require("./controllers/ownerController")
 
 
 
 
 
 
+	// app.get('/api/me', passport.authenticate('basic', { session: false }), function(req, res) {
+	// 	res.json(req.user);
+	// });
 
 
 
 
+	router.post('/requestBusinessPage', pendingRequestsController.requestsPageCreation);
+	router.get('/owner/viewProfile', ownerController.viewProfile);
+	router.post('/owner/editProfile', ownerController.editProfile);
+	router.get('/owner/viewBusinessPage',ownerController.viewBusinessPage);
+	router.post('/owner/editBusinessPage',ownerController.editBusinessPage);
+	router.post('/owner/addPlace',ownerController.addPlace);
+	router.post('/owner/editPlace',ownerController.editPlace);
+	router.post('/owner/addTrip',ownerController.addTrip);
+	router.post('/owner/editTrip',ownerController.editTrip);
+	router.delete('/owner/removePlace',ownerController.removePlace);
+	router.delete('/owner/removeTrip',ownerController.removeTrip);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-};
+module.exports = router;

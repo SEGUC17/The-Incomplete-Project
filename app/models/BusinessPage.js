@@ -11,7 +11,7 @@ var businessPageSchema = mongoose.Schema({
     profileImg: String,
 
     images:[{
-        content:String
+        type:String
     }],
 
     description:{
@@ -29,11 +29,11 @@ var businessPageSchema = mongoose.Schema({
     }],
 
     events:[{
-      type:mongoose.Schema.type.ObjectId,
-      ref:'event'
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'events'
     }]
 })
 
-var BusinessPage = mongoose.model("businessPage", businessPageSchema);
+var BusinessPage = mongoose.model("businesspages", businessPageSchema);
 
 module.exports = BusinessPage;
