@@ -24,7 +24,7 @@ var eventSchema = mongoose.Schema({
     },
 
     image:{
-        content:String
+        type:String
     },
     // true for place , false for trip
     isPlace:{
@@ -33,6 +33,6 @@ var eventSchema = mongoose.Schema({
     }
 })
 
-var anEvent = mongoose.model("event", eventSchema);
+var anEvent = mongoose.model("events", eventSchema);
 
 module.exports = anEvent;

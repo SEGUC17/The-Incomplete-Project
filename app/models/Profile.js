@@ -39,6 +39,6 @@ var profileSchema = mongoose.Schema({
     gender:String
 })
 
-var Profile = mongoose.model("profile", profileSchema);
+var Profile = mongoose.model("profiles", profileSchema);
 
 module.exports = Profile;

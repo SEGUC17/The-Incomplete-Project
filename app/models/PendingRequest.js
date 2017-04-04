@@ -38,7 +38,7 @@ var pendingRequestSchema = mongoose.Schema({
     },
 
     address:String,
-    gender:String
+    gender:String,
 
     companyName:{
         type:String,
@@ -55,7 +55,7 @@ var pendingRequestSchema = mongoose.Schema({
     profileImg: String,
 
     images:[{
-        content:String
+        type:String
     }],
 
     description:{
@@ -73,6 +73,6 @@ var pendingRequestSchema = mongoose.Schema({
     }]
 })
 
-var PendingRequest = mongoose.model("pendingRequest", pendingRequestSchema);
+var PendingRequest = mongoose.model("pendingrequests", pendingRequestSchema);
 
 module.exports = PendingRequest;
