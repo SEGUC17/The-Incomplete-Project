@@ -1,5 +1,6 @@
 let BusinessPage = require('../models/BusinessPage');
 let AnEvent = require('../models/Event');
+var mongoose = require('mongoose');
 
 
 let visitorController = {
@@ -19,7 +20,7 @@ let visitorController = {
                 if(businessPages[i].name.indexOf(searchWord)!=-1){
                   businessPagesResult.push(businessPages[i]);
             }
-
+        //    console.log(businessPages[i]);
           }
 
           //send businessPagesResult to the frontend
@@ -29,15 +30,19 @@ let visitorController = {
 
   },
 
-  visitorViewsBusinessPage:function(req, res) {
 
-      let businessPageId = req.body.businessPageId;
-      BusinessPage.findOne(businessPageId, function(err, businessPage) {
+  visitorViewsBusinessPage:function(req, res) {
+    //  console.log("test");
+      let businessPageId = req.session.data.businessPage;
+    //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
+      BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
+
           if(err) {
               res.send(err.message)
               console.log(err);
           }
           else {
+
               var events = [];
               for (var i = 0; i < businessPage.events.length; i++) {
                   var eventId = businessPage.events[i]._id
@@ -52,6 +57,7 @@ let visitorController = {
               }
 
               //send the businessPage and the events
+
 
           }
       })

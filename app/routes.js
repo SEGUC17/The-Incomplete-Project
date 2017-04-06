@@ -1,8 +1,9 @@
 var express = require('express');
 var http = require('http');
 var router = express.Router();
-var pendingRequestsController = require("./controllers/pendingRequestsController")
-var ownerController = require("./controllers/ownerController")
+var pendingRequestsController = require("./controllers/pendingRequestsController");
+var ownerController = require("./controllers/ownerController");
+var visitorController = require("./controllers/visitorController");
 
 
 
@@ -13,7 +14,8 @@ var ownerController = require("./controllers/ownerController")
 	// 	res.json(req.user);
 	// });
 
-
+	router.get('/visitor/viewBusinessPage',visitorController.viewBusinessPage);
+	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
 
 
 	router.post('/requestBusinessPage', pendingRequestsController.requestsPageCreation);
