@@ -2,25 +2,24 @@ var mongoose = require('mongoose');
 
 var tripSchema = mongoose.Schema({
 
-    event:{
-        type:mongoose.Schema.type.ObjectId,
-        ref:'event'
+    anEvent:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'events',
+        required:true
     },
 
     bookedByAt:[{
-        registeredUser:[{
-          type:mongoose.Schema.type.ObjectId,
-          ref:'registeredUser'
-        }],
-        time:Date
+        registeredUser:{
+          type:mongoose.Schema.Types.ObjectId,
+          ref:'registeredusers'
+        }
     }],
 
     bookedByAtWithPaying:[{
-        registeredUser:[{
-          type:mongoose.Schema.type.ObjectId,
-          ref:'registeredUser'
-        }],
-        time:Date
+        registeredUser:{
+          type:mongoose.Schema.Types.ObjectId,
+          ref:'registeredusers'
+        }
     }],
 
     startDate:{
@@ -33,15 +32,10 @@ var tripSchema = mongoose.Schema({
         required:true
     },
 
-    maxPeople:Number,
-
-    available:{
-      type:Boolean,
-      required:true
-    }
+    maxPeople:Number
 
 })
 
-var Trip = mongoose.model("trip", eventSchema);
+var Trip = mongoose.model("trips", tripSchema);
 
 module.exports = Trip;

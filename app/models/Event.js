@@ -24,11 +24,15 @@ var eventSchema = mongoose.Schema({
     },
 
     image:{
-        content:String
+        type:String
+    },
+    // true for place , false for trip
+    isPlace:{
+        type:Boolean,
+        required:true
     }
-
 })
 
-var Event = mongoose.model("event", eventSchema);
+var anEvent = mongoose.model("events", eventSchema);
 
-module.exports = Event;
+module.exports = anEvent;

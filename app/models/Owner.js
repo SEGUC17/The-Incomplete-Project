@@ -9,16 +9,16 @@ var ownerSchema = mongoose.Schema({
     },
 
     profile:{
-        type:mongoose.Schema.type.ObjectId,
-        ref:'user'
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'profiles'
     },
 
     businessPage:{
-        type:mongoose.Schema.type.ObjectId,
-        ref:'businessPage'
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'businesspages'
     }
 })
 
-var Owner = mongoose.model("owner", ownerSchema);
+var Owner = mongoose.model("owners", ownerSchema);
 
 module.exports = Owner;

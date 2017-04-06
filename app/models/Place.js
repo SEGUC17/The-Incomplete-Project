@@ -3,29 +3,37 @@ var mongoose = require('mongoose');
 
 var placeSchema = mongoose.Schema({
 
-    event:{
-        type:mongoose.Schema.type.ObjectId,
-        ref:'event'
+    anEvent:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'events',
+        required:true
     },
 
     bookedByAt:[{
         registeredUser:{
-          type:mongoose.Schema.type.ObjectId,
-          ref:'registeredUser'
+          type:mongoose.Schema.Types.ObjectId,
+          ref:'registeredusers'
         },
         time:Date
     }],
 
     bookedByAtWithPaying:[{
         registeredUser:{
-          type:mongoose.Schema.type.ObjectId,
-          ref:'registeredUser'
+          type:mongoose.Schema.Types.ObjectId,
+          ref:'registeredusers'
         },
         time:Date
-    }]
+    }],
 
+    openingTimes:{
+      type:[Date],
+      required:true
+    },
+
+    //minutes
+    period:Number
 })
 
-var Place = mongoose.model("place", eventSchema);
+var Place = mongoose.model("places", placeSchema);
 
 module.exports = Place;
