@@ -15,7 +15,7 @@ var ownerController = require("./controllers/ownerController")
 
 
 
-
+	router.post('/owner/register', ownerController.register);
 	router.post('/requestBusinessPage', pendingRequestsController.requestsPageCreation);
 	router.get('/owner/viewProfile', ownerController.viewProfile);
 	router.post('/owner/editProfile', ownerController.editProfile);
