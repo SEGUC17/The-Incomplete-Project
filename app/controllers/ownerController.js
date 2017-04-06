@@ -66,7 +66,7 @@ let ownerController = {
       password: body.password,
       email:body.email,
       mobileNumber:body.mobileNumber,
-      address:body.address
+      address:body.address,
       gender:body.gender,
       companyName:body.companyName,
     })
@@ -75,6 +75,7 @@ let ownerController = {
       res.send(err)
       else {
       // redirct to the owner's homepage
+      console.log("owner's page");
       }
     })
   },
