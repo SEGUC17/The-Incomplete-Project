@@ -31,8 +31,8 @@ let eventController = {
       else {
       // redirct to the owner's homepage
       }
-    }
-  }
+    })
+  },
 
   addEvent:function(req, res) {
 
