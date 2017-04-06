@@ -59,23 +59,32 @@ let ownerController = {
 
   register:function(req,res){
     let body = req.body
-    let owner = new Owner({
-      firstname: body.firstname,
-      lastname: body.lastName,
-      username: body.username,
-      password: body.password,
-      email:body.email,
-      mobileNumber:body.mobileNumber,
-      address:body.address,
-      gender:body.gender,
-      companyName:body.companyName,
+    let profile = new Profile({
+        firstName: body.firstName,
+        lastName: body.lastName,
+        username: body.username,
+        Password: body.Password,
+        email:body.email,
+        mobileNumber:body.mobileNumber,
+        address:body.address,
+        gender:body.gender,
     })
-    owner.save(function(err, owner){
+    let owner = new Owner({
+      companyName:body.companyName,
+      profile : profile,
+    })
+
+    profile.save(function(err, profile){
       if(err)
       res.send(err)
       else {
-      // redirct to the owner's homepage
-      console.log("owner's page");
+        owner.save(function(err, owner){
+          if(err)
+          res.send(err)
+          else {
+            //go to the home page
+          }
+        })
       }
     })
   },
