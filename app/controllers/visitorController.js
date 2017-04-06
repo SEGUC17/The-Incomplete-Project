@@ -1,5 +1,6 @@
 let BusinessPage = require('../models/BusinessPage');
 let AnEvent = require('../models/Event');
+var mongoose = require('mongoose');
 
 
 let visitorController = {
@@ -19,7 +20,7 @@ let visitorController = {
             if(businessPages[i].name.indexOf(searchWord)!=-1){
               businessPagesResult.push(businessPages[i]);
             }
-
+        //    console.log(businessPages[i]);
           }
 
           res.send(businessPagesResult); //Need to be changed
@@ -31,15 +32,17 @@ let visitorController = {
   },
 
   viewBusinessPage:function(req, res) {
-
-      let businessPageId = req.body.businessPageId;
-      BusinessPage.findOne(businessPageId, function(err, businessPage) {
+    //  console.log("test");
+      let businessPageId = req.session.data.businessPage;
+    //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
+      BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
           if(err) {
               res.send(err.message)
               console.log(err);
           }
           else {
-              //lessa 3ayzeen negeeb el events beta3et el page
+          //res.send(businessPage);
+          //lessa 3ayzeen negeeb el events beta3et el page
           }
       })
   }
