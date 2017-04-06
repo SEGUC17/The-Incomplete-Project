@@ -15,22 +15,21 @@ let visitorController = {
   			}
   			else {
   				// for loop to filter pages according to searchWord
-          for (var i = 0; i < businessPages.length; i++) {
-            if(businessPages[i].name.indexOf(searchWord)!=-1){
-              businessPagesResult.push(businessPages[i]);
+              for (var i = 0; i < businessPages.length; i++) {
+                if(businessPages[i].name.indexOf(searchWord)!=-1){
+                  businessPagesResult.push(businessPages[i]);
             }
 
           }
 
-          res.send(businessPagesResult); //Need to be changed
+          //send businessPagesResult to the frontend
 
-        //  res.render('home.ejs' , data);
         }
   	});
 
   },
 
-  viewBusinessPage:function(req, res) {
+  visitorViewsBusinessPage:function(req, res) {
 
       let businessPageId = req.body.businessPageId;
       BusinessPage.findOne(businessPageId, function(err, businessPage) {
@@ -39,7 +38,21 @@ let visitorController = {
               console.log(err);
           }
           else {
-              //lessa 3ayzeen negeeb el events beta3et el page
+              var events = [];
+              for (var i = 0; i < businessPage.events.length; i++) {
+                  var eventId = businessPage.events[i]._id
+                  AnEvent.findOne(eventId, function(err, anEvent) {
+                      if(err) {
+                          res.send(err)
+                      }
+                      else {
+                          events.push(anEvent)
+                      }
+                  })
+              }
+
+              //send the businessPage and the events
+
           }
       })
   }
