@@ -1,9 +1,17 @@
+/*
+Secret Key: sk_test_aFldNEUKYSuPZ63JQa2hhGVD
+Publish Key: pk_test_xquclYSbmBZnHxkNCvqEPbR7
+Used for payment methods
+*/
+
 var express       = require('express');
 var mongoose      = require('mongoose');
 var morgan        = require('morgan');
 var bodyParser    = require('body-parser');
 var passport 	  = require('passport');
 var BasicStrategy = require('passport-http').Strategy;
+var stripe= require("stripe")("sk_test_aFldNEUKYSuPZ63JQa2hhGVD"); //Secret Key for payment method
+
 
 
 var routes = require('./app/routes');
@@ -48,7 +56,6 @@ passport.deserializeUser(function(id, done) {
 
 
 
-app.set('view engine','angular');
 app.use(express.static(__dirname+ '/views'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({limit:'50mb',extended:false}));

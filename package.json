@@ -16,6 +16,10 @@
     "mongoose": "latest",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
-    "passport-http": "^0.3.0"
+    "passport-http": "^0.3.0",
+    "stripe": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "~1.11.0"
   }
 }

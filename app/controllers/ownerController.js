@@ -11,6 +11,8 @@ var mongoose = require('mongoose');
 // tareq's session// tareq's session// tareq's session// tareq's session// tareq's session
 
 let eventController = {
+
+
   addEvent:function(req, res) {
 
     let body = req.body
@@ -54,6 +56,38 @@ let eventController = {
 }
 
 let ownerController = {
+
+  register:function(req,res){
+    let body = req.body
+    let profile = new Profile({
+        firstName: body.firstName,
+        lastName: body.lastName,
+        username: body.username,
+        Password: body.Password,
+        email:body.email,
+        mobileNumber:body.mobileNumber,
+        address:body.address,
+        gender:body.gender,
+    })
+    let owner = new Owner({
+      companyName:body.companyName,
+      profile : profile,
+    })
+
+    profile.save(function(err, profile){
+      if(err)
+      res.send(err)
+      else {
+        owner.save(function(err, owner){
+          if(err)
+          res.send(err)
+          else {
+            //go to the home page
+          }
+        })
+      }
+    })
+  },
 
     viewProfile:function(req, res) {
 
