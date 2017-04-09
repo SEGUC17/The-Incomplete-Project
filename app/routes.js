@@ -4,6 +4,7 @@ var router = express.Router();
 var pendingRequestsController = require("./controllers/pendingRequestsController");
 var ownerController = require("./controllers/ownerController");
 var visitorController = require("./controllers/visitorController");
+var bookingController = require("./controllers/bookingController");
 
 
 
@@ -16,6 +17,8 @@ var visitorController = require("./controllers/visitorController");
 
 	router.get('/visitor/viewBusinessPage',visitorController.viewBusinessPage);
 	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
+
+	router.post('/booking/placeBook2', bookingController.placeBook2);
 
 	router.post('/owner/register', ownerController.register);
 	router.post('/requestBusinessPage', pendingRequestsController.requestsPageCreation);
