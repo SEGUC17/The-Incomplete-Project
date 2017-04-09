@@ -48,7 +48,7 @@ let eventController = {
             res.send(err)
           else {
               AnEvent.remove({ _id: anEventId });
-              // reload the page
+              // refresh the page
           }
       }
     )
@@ -101,9 +101,7 @@ let ownerController = {
             }
             else {
                 res.send(profile);
-                // console.log(profile);
-                // req.session.data = profilePage;
-                // res.render('profilePage', {profilePage});
+                //send the profile to the frontend
             }
 
         })
@@ -118,12 +116,11 @@ let ownerController = {
           if(err)
             console.log(err.message);
           else {
-
-            // res.render('profilePage',{profilePage});
+            // refresh
           }
         });
       },
-    viewBusinessPage:function(req, res) {
+    ownerviewsBusinessPage:function(req, res) {
 
         let businessPageId = req.session.data.businessPage;
         // let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
@@ -133,9 +130,20 @@ let ownerController = {
                 console.log(err);
           }
           else {
-                res.send(businessPage);
-                // req.session.data = businessPage;
-                // res.render('businessPage', {businessPage});
+              var events = [];
+              for (var i = 0; i < businessPage.events.length; i++) {
+                  var eventId = businessPage.events[i]._id
+                  AnEvent.findOne(eventId, function(err, anEvent) {
+                      if(err) {
+                          res.send(err)
+                      }
+                      else {
+                          events.push(anEvent)
+                      }
+                  })
+              }
+
+              //send the businessPage and the events
           }
         })
     },
@@ -149,7 +157,7 @@ let ownerController = {
             console.log(err.message);
           else {
             res.send(businessPage);
-            // res.render('profilePage',{profilePage});
+            //refresh the page
           }
         });
       },

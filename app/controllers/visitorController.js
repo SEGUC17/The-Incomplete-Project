@@ -16,28 +16,48 @@ let visitorController = {
   			}
   			else {
   				// for loop to filter pages according to searchWord
-          for (var i = 0; i < businessPages.length; i++) {
-            if(businessPages[i].name.indexOf(searchWord)!=-1){
-              businessPagesResult.push(businessPages[i]);
+              for (var i = 0; i < businessPages.length; i++) {
+                if(businessPages[i].name.indexOf(searchWord)!=-1){
+                  businessPagesResult.push(businessPages[i]);
             }
           }
 
-          res.send(businessPagesResult); //Need to be changed
+
+          //send businessPagesResult to the frontend
+
         }
   	});
 
   },
 
-  viewBusinessPage:function(req, res) {
+  visitorViewsBusinessPage:function(req, res) {
+    //  console.log("test");
+
       let businessPageId = req.session.data.businessPage;
     //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
       BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
+
           if(err) {
             res.send(err.message)
           }
           else {
-          res.send(businessPage); // needs to be changed
-          //lessa 3ayzeen negeeb el events beta3et el page
+
+
+              var events = [];
+              for (var i = 0; i < businessPage.events.length; i++) {
+                  var eventId = businessPage.events[i]._id
+                  AnEvent.findOne(eventId, function(err, anEvent) {
+                      if(err) {
+                          res.send(err)
+                      }
+                      else {
+                          events.push(anEvent)
+                      }
+                  })
+              }
+
+              //send the businessPage and the events
+
           }
       })
   }

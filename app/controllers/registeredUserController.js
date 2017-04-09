@@ -6,6 +6,23 @@ var mongoose = require('mongoose');
 
 let RegisteredUserController = {
 
+	registeredUserLogsIn:function {
+
+		RegisteredUser.findOne({username: req.body.username}, function(err, results) {
+            if (!results) {
+                // display a message informing the user that the username is empty
+            } else {
+                if (req.body.password === results.password) {
+                    req.session.data = results;
+                    var session = req.session.data;
+                    //send the data to the frontend
+                } else {
+                    // display a message informing the user that the username is empty
+                }
+            }
+        });
+	},
+
 	//B.5
 	viewProfile:function(req, res) {
 		 let profileId = req.session.data.profile;
@@ -17,9 +34,6 @@ let RegisteredUserController = {
           }
           else {
                 res.send(profile);
-                // console.log(profile);
-                // req.session.data = profilePage;
-                // res.render('profilePage', {profilePage});
           }
 
         });
@@ -39,10 +53,14 @@ let RegisteredUserController = {
             console.log(err.message);
           else {
 
-            // res.render('profilePage',{profilePage});
+			  //send the profile to the frontend
+
           }
         });
-  }
+
+	}
+
+
 
 
 
