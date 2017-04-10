@@ -57,16 +57,43 @@ else { if(Trip.maxPeople==payersCount) {
     //This function takes the ID of place and search for the place then updates the booking array with registeredUser ID.
     // Another way using (findByIdAndUpdate)
    placeBook2:function(req,res){
-     var user= req.body;
+     var userid= req.body.userid
+     var time = req.body.time
+     var placeID = req.body.placeID
+
      Place.findByIdAndUpdate(
-        Place._id,
-        {$push: {"bookedByAt": {registeredUser: user, time: req.body.time}}},
+        placeID,
+        {$push: {"bookedByAt": {registeredUser: userid, time: time}}},
         {safe: true, upsert: true, new : true},
-        function(err, Trip) {
+        function(err, Place) {
+            if(err)
             console.log(err);
+            else {
+              console.log(Place);
+            }
         }
+     );
+  },
+
+  tripBook2:function(req,res){
+    var userid= req.body.userid
+    var tripID = req.body.placeID
+
+    Place.findByIdAndUpdate(
+       tripID,
+       {$push: {"bookedByAt": {registeredUser: userid}}},
+       {safe: true, upsert: true, new : true},
+       function(err, Trip) {
+           if(err)
+           console.log(err);
+           else {
+             console.log(Trip);
+           }
+       }
     );
-   }
+ }
+
+
 
 
 
