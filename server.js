@@ -14,6 +14,7 @@ var stripe= require("stripe")("sk_test_aFldNEUKYSuPZ63JQa2hhGVD"); //Secret Key 
 
 
 
+
 var routes = require('./app/routes');
 
 
@@ -21,8 +22,10 @@ var app = express();
 var port = 8080;
 // var DB_URI = "mongodb://localhost:27017/Portsurf";
 
-mongoose.connect('mongodb://localhost:27017/INCOMPLETEPROJ');
 
+
+
+mongoose.connect('mongodb://localhost:27017/INCOMPLETEPROJ');
 
 
 
