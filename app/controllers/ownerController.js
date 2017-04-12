@@ -120,7 +120,7 @@ let ownerController = {
           }
         });
       },
-    ownerviewsBusinessPage:function(req, res) {
+    ownerViewsBusinessPage:function(req, res) {
 
         let businessPageId = req.session.data.businessPage;
         // let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");

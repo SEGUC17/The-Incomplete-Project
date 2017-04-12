@@ -26,6 +26,7 @@ var port = 8080;
 
 
 mongoose.connect('mongodb://localhost:27017/INCOMPLETEPROJ');
+app.use(morgan('dev'));
 
 
 
@@ -60,9 +61,9 @@ passport.deserializeUser(function(id, done) {
 
 
 app.use(express.static(__dirname+ '/views'));
-app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({limit:'50mb',extended:false}));
 app.use(bodyParser.json());
+app.set('view engine','html');
 // mongoose.connect(DB_URI);
 app.use(routes);
 
