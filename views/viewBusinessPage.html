@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="../login.css" type="text/css" rel="stylesheet">
+    <link href="../viewBusinessPage.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
@@ -33,8 +34,9 @@
 
   <div class="search container-fluid">
 
-    <img src
-    <div>
+    <img src={{profileImg}} width="250px" id="profileImg"/>
+
+    <div id="info">
       <h4>name: {{name}}</h4>
       <h4>Description: {{description}}</h4>
 
@@ -47,16 +49,24 @@
       </div>
 
     </div>
-    profileImg: String,
 
-    images:[{
-        type:String
-    }],
+    <div ng-repeat="image in images">
+      <img src={{image}} width="250px"/>
+    </div>
 
-    events:[{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:'events'
-    }] -->
+    <div ng-repeat = "event in events">
+      <div class="event">
+        <h5>name: {{event.name}}</h5>
+        <h5>name: {{event.description}}</h5>
+        <h5>name: {{event.price}}</h5>
+        <h5>{{event.payMsg}}</h5>
+        <img src = {{event.image}} width="100px"/>
+        <h5>{{event.repeatsMsg}}</h5>
+      </div>
+    </div>
+
+  </div>
+
   <script src="/public/libs/angular/angular.js"></script>
   <script src="/public/libs/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="../viewBusinessPage.js"></script>
