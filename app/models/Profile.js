@@ -36,7 +36,13 @@ var profileSchema = mongoose.Schema({
     },
 
     address:String,
-    gender:String
+    gender:String,
+
+    isRegisteredUser:{
+        type: Boolean,
+        default:true,
+        required:true
+    }
 })
 
 var Profile = mongoose.model("profiles", profileSchema);

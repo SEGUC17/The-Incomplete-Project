@@ -11,6 +11,8 @@ var mongoose = require('mongoose');
 // tareq's session// tareq's session// tareq's session// tareq's session// tareq's session
 
 let eventController = {
+
+
   addEvent:function(req, res) {
 
     let body = req.body
@@ -46,7 +48,7 @@ let eventController = {
             res.send(err)
           else {
               AnEvent.remove({ _id: anEventId });
-              // reload the page
+              // refresh the page
           }
       }
     )
@@ -54,6 +56,38 @@ let eventController = {
 }
 
 let ownerController = {
+
+  register:function(req,res){
+    let body = req.body
+    let profile = new Profile({
+        firstName: body.firstName,
+        lastName: body.lastName,
+        username: body.username,
+        Password: body.Password,
+        email:body.email,
+        mobileNumber:body.mobileNumber,
+        address:body.address,
+        gender:body.gender,
+    })
+    let owner = new Owner({
+      companyName:body.companyName,
+      profile : profile,
+    })
+
+    profile.save(function(err, profile){
+      if(err)
+      res.send(err)
+      else {
+        owner.save(function(err, owner){
+          if(err)
+          res.send(err)
+          else {
+            //go to the home page
+          }
+        })
+      }
+    })
+  },
 
     viewProfile:function(req, res) {
 
@@ -67,9 +101,7 @@ let ownerController = {
             }
             else {
                 res.send(profile);
-                // console.log(profile);
-                // req.session.data = profilePage;
-                // res.render('profilePage', {profilePage});
+                //send the profile to the frontend
             }
 
         })
@@ -84,12 +116,11 @@ let ownerController = {
           if(err)
             console.log(err.message);
           else {
-
-            // res.render('profilePage',{profilePage});
+            // refresh
           }
         });
       },
-    viewBusinessPage:function(req, res) {
+    ownerViewsBusinessPage:function(req, res) {
 
         let businessPageId = req.session.data.businessPage;
         // let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
@@ -99,9 +130,20 @@ let ownerController = {
                 console.log(err);
           }
           else {
-                res.send(businessPage);
-                // req.session.data = businessPage;
-                // res.render('businessPage', {businessPage});
+              var events = [];
+              for (var i = 0; i < businessPage.events.length; i++) {
+                  var eventId = businessPage.events[i]._id
+                  AnEvent.findOne(eventId, function(err, anEvent) {
+                      if(err) {
+                          res.send(err)
+                      }
+                      else {
+                          events.push(anEvent)
+                      }
+                  })
+              }
+
+              //send the businessPage and the events
           }
         })
     },
@@ -115,7 +157,7 @@ let ownerController = {
             console.log(err.message);
           else {
             res.send(businessPage);
-            // res.render('profilePage',{profilePage});
+            //refresh the page
           }
         });
       },
