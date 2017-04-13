@@ -1,6 +1,6 @@
 angular.module('myApp', []).controller('signup', function($scope,$http) {
 
-  
+
   // var password = document.getElementById("#password");
   // var confirm_password = document.getElementById("#repassword");
   // var submit = document.getElementById("#form");
