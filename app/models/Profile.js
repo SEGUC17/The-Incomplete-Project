@@ -34,12 +34,12 @@ var profileSchema = mongoose.Schema({
         required:true,
         unique:true
     },
-    
+
     address:String,
     gender:String,
-    
+
     isRegisteredUser:{
-        type: boolean,
+        type: Boolean,
         default:true,
         required:true
     }
