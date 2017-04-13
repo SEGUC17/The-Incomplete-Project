@@ -1,17 +1,12 @@
-angular.module('myApp', []).controller('profile', function($scope) {
-    // $scope.names = [
-    //     {name:'Jani',country:'Norway'},
-    //     {name:'Hege',country:'Sweden'},
-    //     {name:'Kai',country:'Denmark'}
-    // ];
-    alert("a7a");
+angular.module('myApp', []).controller('profile', function($scope, $http) {
 
-    var self = this;
-    $scope.myWelcome="5ara";
+    // alert("aba");
 
-    $http.get("https://jsonplaceholder.typicode.com/posts").then(function(response){
-      alert("asdkfjlasd");
-      self.myWelcome = response.data;
+    // var self = this;
+    // $scope.myWelcome="first";
+
+    $http.get("http://localhost:8080/user/profile.json").then(function(response){
+      $scope.myWelcome = response.data;
     });
 
 

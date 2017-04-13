@@ -59,13 +59,40 @@ let RegisteredUserController = {
           }
         });
 
-	}
+	},
+	register:function(req,res){
+    let body = req.body
+		console.log(req.body);
+    let profile = new Profile({
+        firstName: body.firstName,
+        lastName: body.lastName,
+        username: body.username,
+        Password: body.Password,
+        email:body.email,
+        mobileNumber:body.mobileNumber,
+        address:body.address,
+        gender:body.gender,
+    })
 
+    profile.save(function(err, profile){
+      if(err)
+      	res.send(err)
+      else {
+				let regUser = new RegisteredUser({
+		        _id:profile._id
+		    })
 
-
-
-
-
-
-
+				regUser.save(function(err,user){
+					if(err)
+						res.send(err);
+					else{
+						req.session.data = profile;
+						res.sendFile('profile.html',{root:"./views"});
+					}
+				})
+      }
+    });
+  }
 }
+
+module.exports = RegisteredUserController;

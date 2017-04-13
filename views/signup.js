@@ -1,7 +1,9 @@
-angular.module('myApp', []).controller('signup', function($scope) {
-  var password = document.getElementById("#password");
-  var confirm_password = document.getElementById("#repassword");
-  var submit = document.getElementById("#form");
+angular.module('myApp', []).controller('signup', function($scope,$http) {
+
+  
+  // var password = document.getElementById("#password");
+  // var confirm_password = document.getElementById("#repassword");
+  // var submit = document.getElementById("#form");
   // $scope.submit = function(){
   //   alert("fun3");
   //   submit.submit();

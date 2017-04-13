@@ -19,31 +19,31 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.sendFile('home.html',{root:"./views"});
 	});
 
-	router.get('/SignUp',function(req,res){
+	router.get('/visitor/SignUp',function(req,res){
 		res.sendFile('signup.html',{root:"./views"});
 	});
+
+	router.post('/visitor/SignUp', registeredUserController.register);
+
+	router.get('/user/Profile',function(req,res){
+		res.sendFile('profile.html',{root:"./views"});
+	});
+
+	router.get('/user/Profile.json',function(req,res){
+		res.json(req.session.data);
+	});
+
+
 
 	router.post('/Login',function(req,res){
 		res.sendFile('profile.html',{root:"./views"});
 	});
 
-	router.get('/Profile',function(req,res){
-		// console.log("hey");
-		res.sendFile('profile.html',{root:"./views"});
-		// res.render('profile');
-	});
-
-	router.get('/Profile.json',function(req,res){
-		// res.json(registeredUserController.viewProfile);
-		res.json({hey:'ehhhhh'});
-		// res.render('profile');
-	});
 
 	router.get('/a',function(req,res){
 		res.send("hey");
 	});
 
-	// router.get('/visitor/viewBusinessPage',visitorController.visitorViewsBusinessPage);
 	router.get('/visitor/viewBusinessPage',function(req,res){
 		res.sendFile('viewBusinessPage.html', { root:"./views" });
 	});
@@ -51,16 +51,8 @@ var registeredUserController = require("./controllers/registeredUserController")
 	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
 
 	router.get('/visitor/login', function(req,res){
-		res.sendFile('login.html', { root:"./views" });
+		res.sendFile('signup.html', { root:"./views" });
 	});
-
-	router.post('/visitor/SignUp', function(req,res){
-		res.sendFile('login.html', { root:"./views" });
-	});
-
-	// router.post('/visitor/login', function(req,res){
-	// 	res.sendFile('login.html', { root:"./views" });
-	// });
 
 
 	router.post('/booking/placeBook2', bookingController.placeBook2);
