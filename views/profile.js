@@ -19,5 +19,4 @@ angular.module('myApp', []).controller('profile', function($scope, $http) {
 
     // $http.get('/Profile.json', config).then(successCallback, errorCallback);
 
-    alert("aba");
 });

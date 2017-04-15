@@ -33,6 +33,16 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.json(req.session.data);
 	});
 
+	router.get('/registeredUser/editProfile',function(req,res){
+		res.sendFile('registeredUserEditsProfile.html',{root:"./views"});
+	});
+
+	router.get('/registeredUser/editProfile.json',function(req,res){
+		res.json(req.session.data);
+	});
+
+	router.post('/registeredUser/editProfile', registeredUserController.editProfile);
+
 	router.get('/owner/Profile',function(req,res){
 		res.sendFile('ownerProfilePage.html',{root:"./views"});
 	});

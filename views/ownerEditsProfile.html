@@ -3,7 +3,7 @@
 <html ng-app="myApp" ng-controller="profile">
 
 <head>
-    <title>BusinessPage</title>
+    <title>Edit My Profile</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,7 +23,7 @@
           <div class="collapse navbar-collapse">
               <ul class="nav navbar-nav navbar-right">
                   <li><a href="/owner/ownerViewsBusinessPage">View My Business Page</a></li>
-                  <li><a href="/owner/logOut">Log Out</a></li>
+                  <li><a href="/logOut">Log Out</a></li>
               </ul>
           </div>
 
@@ -32,7 +32,7 @@
 
   <div class="search container-fluid">
 
-    <form method="post" action="/owner/editProfile">
+    <form method="post" action="/registeredUser/editProfile">
 
       <div class="form-group">
        <label for="firstName">First Name:</label>
@@ -70,7 +70,7 @@
       </div>
 
       <button type="submit" class="btn btn-default">Submit</button>
-      <a href="/owner/editProfile" class="btn btn-default">Cancel</a>
+      <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
 
     </form>
 
@@ -78,7 +78,7 @@
       <script src="/public/libs/angular/angular.js"></script>
       <script src="/public/libs/angular-ui-router/release/angular-ui-router.js"></script>
   </div>
-  <script src="../profile.js"></script>
+
 </body>
 
 </html>

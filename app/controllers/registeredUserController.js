@@ -44,17 +44,24 @@ let RegisteredUserController = {
 
 	//B.6
 	editProfile:function(req, res) {
-		 let body = req.body;
-     let profileId = req.session.data.profile;
+	 let body = req.body;
+     let profileId = req.session.data._id;
      // let profileId = mongoose.Types.ObjectId("58e3aafe0b1c69d2d1778619");
-
-     Profile.update({_id:profileId},{$set:{firstName:body.firstName,lastName:body.lastName,username:body.username,
+	 console.log(profileId);
+     Profile.update({_id:profileId},{$set:{firstName:body.firstName,lastName:body.lastName,
         Password:body.Password,email:body.email,mobileNumber:body.mobileNumber,address:body.address,gender:body.gender}},function(err,results){
           if(err)
             console.log(err.message);
           else {
-
-			  //send the profile to the frontend
+			  	Profile.findOne({_id:profileId}, function(err, profile) {
+					if (err)
+						res.send(err);
+					else {
+						console.log(profile);
+					  	req.session.data = profile;
+						res.sendFile('registeredUserProfilePage.html',{root:"./views"});
+					}
+				})
 
           }
         });
