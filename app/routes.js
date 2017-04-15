@@ -33,20 +33,16 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.json(req.session.data);
 	});
 
-
-
 	router.post('/Login',function(req,res){
 		res.sendFile('profile.html',{root:"./views"});
 	});
 
 
-	router.get('/a',function(req,res){
-		res.send("hey");
-	});
-
 	router.get('/visitor/viewBusinessPage',function(req,res){
 		res.sendFile('viewBusinessPage.html', { root:"./views" });
 	});
+
+	router.get('/visitor/viewBusinessPage.json',visitorController.visitorViewsBusinessPage);
 
 	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
 

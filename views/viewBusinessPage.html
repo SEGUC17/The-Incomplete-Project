@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- <html ng-app="myApp" ng-controller="signup"> -->
 <html ng-app="myApp" ng-controller="viewBusinessPage">
 
 <head>
@@ -37,11 +36,12 @@
     <img src={{profileImg}} width="250px" id="profileImg"/>
 
     <div id="info">
+
       <h4>name: {{name}}</h4>
       <h4>Description: {{description}}</h4>
 
       <div ng-repeat="number in phoneNumber">
-        <h6>{{numbern}}</h6>
+        <h6>{{number}}</h6>
       </div>
 
       <div ng-repeat="address in addresses">

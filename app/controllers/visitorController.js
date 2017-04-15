@@ -1,14 +1,14 @@
 let BusinessPage = require('../models/BusinessPage');
 let AnEvent = require('../models/Event');
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
 
 let visitorController = {
 
   searchBusinessPages:function(req, res) {
     let body = req.body;
-    var searchWord = body.searchWord;
-    var businessPagesResult = [];
+    let searchWord = body.searchWord;
+    let businessPagesResult = [];
     // get all businessPages
     BusinessPage.find(function(err, businessPages) {
   			if(err){
@@ -16,7 +16,7 @@ let visitorController = {
   			}
   			else {
   				// for loop to filter pages according to searchWord
-              for (var i = 0; i < businessPages.length; i++) {
+              for (let i = 0; i < businessPages.length; i++) {
                 if(businessPages[i].name.indexOf(searchWord)!=-1){
                   businessPagesResult.push(businessPages[i]);
             }
@@ -33,31 +33,33 @@ let visitorController = {
   visitorViewsBusinessPage:function(req, res) {
     //  console.log("test");
 
-      let businessPageId = req.session.data.businessPage;
-    //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
+      // let businessPageId = req.session.data.businessPage;
+     let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
+
       BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
 
           if(err) {
             res.send(err.message)
           }
           else {
+            // console.log(businessPage);
+              // let events = [];
+              // for (let i = 0; i < businessPage.events.length; i++) {
+              //     let eventId = businessPage.events[i]._id
+              //     AnEvent.findOne(eventId, function(err, anEvent) {
+              //         if(err) {
+              //             res.send(err)
+              //         }
+              //         else {
+              //             events.push(anEvent)
+              //         }
+              //     })
+              // }
 
-
-              var events = [];
-              for (var i = 0; i < businessPage.events.length; i++) {
-                  var eventId = businessPage.events[i]._id
-                  AnEvent.findOne(eventId, function(err, anEvent) {
-                      if(err) {
-                          res.send(err)
-                      }
-                      else {
-                          events.push(anEvent)
-                      }
-                  })
-              }
-
-              //send the businessPage and the events
-
+              // console.log(businessPage);
+              // return JSON.stringify(businessPage);
+              res.json(businessPage);
+              // return {BusinessPage:businessPage,events:events};
           }
       })
   }
