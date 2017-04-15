@@ -1,5 +1,5 @@
-body {
-  /*border-style: solid;*/
+body{
+  border-style: solid;
 }
 
 #profileImg{
@@ -9,9 +9,23 @@ body {
 
 #info{
   /*border-style: solid;*/
-  display: inline-block;;
+  display: inline-block;
+  width: 100%
 }
 
-.event{
-  
+.data *{
+  /*border-style: solid;*/
+  /*border-width: thick;*/
+  display: inline-block;
+}
+
+.data{
+  /*border-style: solid;*/
+}
+
+.openingTimes *{
+  display: inline-block;
+}
+.events{
+  border-style: solid;
 }

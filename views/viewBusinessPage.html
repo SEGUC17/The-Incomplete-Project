@@ -37,31 +37,64 @@
 
     <div id="info">
 
-      <h4>name: {{name}}</h4>
-      <h4>Description: {{description}}</h4>
+      <div class="data">name: {{name}}</div>
+      <div class="data">Description: {{description}}</div>
 
-      <div ng-repeat="number in phoneNumber">
-        <h6>{{number}}</h6>
+      <div class="data">PhoneNumbers :
+        <div ng-repeat="number in phoneNumber">
+          <p>{{number}},</p>
+        </div>
       </div>
 
-      <div ng-repeat="address in addresses">
-        <h6>{{address}}</h6>
+      <div class="data">Addresses :
+        <div ng-repeat="address in addresses">
+          <p>{{address}},</p>
+        </div>
       </div>
 
+      <!-- <p>events: {{events}}</p> -->
     </div>
 
     <div ng-repeat="image in images">
       <img src={{image}} width="250px"/>
     </div>
 
-    <div ng-repeat = "event in events">
+    <div class="events" ng-repeat = "event in events">
       <div class="event">
-        <h5>name: {{event.name}}</h5>
-        <h5>name: {{event.description}}</h5>
-        <h5>name: {{event.price}}</h5>
-        <h5>{{event.payMsg}}</h5>
-        <img src = {{event.image}} width="100px"/>
-        <h5>{{event.repeatsMsg}}</h5>
+        <p>name: {{event.event.name}}</p>
+        <p>description: {{event.event.description}}</p>
+        <p>price: {{event.event.price}}</p>
+
+        <img ng-if="" src = {{event.event.image}} width="100px"/>
+
+
+        <!-- lessa image date format-->
+
+
+
+        <div ng-if="event.event.isPlace">
+
+          <div class="data">openingTimes :
+            <div ng-repeat="openingTime in event.place.openingTimes">
+              <p>{{openingTime}},</p>
+            </div>
+          </div>
+
+          <p>period: {{event.place.period}} minutes</p>
+        </div>
+
+        <div ng-if="!event.event.isPlace">
+          <p>Start Date: {{event.trip.startDate}}</p>
+          <p>End Date: {{event.trip.endDate}}</p>
+          <p>Max People: {{event.trip.maxPeople}}</p>
+        </div>
+
+        <button type="button" class="btn btn-primary">Pay</button>
+
+        <div ng-if="!event.event.mustPay">
+          <button type="button" class="btn btn-primary">Book</button>
+        </div>
+
       </div>
     </div>
 

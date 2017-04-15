@@ -1,15 +1,18 @@
 angular.module('myApp', []).controller('viewBusinessPage', function($scope, $http) {
 
+    $scope.events = "asdfjlasdfj"
     $http.get("http://localhost:8080/visitor/viewBusinessPage.json").then(function(response){
-      $scope.data = response.data;
+      $scope.name = response.data.businessPage.name;
+      $scope.description = response.data.businessPage.description;
+      $scope.phoneNumber = response.data.businessPage.phoneNumber;
+      $scope.addresses = response.data.businessPage.addresses;
+      $scope.events = response.data.events;
+      // alert(response.data.events[0].event.price);
+      // $scope.images = response.data.images;
     });
 
-    $scope.name = $scope.data.name;
-    $scope.description = $scope.data.description;
-    $scope.phoneNumber = $scope.data.phoneNumber;
     // $scope.phoneNumber = ["123","456"]
     // $scope.description = "hey2"
-    // alert("hey");
     // $scope.profileImg = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png"
     //
     // if($scope.event.mustPay){
