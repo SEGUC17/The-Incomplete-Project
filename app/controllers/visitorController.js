@@ -9,8 +9,8 @@ let visitorController = {
 
   searchBusinessPages:function(req, res) {
     let body = req.body;
-    let searchWord = body.searchWord;
-    let businessPagesResult = [];
+    var searchWord = body.searchWord;
+    var businessPagesResult = [];
     // get all businessPages
     BusinessPage.find(function(err, businessPages) {
   			if(err){
@@ -18,7 +18,7 @@ let visitorController = {
   			}
   			else {
   				// for loop to filter pages according to searchWord
-              for (let i = 0; i < businessPages.length; i++) {
+              for (var i = 0; i < businessPages.length; i++) {
                 if(businessPages[i].name.indexOf(searchWord)!=-1){
                   businessPagesResult.push(businessPages[i]);
             }
@@ -35,15 +35,15 @@ let visitorController = {
   visitorViewsBusinessPage:function(req, res) {
     //  console.log("test");
 
-      // let businessPageId = req.session.data.businessPage;
-     let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
-
+      let businessPageId = req.session.data.businessPage;
+    //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
       BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
 
           if(err) {
             res.send(err.message)
           }
           else {
+
               let events = [];
               for (let i = 0; i < businessPage.events.length; i++) {
                   let eventId = businessPage.events[i];
@@ -89,6 +89,7 @@ let visitorController = {
 
                   })
               }
+
           }
       })
   }
