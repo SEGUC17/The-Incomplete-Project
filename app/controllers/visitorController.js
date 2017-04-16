@@ -15,20 +15,24 @@ let visitorController = {
           res.send(err.message)
         }
         else {
-          // sorting algorithm the biggest is the last element
-          var len = businessPages.length;
-          for (var i = len-1; i>=0; i--){
-            for(var j = 1; j<=i; j++){
-              if(businessPages[j-1].numberOfViews>businessPages[j].numberOfViews){
-                var temp = businessPages[j-1];
-              businessPages[j-1] = businessPages[j];
-              businessPages[j] = businessPages;
-              }
-            }
+          var test = [];
+          for (var i = 0; i < businessPages.length; i++) {
+            test.push(businessPages[i]);
           }
-          businessPagesResult.push(businessPages[0]);
-          // businessPagesResult.push(businessPages[0]);
-          // businessPagesResult.push(businessPages[2]);
+          var max =0 ;
+          for (var i = 0; i < 6 && i < test.length; i++) {
+            for (var j = 0; j < test.length; j++) {
+            if(test[max].numberOfViews<test[j].numberOfViews)
+              max = j;
+          }
+          businessPagesResult.push(test[max]);
+          test.splice(max,1);
+          max=0;
+        }
+          // test.sort(sort_by('numberOfViews', true, parseInt));
+        //  businessPagesResult.push(businessPages[5]);
+        // businessPagesResult.push(businessPages[1]);
+        //  businessPagesResult.push(businessPages[2]);
         }
 
 
