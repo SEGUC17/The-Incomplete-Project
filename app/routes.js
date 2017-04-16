@@ -72,9 +72,16 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.sendFile('signup.html', { root:"./views" });
 	});
 
+<<<<<<< HEAD
+	router.get('/visitor/popularBusinessPages.json',function(req,res) {
+		res.json(req.session.data);
+	});
+
+=======
 	router.get('/visitor/popularBusinessPages', visitorController.popularBusinessPages);
   
 	router.post('/visitor/login', registeredUserController.registeredUserLogsIn);
+>>>>>>> 6d5dc9c346b4f677899cc8ba5728dc8784ab4336
 
 	router.post('/booking/placeBook2', bookingController.placeBook2);
 	router.post('/owner/register', ownerController.register);

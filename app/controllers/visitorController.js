@@ -24,22 +24,13 @@ let visitorController = {
             for (var j = 0; j < test.length; j++) {
             if(test[max].numberOfViews<test[j].numberOfViews)
               max = j;
-          }
+            }
           businessPagesResult.push(test[max]);
           test.splice(max,1);
           max=0;
+          }
         }
-          // test.sort(sort_by('numberOfViews', true, parseInt));
-        //  businessPagesResult.push(businessPages[5]);
-        // businessPagesResult.push(businessPages[1]);
-        //  businessPagesResult.push(businessPages[2]);
-        }
-
-
           res.json({"businessPagesResult" : businessPagesResult});
-
-          // res.send(businessPagesResult);
-
 
     });
 
