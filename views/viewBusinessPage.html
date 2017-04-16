@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- <html ng-app="myApp" ng-controller="signup"> -->
+<html ng-app="myApp" ng-controller="viewBusinessPage">
+
+<head>
+    <title>BusinessPage</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="../login.css" type="text/css" rel="stylesheet">
+    <link href="../viewBusinessPage.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+
+          <div class="navbar-header">
+              <a class="navbar-brand" href="/">Logo</a>
+          </div>
+
+          <div class="collapse navbar-collapse">
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/Logout">Logout</a></li>
+                  <!-- <li><a href="/Login">Profile</a></li> -->
+                  <!-- <li><a href="/surf">Request a Page</a></li> -->
+              </ul>
+          </div>
+
+      </div>
+  </nav>
+
+  <div class="search container-fluid">
+
+    <img src={{profileImg}} width="250px" id="profileImg"/>
+
+    <div id="info">
+
+      <div class="data">name: {{name}}</div>
+      <div class="data">Description: {{description}}</div>
+
+      <div class="data">PhoneNumbers :
+        <div ng-repeat="number in phoneNumber">
+          <p>{{number}},</p>
+        </div>
+
+      </div>
+
+      <div class="data">Addresses :
+        <div ng-repeat="address in addresses">
+          <p>{{address}},</p>
+        </div>
+      </div>
+
+      <!-- <p>events: {{events}}</p> -->
+    </div>
+
+    <div ng-repeat="image in images">
+      <img src={{image}} width="250px"/>
+    </div>
+
+    <div class="events" ng-repeat = "event in events">
+      <div class="event">
+        <p>name: {{event.event.name}}</p>
+        <p>description: {{event.event.description}}</p>
+        <p>price: {{event.event.price}}</p>
+
+        <img ng-if="" src = {{event.event.image}} width="100px"/>
+
+
+        <!-- lessa image date format-->
+
+
+
+        <div ng-if="event.event.isPlace">
+
+          <div class="data">openingTimes :
+            <div ng-repeat="openingTime in event.place.openingTimes">
+              <p>{{openingTime}},</p>
+            </div>
+          </div>
+
+          <p>period: {{event.place.period}} minutes</p>
+        </div>
+
+        <div ng-if="!event.event.isPlace">
+          <p>Start Date: {{event.trip.startDate}}</p>
+          <p>End Date: {{event.trip.endDate}}</p>
+          <p>Max People: {{event.trip.maxPeople}}</p>
+        </div>
+
+        <!-- abdelfattah event.event._id hatgeblak id-->
+        <button type="button" class="btn btn-primary">Pay</button>
+
+        <div ng-if="!event.event.mustPay">
+          <button type="button" class="btn btn-primary">Book</button>
+        </div>
+        <!-- abdelfattah -->
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/public/libs/angular/angular.js"></script>
+  <script src="/public/libs/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="../viewBusinessPage.js"></script>
+</body>
+
+</html>
