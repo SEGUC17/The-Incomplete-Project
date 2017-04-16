@@ -44,9 +44,9 @@
                   </ul>
                 </div>
 
-                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                <input type="text" ng-model="searchWord" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
                 <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    <button class="btn btn-default" ng-click= "searchClick()" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
             </div>
         </form>
@@ -56,30 +56,8 @@
     <div class="well well-sm">
         <strong>Popular Business Pages</strong>
     </div>
-    <div id="products" class="row list-group">
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Business page name</h4>
-                    <p class="group inner list-group-item-text">
-                        description</p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                </p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" >check it</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
+      <div ng-include = "businesspageView"></div>
+    </div>
 
 </body>
 
