@@ -64,7 +64,9 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.sendFile('viewBusinessPage.html', { root:"./views" });
 	});
 
-	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
+	router.post('/visitor/searchBusinessPages.json', function (req,res) {
+		res.json(req.session.data);
+	});
 
 	router.get('/visitor/login', function(req,res){
 		res.sendFile('signup.html', { root:"./views" });
