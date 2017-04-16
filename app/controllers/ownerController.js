@@ -128,11 +128,7 @@ let ownerController = {
                                 if (err)
                                     res.send(err)
                                 else {
-<<<<<<< HEAD
                                     req.session.data = {UserID: userID, CompanyName: companyName, Profile:profile, BusinessPage: businessPage};
-=======
-                                    req.session.data = {UserID: userID, CompanyName: companyName, Profile:profile, BusinessPage: businessPage}
->>>>>>> 5c258f6864c4c139943e14d6acf7f9ebcb21232d
                                     res.sendFile('ownerProfilePage.html',{root:"./views"});
                                 }
 
