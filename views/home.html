@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us" ng-app = "myApp" ng-controller="homeController">
 
 <head>
     <title>Home</title>
@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src = "https://code.angularjs.org/1.6.4/angular.min.js"></script>
+    <script src="home.js"></script>
     <link href="home.css" type="text/css" rel="stylesheet">
 </head>
 
@@ -16,7 +18,7 @@
         <div class="container-fluid">
 
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Logo</a>
+                <a class="navbar-brand" href="/">Home</a>
             </div>
 
             <div class="collapse navbar-collapse">
@@ -29,7 +31,6 @@
 
         </div>
     </nav>
-
 
     <div class="search">
         <form class="content navbar-form">
@@ -50,6 +51,35 @@
             </div>
         </form>
     </div>
+
+    <div class="container">
+    <div class="well well-sm">
+        <strong>Popular Business Pages</strong>
+    </div>
+    <div id="products" class="row list-group">
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        Business page name</h4>
+                    <p class="group inner list-group-item-text">
+                        description</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">
+                                </p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" >check it</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
 </body>
 
