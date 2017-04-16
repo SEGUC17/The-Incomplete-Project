@@ -22,9 +22,9 @@
 
           <div class="collapse navbar-collapse">
               <ul class="nav navbar-nav navbar-right">
-                  <li><a href="/Logout">Logout</a></li>
-                  <!-- <li><a href="/Login">Profile</a></li> -->
-                  <!-- <li><a href="/surf">Request a Page</a></li> -->
+                  <li ng-if="actor!=visitor"><a href="/Logout">Logout</a></li>
+                  <li ng-if="actor==visitor"><a href="/Login">Profile</a></li>
+                  <!-- <li ng-if="actor==visitor"><a href="/surf">Request a Page</a></li> -->
               </ul>
           </div>
 

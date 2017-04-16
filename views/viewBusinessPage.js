@@ -7,6 +7,7 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope, $htt
       $scope.phoneNumber = response.data.businessPage.phoneNumber;
       $scope.addresses = response.data.businessPage.addresses;
       $scope.events = response.data.events;
+      $scope.actor = response.data.actor;
     });
 
 });

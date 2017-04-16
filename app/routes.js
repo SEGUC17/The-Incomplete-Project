@@ -42,7 +42,7 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.sendFile('viewBusinessPage.html', { root:"./views" });
 	});
 
-	router.get('/visitor/viewBusinessPage.json',visitorController.visitorViewsBusinessPage);
+	router.get('/user/viewBusinessPage.json',registeredUserController.userViewsBusinessPage);
 
 	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
 

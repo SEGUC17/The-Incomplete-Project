@@ -79,7 +79,7 @@ let visitorController = {
                             element.trip = trip;
                             events.push(element);
                             if(i==businessPage.events.length-1){
-                              res.json({"businessPage":businessPage,"events":events});
+                              res.json({"businessPage":businessPage,"events":events,"actor":"visitor"});
                             }
                           }
                         })
