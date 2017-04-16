@@ -31,7 +31,12 @@ var businessPageSchema = mongoose.Schema({
     events:[{
       type:mongoose.Schema.Types.ObjectId,
       ref:'events'
-    }]
+    }],
+
+    numberOfViews:{
+        type:Number,
+        required:false
+    }
 })
 
 var BusinessPage = mongoose.model("businesspages", businessPageSchema);

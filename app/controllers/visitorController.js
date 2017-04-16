@@ -7,6 +7,40 @@ let mongoose = require('mongoose');
 
 let visitorController = {
 
+  popularBusinessPages:function(req, res) {
+    var businessPagesResult = [];
+    // get all businessPages
+    BusinessPage.find(function(err, businessPages) {
+        if(err){
+          res.send(err.message)
+        }
+        else {
+          // sorting algorithm the biggest is the last element
+          var len = businessPages.length;
+          for (var i = len-1; i>=0; i--){
+            for(var j = 1; j<=i; j++){
+              if(businessPages[j-1].numberOfViews>businessPages[j].numberOfViews){
+                var temp = businessPages[j-1];
+              businessPages[j-1] = businessPages[j];
+              businessPages[j] = businessPages;
+              }
+            }
+          }
+          businessPagesResult.push(businessPages[0]);
+          // businessPagesResult.push(businessPages[0]);
+          // businessPagesResult.push(businessPages[2]);
+        }
+
+
+          res.json({"businessPagesResult" : businessPagesResult});
+
+          // res.send(businessPagesResult);
+
+
+    });
+
+  },
+
   searchBusinessPages:function(req, res) {
     let body = req.body;
     var searchWord = body.searchWord;
@@ -42,7 +76,7 @@ let visitorController = {
             res.send(err.message)
           }
           else {
-
+              businessPage.numberOfViews ++;
               let events = [];
               for (let i = 0; i < businessPage.events.length; i++) {
                   let eventId = businessPage.events[i];
