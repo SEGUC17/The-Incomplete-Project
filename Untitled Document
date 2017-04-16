@@ -1,0 +1,92 @@
+INCOMPLETEPROJ
+profile ObjectId("58e69a9f727fd51fdd784ad4")
+businessPage ObjectId("58e8c0a54c696e01a6646ccb")
+
+edit profile {
+  "firstName":"11",
+  "lastName":"22",
+  "username":"33",
+  "Password":"44",
+  "email":"55",
+  "mobileNumber":"66",
+  "address":"77",
+  "gender":"88"
+}
+
+
+add businessPage{
+name:"n1",
+
+profileImg: "p1",
+
+images:["i1","i2"],
+
+description:"d1",
+
+addresses:["a1","a2"],
+
+phoneNumber:["p1","p2"]
+
+}
+
+edit businessPage{
+  "name":"n2",
+
+  "profileImg": "p2",
+
+  "images":["i1","i3"],
+
+  "description":"d2",
+
+  "addresses":["a1","a3"],
+
+  "phoneNumber":["p1","p3"]
+}
+
+
+
+{
+
+    "firstName":"fn1",
+
+    "lastName":"ln1",
+
+    "username":"un1",
+
+    "Password":"p1",
+
+    "email":"e1",
+
+    "mobileNumber":"m1",
+
+    "address":"a1",
+    "gender":"g2",
+
+    "companyName":"cn1",
+
+    "name":"pn1",
+
+    "profileImg": "p1",
+
+    "images":["i1","i2"],
+
+    "description":"d1",
+
+    "addresses":["a1","a2"],
+
+    "phoneNumber":["pn1","pn2"]
+}
+
+{
+    "period":60,
+
+    "name":"n1",
+
+    "description":"d`",
+
+    "price":10,
+
+    "mustPay":true,
+
+    "isPlace":true
+}
