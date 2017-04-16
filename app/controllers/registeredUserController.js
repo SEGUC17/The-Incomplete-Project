@@ -1,6 +1,6 @@
 let RegisteredUser = require('../models/RegisteredUser');
-let Profile = require('../models/Profile');
-var mongoose = require('mongoose');
+let Profile        = require('../models/Profile');
+var mongoose       = require('mongoose');
 
 
 

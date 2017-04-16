@@ -1,11 +1,11 @@
-var express = require('express');
-var http = require('http');
-var router = express.Router();
+var express                   = require('express');
+var http                      = require('http');
+var router                    = express.Router();
 var pendingRequestsController = require("./controllers/pendingRequestsController");
-var ownerController = require("./controllers/ownerController");
-var visitorController = require("./controllers/visitorController");
-var bookingController = require("./controllers/bookingController");
-var registeredUserController = require("./controllers/registeredUserController");
+var ownerController           = require("./controllers/ownerController");
+var visitorController         = require("./controllers/visitorController");
+var bookingController         = require("./controllers/bookingController");
+var registeredUserController  = require("./controllers/registeredUserController");
 
 
 

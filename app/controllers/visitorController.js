@@ -1,8 +1,8 @@
 let BusinessPage = require('../models/BusinessPage');
-let AnEvent = require('../models/Event');
-let Trip = require('../models/Trip');
-let Place = require('../models/Place');
-let mongoose = require('mongoose');
+let AnEvent      = require('../models/Event');
+let Trip         = require('../models/Trip');
+let Place        = require('../models/Place');
+let mongoose     = require('mongoose');
 
 
 let visitorController = {

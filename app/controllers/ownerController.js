@@ -1,10 +1,10 @@
-let Owner = require('../models/Owner');
+let Owner        = require('../models/Owner');
 let BusinessPage = require('../models/BusinessPage');
-let Profile = require('../models/Profile');
-let AnEvent = require('../models/Event');
-let Place = require('../models/Place');
-let Trip = require('../models/Trip');
-var mongoose = require('mongoose');
+let Profile      = require('../models/Profile');
+let AnEvent      = require('../models/Event');
+let Place        = require('../models/Place');
+let Trip         = require('../models/Trip');
+var mongoose     = require('mongoose');
 
 
 
@@ -18,12 +18,12 @@ let eventController = {
     let body = req.body;
 
     let anEvent = new AnEvent({
-      name        :req.body.name        ,
-      description :req.body.description ,
-      price       :req.body.price       ,
-      mustPay     :req.body.mustPay     ,
-      image       :req.body.image       ,
-      isPlace     :req.body.isPlace
+      name        : req.body.name        ,
+      description : req.body.description ,
+      price       : req.body.price       ,
+      mustPay     : req.body.mustPay     ,
+      image       : req.body.image       ,
+      isPlace     : req.body.isPlace
       }
     );
 
@@ -71,14 +71,14 @@ let ownerController = {
   register:function(req,res){
     let body = req.body
     let profile = new Profile({
-        firstName: body.firstName,
-        lastName: body.lastName,
-        username: body.username,
-        Password: body.Password,
-        email:body.email,
-        mobileNumber:body.mobileNumber,
-        address:body.address,
-        gender:body.gender,
+        firstName    : body.firstName   ,
+        lastName     : body.lastName    ,
+        username     : body.username    ,
+        Password     : body.Password   ,
+        email        : body.email        ,
+        mobileNumber : body.mobileNumber ,
+        address      : body.address      ,
+        gender       : body.gender       ,
     })
     let owner = new Owner({
       companyName:body.companyName,
@@ -122,7 +122,7 @@ let ownerController = {
                   else {
                       Owner.findOne({username: profile.username}, function (err, owner){
                           let userID = owner._id;
-                          let companyName = owner.companyName
+                          let companyName = owner.companyName;
                           let businessPageID = owner.businessPage;
                           BusinessPage.findOne({_id:businessPageID}, function (err, businessPage) {
                                 if (err)

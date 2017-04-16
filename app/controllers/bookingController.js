@@ -1,7 +1,7 @@
 var RegisteredUser = require('../models/RegisteredUser');
-var AnEvent = require('../models/Event');
-var Place = require('../models/Place');
-var Trip = require('../models/Trip');
+var AnEvent        = require('../models/Event');
+var Place          = require('../models/Place');
+var Trip           = require('../models/Trip');
 
 
 var bookingController= {

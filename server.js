@@ -1,17 +1,17 @@
-var express        = require('express');
-var mongoose       = require('mongoose');
-var morgan         = require('morgan');
-var bodyParser     = require('body-parser');
-var passport 	     = require('passport');
-var BasicStrategy  = require('passport-http').Strategy;
-var stripe         = require("stripe")("sk_test_aFldNEUKYSuPZ63JQa2hhGVD"); //Secret Key for payment method
-var cookieParser   = require('cookie-parser');
-var expressSession = require('express-session');
+var express         = require('express');
+var mongoose        = require('mongoose');
+var morgan          = require('morgan');
+var bodyParser      = require('body-parser');
+var passport 	      = require('passport');
+var BasicStrategy   = require('passport-http').Strategy;
+var stripe          = require("stripe")("sk_test_aFldNEUKYSuPZ63JQa2hhGVD"); //Secret Key for payment method
+var cookieParser    = require('cookie-parser');
+var expressSession  = require('express-session');
 
 
 var routes          = require('./app/routes');
 var BusinessPage    = require('./app/models/BusinessPage');
-var Event           = require('./app/models/Event');
+var anEvent         = require('./app/models/Event');
 var Owner           = require('./app/models/Owner');
 var Place           = require('./app/models/Place');
 var Profile         = require('./app/models/Profile');
