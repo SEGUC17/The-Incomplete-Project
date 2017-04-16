@@ -73,7 +73,8 @@ var registeredUserController = require("./controllers/registeredUserController")
 	});
 
 	router.get('/visitor/popularBusinessPages', visitorController.popularBusinessPages);
-
+  
+	router.post('/visitor/login', registeredUserController.registeredUserLogsIn);
 
 	router.post('/booking/placeBook2', bookingController.placeBook2);
 	router.post('/owner/register', ownerController.register);
