@@ -47,6 +47,14 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.sendFile('ownerProfilePage.html',{root:"./views"});
 	});
 
+  //tarek
+	router.get('/owner/addEvent',function(req,res){
+		res.sendFile('ownerAddsEvent.html',{root:"./views"});
+	});
+
+	//tarek
+	router.post('/owner/addEvent', ownerController.addEvent);
+
 	router.get('/owner/Profile.json',function(req,res){
 		res.json(req.session.data);
 	});

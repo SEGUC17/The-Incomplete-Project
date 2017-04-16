@@ -47,5 +47,5 @@ app.use(routes);
 
 
 app.listen(port,function(){
-  console.log(port);
+  console.log("Magic hapenning on port: "+"*"+port+"*"+" please don't delete this log .. it's fun :)");
 });

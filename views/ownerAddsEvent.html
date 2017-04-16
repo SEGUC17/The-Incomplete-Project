@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="profile">
+
+<head>
+    <title>Add an Event</title>
+
+    <link rel="stylesheet" type="text/css" href="./ownerAddsEvent.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+      <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
+              <legend><a href="http://www.jquery2dotnet.com"><i class="glyphicon glyphicon-globe"></i></a> Event</legend>
+
+
+
+              <form action="#" method="POST" class="form" role="form">
+                        <input name="name" class="form-control" placeholder="Name" type="text" />
+
+                        <textarea name="description" id="description" class="form-control" rows="9" cols="25" required="required" placeholder="description"></textarea>
+
+                        <label for="">Date</label>
+                        <input name="date" class="form-control" placeholder="DD/MM/YYYY" type="text" />
+
+
+                        <label for="">Price</label>
+                        <input name="price" class="form-control" placeholder="DD/MM/YYYY" type="text" />
+
+                        <label>Paying time</label>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <select class="form-control" name="mustPay">
+                                    <option value="true">Must pay now!</option>
+                                    <option value="false">May pay on arival!</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <label for="">Image URL</label>
+                        <input name="image" class="form-control" placeholder="DD/MM/YYYY" type="text" />
+
+                        <label>Place / Trip</label>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <select class="form-control" name="isPlace">
+                                    <option value="true">Place</option>
+                                    <option value="false">Trip</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">
+                            CREATE</button>
+              </form>
+
+              <script src="/public/libs/angular/angular.js"></script>
+              <script src="/public/libs/angular-ui-router/release/angular-ui-router.js"></script>
+
+
+          </div>
+      </div>
+  </div>
+
+
+
+
+</body>
+</html>

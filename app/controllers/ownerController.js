@@ -15,25 +15,35 @@ let eventController = {
 
   addEvent:function(req, res) {
 
-    let body = req.body
-    let anEvent = new AnEvent(req.body)
-    businessPageId = req.session.data.businessPage;
+    let body = req.body;
 
+    let anEvent = new AnEvent({
+      name        :req.body.name        ,
+      description :req.body.description ,
+      price       :req.body.price       ,
+      mustPay     :req.body.mustPay     ,
+      image       :req.body.image       ,
+      isPlace     :req.body.isPlace
+      }
+    );
+
+    businessPageId = req.session.data.businessPage;
     BusinessPage.update(
       {_id: businessPageId},{$push: {events: anEvent}}
     )
   },
+
   //req contains the id of the event
   editEvent:function(req, res) {
     let body = req.body
     let eventId = body.eventsId
     AnEvent.update(
       {_id: eventId},{$set: {
-        name: body.name,
-        description: body.description,
-        price: body.price,
-        mustPay: body.mustPay,
-        image: body.image
+        name        : body.name        ,
+        description : body.description ,
+        price       : body.price       ,
+        mustPay     : body.mustPay     ,
+        image       : body.image
       }}
     )
   },
@@ -44,15 +54,16 @@ let eventController = {
     BusinessPage.update(
       {_id: businessPageId},
       {$pull: {events: {_id: id}}}, function(err, result) {
-          if (err)
+          if (err){
             res.send(err)
+          }
           else {
               AnEvent.remove({ _id: anEventId });
               // refresh the page
-          }
-      }
-    )
-  }
+            }
+        }
+      )
+   }
 }
 
 let ownerController = {
@@ -117,7 +128,7 @@ let ownerController = {
                                 if (err)
                                     res.send(err)
                                 else {
-                                    req.session.data = {UserID: userID, CompanyName: companyNameProfile:profile, BusinessPage: businessPage}
+                                    req.session.data = {UserID: userID, CompanyName: companyName, Profile:profile, BusinessPage: businessPage};
                                     res.sendFile('ownerProfilePage.html',{root:"./views"});
                                 }
 
