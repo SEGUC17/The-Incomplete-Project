@@ -24,8 +24,7 @@ let visitorController = {
             }
           }
 
-
-          //send businessPagesResult to the frontend
+          res.json({"businessPagesResult" : businessPagesResult});
 
         }
   	});
