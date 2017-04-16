@@ -25,15 +25,31 @@ var registeredUserController = require("./controllers/registeredUserController")
 
 	router.post('/visitor/SignUp', registeredUserController.register);
 
-	router.get('/user/Profile',function(req,res){
-		res.sendFile('profile.html',{root:"./views"});
+	router.get('/registeredUser/Profile',function(req,res){
+		res.sendFile('registeredUserProfilePage.html',{root:"./views"});
 	});
 
-	router.get('/user/Profile.json',function(req,res){
+	router.get('/registeredUser/Profile.json',function(req,res){
 		res.json(req.session.data);
 	});
 
+	router.get('/registeredUser/editProfile',function(req,res){
+		res.sendFile('registeredUserEditsProfile.html',{root:"./views"});
+	});
 
+	router.get('/registeredUser/editProfile.json',function(req,res){
+		res.json(req.session.data);
+	});
+
+	router.post('/registeredUser/editProfile', registeredUserController.editProfile);
+
+	router.get('/owner/Profile',function(req,res){
+		res.sendFile('ownerProfilePage.html',{root:"./views"});
+	});
+
+	router.get('/owner/Profile.json',function(req,res){
+		res.json(req.session.data);
+	});
 
 	router.post('/Login',function(req,res){
 		res.sendFile('profile.html',{root:"./views"});
@@ -60,7 +76,7 @@ var registeredUserController = require("./controllers/registeredUserController")
 	router.post('/requestBusinessPage', pendingRequestsController.requestsPageCreation);
 	router.get('/owner/viewProfile', ownerController.viewProfile);
 	router.post('/owner/editProfile', ownerController.editProfile);
-	router.get('/owner/ownerViewBusinessPage',ownerController.ownerViewsBusinessPage);
+	router.get('/owner/ownerViewsBusinessPage',ownerController.ownerViewsBusinessPage);
 	router.post('/owner/editBusinessPage',ownerController.editBusinessPage);
 	router.post('/owner/addPlace',ownerController.addPlace);
 	router.post('/owner/editPlace',ownerController.editPlace);
@@ -68,5 +84,6 @@ var registeredUserController = require("./controllers/registeredUserController")
 	router.post('/owner/editTrip',ownerController.editTrip);
 	router.delete('/owner/removePlace',ownerController.removePlace);
 	router.delete('/owner/removeTrip',ownerController.removeTrip);
+	router.get('/logOut', ownerController.ownerLogsOut);
 
 module.exports = router;

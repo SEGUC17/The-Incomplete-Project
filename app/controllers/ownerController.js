@@ -89,10 +89,62 @@ let ownerController = {
     })
   },
 
+  ownerLogsIn:function(req,res){
+
+      Profile.findOne({username: req.body.username}, function(err, profile) {
+          if (!profile) {
+              // display a message informing the user that the username is empty
+          } else {
+
+            //
+            //   profileID = profile._id;
+            //   Owner.findOne({profile:profileID}, function (err, ))
+              if (req.body.password === profile.password) {
+                  if (profile.isRegisteredUser) {
+                      RegisteredUser.findOne({username: profile.username}, function (err, registeredUser){
+                          let userID = registeredUser._id;
+                          req.session.data = {UserID: userID, Profile:profile}
+                          res.sendFile('registeredUserProfilePage.html',{root:"./views"});
+                      })
+
+                  }
+                  else {
+                      Owner.findOne({username: profile.username}, function (err, owner){
+                          let userID = owner._id;
+                          let companyName = owner.companyName
+                          let businessPageID = owner.businessPage;
+                          BusinessPage.findOne({_id:businessPageID}, function (err, businessPage) {
+                                if (err)
+                                    res.send(err)
+                                else {
+                                    req.session.data = {UserID: userID, CompanyName: companyNameProfile:profile, BusinessPage: businessPage}
+                                    res.sendFile('ownerProfilePage.html',{root:"./views"});
+                                }
+
+                          })
+
+
+                      })
+                  }
+                //   req.session.data = {CompanyName:};
+                  res.sendFile('ownerProfilePage.html',{root:"./views"});
+                  //send the data to the frontend
+              } else {
+                  // display a message informing the user that the password is wrong
+              }
+          }
+      });
+  },
+
+  ownerLogsOut:function(req,res){
+    req.session.destroy();
+    res.sendFile('home.html',{root:"./views"});
+  },
+
     viewProfile:function(req, res) {
 
-        let profileId = req.session.data.profile;
-        // let profileId = mongoose.Types.ObjectId("58e3aafe0b1c69d2d1778619");
+        // let profileId = req.session.data.profile;
+        let profileId = mongoose.Types.ObjectId("58e3b0870b1c69d2d177861c");
 
         Profile.findOne({_id:profileId}, function(err, profile) {
             if(err) {
@@ -100,7 +152,8 @@ let ownerController = {
                 console.log(err);
             }
             else {
-                res.send(profile);
+                // res.send(profile);
+                res.sendFile('ownerProfilePage.html', { root:"./views" });
                 //send the profile to the frontend
             }
 
@@ -111,8 +164,8 @@ let ownerController = {
       let profileId = req.session.data.profile;
       // let profileId = mongoose.Types.ObjectId("58e3aafe0b1c69d2d1778619");
 
-      Profile.update({_id:profileId},{$set:{firstName:body.firstName,lastName:body.lastName,username:body.username,
-        Password:body.Password,email:body.email,mobileNumber:body.mobileNumber,address:body.address,gender:body.gender}},function(err,results){
+      Profile.update({_id:profileId},{$set:{firstName:body.firstName,lastName:body.lastName,Password:body.Password,
+          email:body.email,mobileNumber:body.mobileNumber,address:body.address,gender:body.gender}},function(err,results){
           if(err)
             console.log(err.message);
           else {

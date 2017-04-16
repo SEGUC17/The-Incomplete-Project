@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <!-- <html ng-app="myApp" ng-controller="signup"> -->
-<html ng-app="myApp" ng-controller="signup">
+<html ng-app="myApp" ng-controller="profile">
 
 <head>
-    <title>BusinessPage</title>
+    <title>Edit My Profile</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -22,8 +22,8 @@
 
           <div class="collapse navbar-collapse">
               <ul class="nav navbar-nav navbar-right">
-                  <li><a href="/visitor/Login">Log In</a></li>
-                  <li><a href="/surf">Request a Page</a></li>
+                  <li><a href="/owner/ownerViewsBusinessPage">View My Business Page</a></li>
+                  <li><a href="/logOut">Log Out</a></li>
               </ul>
           </div>
 
@@ -32,21 +32,16 @@
 
   <div class="search container-fluid">
 
-    <form method="post" action="/visitor/SignUp">
+    <form method="post" action="/registeredUser/editProfile">
 
       <div class="form-group">
        <label for="firstName">First Name:</label>
-       <input type="text" class="form-control" name="firstName" id="firstName" required="true">
+       <input type="text" class="form-control" name="firstName" id="firstName" required="true" ng-model="firstName">
       </div>
 
       <div class="form-group">
        <label for="lastName">Last Name:</label>
        <input type="text" class="form-control" name="lastName" id="lastName" required="true">
-      </div>
-
-      <div class="form-group">
-       <label for="username">Username:</label>
-       <input type="text" class="form-control" name="username" id="username" required="true">
       </div>
 
       <div class="form-group">
@@ -74,14 +69,14 @@
        <label><input type="radio" name="gender" value="female">Female</label>
       </div>
 
-        <button type="submit" class="btn btn-default" onclick="submit2">Submit</button>
+      <button type="submit" class="btn btn-default">Submit</button>
+      <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
 
     </form>
 
 
       <script src="/public/libs/angular/angular.js"></script>
       <script src="/public/libs/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="signup.js"></script>
   </div>
 
 </body>
