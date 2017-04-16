@@ -72,6 +72,8 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.sendFile('signup.html', { root:"./views" });
 	});
 
+	router.get('/visitor/popularBusinessPages', visitorController.popularBusinessPages);
+  
 	router.post('/visitor/login', registeredUserController.registeredUserLogsIn);
 
 	router.post('/booking/placeBook2', bookingController.placeBook2);
