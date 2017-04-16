@@ -4,7 +4,7 @@ let Profile = require('../models/Profile');
 let AnEvent = require('../models/Event');
 let Place = require('../models/Place');
 let Trip = require('../models/Trip');
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
 
 
@@ -117,7 +117,7 @@ let ownerController = {
                                 if (err)
                                     res.send(err)
                                 else {
-                                    req.session.data = {UserID: userID, CompanyName: companyNameProfile:profile, BusinessPage: businessPage}
+                                    req.session.data = {UserID: userID, CompanyName: companyName, Profile:profile, BusinessPage: businessPage}
                                     res.sendFile('ownerProfilePage.html',{root:"./views"});
                                 }
 
@@ -169,37 +169,12 @@ let ownerController = {
           if(err)
             console.log(err.message);
           else {
-            // refresh
+            req.session.data.Profile = profile;
+            res.sendFile('registeredUserProfilePage.html',{root:"./views"});
           }
         });
       },
-    ownerViewsBusinessPage:function(req, res) {
 
-        let businessPageId = req.session.data.businessPage;
-        // let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
-        BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
-            if(err) {
-                res.send(err.message)
-                console.log(err);
-          }
-          else {
-              var events = [];
-              for (var i = 0; i < businessPage.events.length; i++) {
-                  var eventId = businessPage.events[i]._id
-                  AnEvent.findOne(eventId, function(err, anEvent) {
-                      if(err) {
-                          res.send(err)
-                      }
-                      else {
-                          events.push(anEvent)
-                      }
-                  })
-              }
-
-              //send the businessPage and the events
-          }
-        })
-    },
     editBusinessPage:function(req,res){
       let body = req.body;
       let businessPageId = req.session.data.businessPage;
@@ -209,8 +184,7 @@ let ownerController = {
           if(err)
             console.log(err.message);
           else {
-            res.send(businessPage);
-            //refresh the page
+            res.sendFile('viewBusinessPage.html', { root:"./views" });
           }
         });
       },
@@ -334,7 +308,7 @@ let ownerController = {
       eventController.removeEvent(req,res,eventId);
       Trip.remove({ _id: tripId });
     },
-    visitorViewsBusinessPage:function(req, res) {
+    ownerViewsBusinessPage:function(req, res) {
       //  console.log("test");
 
         // let businessPageId = req.session.data.businessPage;
@@ -347,6 +321,10 @@ let ownerController = {
             }
             else {
                 let events = [];
+                let bool = new Array(businessPage.events.length);
+                for (let i = 0; i < businessPage.events.length; i++) {
+                  bool[i] = false;
+                }
                 for (let i = 0; i < businessPage.events.length; i++) {
                     let eventId = businessPage.events[i];
                     let element = {"event":"","place":"","trip":""};
@@ -366,9 +344,14 @@ let ownerController = {
                             else {
                               element.place = place;
                               events.push(element);
-                              if(i==businessPage.events.length-1){
-                                res.json({"businessPage":businessPage,"events":events});
-                              }
+                              bool[i] = true;
+                              let andRes = true;
+
+                              for (let i = 0; i < businessPage.events.length; i++)
+                                andRes = andRes&&bool[i]
+
+                              if(andRes)
+                                res.json({"businessPage":businessPage,"events":events,"actor":"owner"});
                             }
                           })
                         }else{
@@ -377,12 +360,16 @@ let ownerController = {
                               res.send(err)
                             }
                             else {
-                              console.log(trip.startDate);
                               element.trip = trip;
                               events.push(element);
-                              if(i==businessPage.events.length-1){
+                              bool[i] = true;
+                              let andRes = true;
+
+                              for (let i = 0; i < businessPage.events.length; i++)
+                                andRes = andRes&&bool[i]
+
+                              if(andRes)
                                 res.json({"businessPage":businessPage,"events":events,"actor":"owner"});
-                              }
                             }
                           })
                         }

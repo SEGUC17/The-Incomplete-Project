@@ -54,15 +54,44 @@
         </div>
       </div>
 
-      <!-- <p>events: {{events}}</p> -->
     </div>
 
-    <div ng-repeat="image in images">
+
+    <!-- <div ng-repeat="image in images">
       <img src={{image}} width="250px"/>
-    </div>
+    </div> -->
+
+    <a ng-if="actor=='owner'" href="/owner/editBusinessPage" class="btn btn-default">Edit My BusinessPage</a>
+
+    <form ng-if="actor=='owner'" method="get" action="/owner/addPlace">
+      <button type="submit" class="btn btn-primary">Add Place</button>
+    </form>
+
+    <form ng-if="actor=='owner'" method="get" action="/owner/addTrip">
+      <button type="submit" class="btn btn-primary">Add Trip</button>
+    </form>
 
     <div class="events" ng-repeat = "event in events">
       <div class="event">
+
+        <div ng-if="actor=='owner'">
+          <form ng-if="event.event.isPlace" method="post" action="/owner/removePlace">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+
+          <form ng-if="!event.event.isPlace" method="post" action="/owner/removeTrip">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+
+          <form ng-if="event.event.isPlace" method="get" action="/owner/editPlace">
+            <button type="submit" class="btn btn-primary">Edit</button>
+          </form>
+
+          <form ng-if="!event.event.isPlace" method="get" action="/owner/editTrip">
+            <button type="submit" class="btn btn-primary">Edit</button>
+          </form>
+        </div>
+
         <p>name: {{event.event.name}}</p>
         <p>description: {{event.event.description}}</p>
         <p>price: {{event.event.price}}</p>
@@ -100,6 +129,7 @@
         <!-- abdelfattah -->
 
       </div>
+
     </div>
 
   </div>

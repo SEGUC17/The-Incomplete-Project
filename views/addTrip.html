@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="addTrip">
+
+<head>
+    <title>Add Trip</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="login.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+
+          <div class="navbar-header">
+              <a class="navbar-brand" href="/">Logo</a>
+          </div>
+
+          <div class="collapse navbar-collapse">
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/owner/ownerViewsBusinessPage">View My Business Page</a></li>
+                  <li><a href="/logOut">Log Out</a></li>
+              </ul>
+          </div>
+
+      </div>
+  </nav>
+
+  <div class="search container-fluid">
+
+    <form method="post" action="/owner/addTrip">
+
+      <div class="form-group">
+       <label for="name">Name:</label>
+       <input ng-model="name" type="text" class="form-control" name="name" id="name" required="true">
+      </div>
+
+      <div class="form-group">
+       <label for="Description">Description:</label>
+       <input ng-model="description" type="text" class="form-control" name="Description" id="Description" required="true">
+      </div>
+
+      <div class="form-group">
+       <label for="price">Price:</label>
+       <input ng-model="price" type="text" class="form-control" name="price" id="name" required="true">
+      </div>
+
+      <div class="form-group">
+        <label>mustPay: </label>
+        <input type="checkbox" name="mustPay">
+      </div>
+
+      <div class="form-group">
+          <label for="image">Image</label>
+          <input type="file" name="image" accept="image/*" id="image">
+      </div>
+
+      <div class="form-group" style="visibility: hidden;display: none">
+          <label for="isPlace">isPlace</label>
+          <input type="checkbox" name="isPlace" value="true" id="isPlace">
+      </div>
+
+      <div class="form-group">
+       <label for="startDate">Start Date:</label>
+       <input ng-model="startDate" type="datetime" class="form-control" name="startDate" value="2000-01-01T08:32Z" id="startDate" required="true">
+      </div>
+
+      <div class="form-group">
+       <label for="endDate">End Date:</label>
+       <input ng-model="endDate" type="datetime" class="form-control" name="endDate" value="2000-01-01T08:32Z" id="endDate" required="true">
+      </div>
+
+      <div class="form-group">
+       <label for="maxPeople">Max People:</label>
+       <input ng-model="maxPeople" type="text" class="form-control" name="maxPeople" id="maxPeople" required="true">
+      </div>
+
+      <button type="submit" class="btn btn-default">Submit</button>
+      <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
+
+    </form>
+
+
+      <script src="/public/libs/angular/angular.js"></script>
+      <script src="/public/libs/angular-ui-router/release/angular-ui-router.js"></script>
+  </div>
+
+</body>
+
+</html>

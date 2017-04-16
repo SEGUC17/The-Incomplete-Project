@@ -73,19 +73,54 @@ var registeredUserController = require("./controllers/registeredUserController")
 	});
 
 
+
 	router.post('/booking/placeBook2', bookingController.placeBook2);
 	router.post('/owner/register', ownerController.register);
 	router.post('/requestBusinessPage', pendingRequestsController.requestsPageCreation);
 	router.get('/owner/viewProfile', ownerController.viewProfile);
 	router.post('/owner/editProfile', ownerController.editProfile);
-	router.get('/owner/ownerViewsBusinessPage',ownerController.ownerViewsBusinessPage);
+	router.get('/owner/ownerViewsBusinessPage',function(req,res){
+		res.sendFile('viewBusinessPage.html', { root:"./views" });
+	});
+
+	// router.get('/owner/ownerViewsBusinessPage.json',function(req,res){
+	// 	res.json(req.session.data.BusinessPage);
+	// });
+
+	router.get('/owner/ownerViewsBusinessPage.json',ownerController.ownerViewsBusinessPage);
+
+
+	router.get('/owner/editBusinessPage',function(req,res){
+		res.sendFile('editBusinessPage.html', { root:"./views" });
+	});
+
+	router.get('/owner/editBusinessPag.json',function(req,res){
+		res.json(req.session.BusinessPage);
+	});
+
 	router.post('/owner/editBusinessPage',ownerController.editBusinessPage);
+
 	router.post('/owner/addPlace',ownerController.addPlace);
 	router.post('/owner/editPlace',ownerController.editPlace);
+
+	router.get('/owner/addTrip',function(req,res){
+		res.sendFile('addTrip.html', { root:"./views" });
+	});
+
+	router.get('/owner/addPlace',function(req,res){
+		res.sendFile('addPlace.html', { root:"./views" });
+	});
+
 	router.post('/owner/addTrip',ownerController.addTrip);
 	router.post('/owner/editTrip',ownerController.editTrip);
-	router.delete('/owner/removePlace',ownerController.removePlace);
-	router.delete('/owner/removeTrip',ownerController.removeTrip);
+
+	// router.post('/owner/removePlace',ownerController.removePlace);
+	// router.post('/owner/removeTrip',ownerController.removeTrip);
+
 	router.get('/logOut', ownerController.ownerLogsOut);
+
+	router.post('/test', function(req,res){
+		res.send(req.body);
+	});
 
 module.exports = router;

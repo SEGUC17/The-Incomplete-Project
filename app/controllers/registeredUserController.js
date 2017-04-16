@@ -45,7 +45,7 @@ let RegisteredUserController = {
 	//B.6
 	editProfile:function(req, res) {
 	 let body = req.body;
-     let profileId = req.session.data.Profile._id;
+	 let profileId = req.session.data.Profile._id;
      // let profileId = mongoose.Types.ObjectId("58e3aafe0b1c69d2d1778619");
 	 console.log(profileId);
      Profile.update({_id:profileId},{$set:{firstName:body.firstName,lastName:body.lastName,
@@ -58,7 +58,7 @@ let RegisteredUserController = {
 						res.send(err);
 					else {
 						console.log(profile);
-					  	req.session.data.Profile = profile;
+				  	req.session.data.Profile = profile;
 						res.sendFile('registeredUserProfilePage.html',{root:"./views"});
 					}
 				})
@@ -107,59 +107,73 @@ let RegisteredUserController = {
       // let businessPageId = req.session.data.businessPage;
      let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
 
-      BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
+		 BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
 
-          if(err) {
-            res.send(err.message)
-          }
-          else {
-              let events = [];
-              for (let i = 0; i < businessPage.events.length; i++) {
-                  let eventId = businessPage.events[i];
-                  let element = {"event":"","place":"","trip":""};
+				 if(err) {
+					 res.send(err.message)
+				 }
+				 else {
+						 let events = [];
+						 let bool = new Array(businessPage.events.length);
+						 for (let i = 0; i < businessPage.events.length; i++) {
+							 bool[i] = false;
+						 }
+						 for (let i = 0; i < businessPage.events.length; i++) {
+								 let eventId = businessPage.events[i];
+								 let element = {"event":"","place":"","trip":""};
 
-                  AnEvent.findOne({_id:eventId}, function(err, anEvent) {
-                    if(err) {
-                      res.send(err)
-                    }
-                    else {
+								 AnEvent.findOne({_id:eventId}, function(err, anEvent) {
+									 if(err) {
+										 res.send(err)
+									 }
+									 else {
 
-                      element.event = anEvent;
-                      if(anEvent.isPlace){
-                        Place.findOne({anEvent:eventId}, function(err, place) {
-                          if(err) {
-                            res.send(err)
-                          }
-                          else {
-                            element.place = place;
-                            events.push(element);
-                            if(i==businessPage.events.length-1){
-                              res.json({"businessPage":businessPage,"events":events,"actor":"user"});
-                            }
-                          }
-                        })
-                      }else{
-                        Trip.findOne({anEvent:eventId}, function(err, trip) {
-                          if(err) {
-                            res.send(err)
-                          }
-                          else {
-                            element.trip = trip;
-                            events.push(element);
-                            if(i==businessPage.events.length-1){
-                              res.json({"businessPage":businessPage,"events":events});
-                            }
-                          }
-                        })
-                      }
+										 element.event = anEvent;
+										 if(anEvent.isPlace){
+											 Place.findOne({anEvent:eventId}, function(err, place) {
+												 if(err) {
+													 res.send(err)
+												 }
+												 else {
+													 element.place = place;
+													 events.push(element);
+													 bool[i] = true;
+													 let andRes = true;
 
-                    }
+													 for (let i = 0; i < businessPage.events.length; i++)
+														 andRes = andRes&&bool[i]
 
-                  })
-              }
-          }
-      })
-  }
+													 if(andRes)
+														 res.json({"businessPage":businessPage,"events":events,"actor":"user"});
+												 }
+											 })
+										 }else{
+											 Trip.findOne({anEvent:eventId}, function(err, trip) {
+												 if(err) {
+													 res.send(err)
+												 }
+												 else {
+													 element.trip = trip;
+													 events.push(element);
+													 bool[i] = true;
+													 let andRes = true;
+
+													 for (let i = 0; i < businessPage.events.length; i++)
+														 andRes = andRes&&bool[i]
+
+													 if(andRes)
+														 res.json({"businessPage":businessPage,"events":events,"actor":"user"});
+												 }
+											 })
+										 }
+
+									 }
+
+								 })
+						 }
+				 }
+		 })
+ }
 
 }
 
