@@ -45,7 +45,7 @@ let RegisteredUserController = {
 	//B.6
 	editProfile:function(req, res) {
 	 let body = req.body;
-     let profileId = req.session.data._id;
+     let profileId = req.session.data.Profile._id;
      // let profileId = mongoose.Types.ObjectId("58e3aafe0b1c69d2d1778619");
 	 console.log(profileId);
      Profile.update({_id:profileId},{$set:{firstName:body.firstName,lastName:body.lastName,
@@ -58,7 +58,7 @@ let RegisteredUserController = {
 						res.send(err);
 					else {
 						console.log(profile);
-					  	req.session.data = profile;
+					  	req.session.data.Profile = profile;
 						res.sendFile('registeredUserProfilePage.html',{root:"./views"});
 					}
 				})
@@ -90,10 +90,12 @@ let RegisteredUserController = {
 			    })
 
 					regUser.save(function(err,user){
+						userID = regUser._id
 						if(err)
 							res.send(err);
 						else{
-							req.session.data = profile;
+							req.session.data = {UserID: userID, Profile:profile}
+
 							res.sendFile('registeredUserProfilePage.html',{root:"./views"});
 						}
 					})
