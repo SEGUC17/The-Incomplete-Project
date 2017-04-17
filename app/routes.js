@@ -70,7 +70,7 @@ var registeredUserController = require("./controllers/registeredUserController")
 
 
 	router.get('/visitor/login', function(req,res){
-		res.sendFile('signup.html', { root:"./views" });
+		res.sendFile('login.html', { root:"./views" });
 	});
 
 	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
