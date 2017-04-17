@@ -22,7 +22,7 @@ var businessPageSchema = mongoose.Schema({
         type:String
     }],
 
-    phoneNumber:[{
+    phoneNumbers:[{
         type:String,
         required:true,
         unique:true
