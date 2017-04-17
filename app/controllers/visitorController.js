@@ -53,7 +53,7 @@ let visitorController = {
             }
           }
 
-          res.json({"businessPagesResult" : businessPagesResult});
+          res.json({"SearchBusinessPagesResult" : businessPagesResult});
 
         }
   	});
