@@ -20,7 +20,7 @@ let visitorController = {
             test.push(businessPages[i]);
           }
           var max =0 ;
-          for (var i = 0; i < 6 && i < test.length; i++) {
+          for (var i = 0; i < 6 && i < businessPages.length; i++) {
             for (var j = 0; j < test.length; j++) {
             if(test[max].numberOfViews<test[j].numberOfViews)
               max = j;
@@ -30,7 +30,7 @@ let visitorController = {
           max=0;
           }
         }
-          res.json({"businessPagesResult" : businessPagesResult});
+          res.json({"popularBusinessPagesResult" : businessPagesResult});
 
     });
 
