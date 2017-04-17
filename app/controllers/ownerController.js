@@ -89,7 +89,7 @@ let ownerController = {
     })
   },
 
-  ownerLogsIn:function(req,res){
+  logsIn:function(req,res){
 
       Profile.findOne({username: req.body.username}, function(err, profile) {
           if (!profile) {
