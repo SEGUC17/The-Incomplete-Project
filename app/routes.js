@@ -23,6 +23,10 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.sendFile('signup.html',{root:"./views"});
 	});
 
+	router.get('/visitor/RequestPage',function(req,res){
+		res.sendFile('requestPage.html',{root:"./views"});
+	});
+
 	router.post('/visitor/SignUp', registeredUserController.register);
 
 	router.get('/registeredUser/Profile',function(req,res){
