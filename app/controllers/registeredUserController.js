@@ -6,26 +6,53 @@ var mongoose = require('mongoose');
 
 let RegisteredUserController = {
 
-	registeredUserLogsIn:function(req,res){
+	logIn:function(req,res){
 
-		RegisteredUser.findOne({username: req.body.username}, function(err, results) {
-            if (!results) {
+        Profile.findOne({username: req.body.username}, function(err, profile) {
+            if (!profile) {
                 // display a message informing the user that the username is empty
             } else {
-                if (req.body.password === results.password) {
-                    req.session.data = results;
 
-										if(req.body.isRegisteredUser==true)
-										res.sendFile('registeredUserProfilePage.html',{root:"./views"});
-										else
-										res.sendFile('ownerProfilePage.html',{root:"./views"});
+              //
+
+              //   Owner.findOne({profile:profileID}, function (err, ))
+                if (req.body.password === profile.password) {
+                    if (profile.isRegisteredUser) {
+						profileID = profile._id;
+                        RegisteredUser.findOne({profile: profileID}, function (err, registeredUser){
+                            let userID = registeredUser._id;
+                            req.session.data = {UserID: userID, Profile:profile}
+                            res.sendFile('registeredUserProfilePage.html',{root:"./views"});
+                        })
+
+                    }
+                    else {
+                        Owner.findOne({profile: profileID}, function (err, owner){
+                            let userID = owner._id;
+                            let companyName = owner.companyName
+                            let businessPageID = owner.businessPage;
+                            BusinessPage.findOne({_id:businessPageID}, function (err, businessPage) {
+                                  if (err)
+                                      res.send(err)
+                                  else {
+                                      req.session.data = {UserID: userID, CompanyName: companyName,Profile:profile, BusinessPage: businessPage}
+                                      res.sendFile('ownerProfilePage.html',{root:"./views"});
+                                  }
+
+                            })
+
+
+                        })
+                    }
+                  //   req.session.data = {CompanyName:};
+                    res.sendFile('ownerProfilePage.html',{root:"./views"});
                     //send the data to the frontend
                 } else {
                     // display a message informing the user that the password is wrong
                 }
             }
         });
-	},
+    },
 
 	//B.5
 	viewProfile:function(req, res) {
