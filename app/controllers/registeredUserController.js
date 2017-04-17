@@ -19,7 +19,7 @@ let RegisteredUserController = {
                 if (req.body.password === profile.password) {
                     if (profile.isRegisteredUser) {
 						profileID = profile._id;
-                        RegisteredUser.findOne({profile: profileID, function (err, registeredUser){
+                        RegisteredUser.findOne({profile: profileID}, function (err, registeredUser){
                             let userID = registeredUser._id;
                             req.session.data = {UserID: userID, Profile:profile}
                             res.sendFile('registeredUserProfilePage.html',{root:"./views"});
@@ -35,7 +35,7 @@ let RegisteredUserController = {
                                   if (err)
                                       res.send(err)
                                   else {
-                                      req.session.data = {UserID: userID, CompanyName: companyNameProfile:profile, BusinessPage: businessPage}
+                                      req.session.data = {UserID: userID, CompanyName: companyName,Profile:profile, BusinessPage: businessPage}
                                       res.sendFile('ownerProfilePage.html',{root:"./views"});
                                   }
 

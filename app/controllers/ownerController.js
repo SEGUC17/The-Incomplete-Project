@@ -102,7 +102,7 @@ let ownerController = {
               if (req.body.password === profile.password) {
                   if (profile.isRegisteredUser) {
                       profileID = profile._id;
-                      RegisteredUser.findOne({profile: profileID, function (err, registeredUser){
+                      RegisteredUser.findOne({profile: profileID}, function (err, registeredUser){
                           let userID = registeredUser._id;
                           req.session.data = {UserID: userID, Profile:profile}
                           res.sendFile('registeredUserProfilePage.html',{root:"./views"});
