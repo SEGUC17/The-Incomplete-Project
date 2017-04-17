@@ -29,7 +29,7 @@ var eventSchema = mongoose.Schema({
     // true for place , false for trip
     isPlace:{
         type:Boolean,
-        required:true
+        default:false
     }
 })
 

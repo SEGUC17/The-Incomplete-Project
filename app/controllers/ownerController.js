@@ -8,7 +8,6 @@ let mongoose = require('mongoose');
 
 
 
-// tareq's session// tareq's session// tareq's session// tareq's session// tareq's session
 
 let eventController = {
 
@@ -17,16 +16,15 @@ let eventController = {
 
     let body = req.body
     let anEvent = new AnEvent(req.body)
-    businessPageId = req.session.data.businessPage;
+    businessPageId = req.session.data.BusinessPage._id;
 
     BusinessPage.update(
       {_id: businessPageId},{$push: {events: anEvent}}
     )
   },
-  //req contains the id of the event
   editEvent:function(req, res) {
     let body = req.body
-    let eventId = body.eventsId
+    let eventId = req.session.data.eventID
     AnEvent.update(
       {_id: eventId},{$set: {
         name: body.name,
@@ -34,21 +32,41 @@ let eventController = {
         price: body.price,
         mustPay: body.mustPay,
         image: body.image
-      }}
-    )
-  },
-
-  removeEvent:function(req,res,id){
-    businessPageId = req.session.data.businessPage;
-    // businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
-    BusinessPage.update(
-      {_id: businessPageId},
-      {$pull: {events: {_id: id}}}, function(err, result) {
+      }}, function(err, result) {
           if (err)
             res.send(err)
+          else
+            res.sendFile('viewBusinessPage.html', { root:"./views" });
+      });
+  },
+
+  removeEvent:function(req,res){
+    let businessPageId = req.session.data.BusinessPage._id;
+    // let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
+    // console.log(businessPageId2);
+    // console.log(businessPageId);
+    let eventId = req.body._id;
+    let id = mongoose.Types.ObjectId(eventId);
+    // console.log(eventId);
+    // console.log(id);
+    BusinessPage.update(
+      {_id: businessPageId},
+      {$pull: {events: id}}, function(err, result1) {
+          if (err){
+            // console.log(err);
+            res.send(err)
+          }
           else {
-              AnEvent.remove({ _id: anEventId });
-              // refresh the page
+            // console.log(result1);
+            // res.send(result1);
+              AnEvent.remove({ _id: eventId }, function(err, result2) {
+                  if (err)
+                    res.send(err)
+                  else{
+                    // console.log(result2.result);
+                    res.sendFile('viewBusinessPage.html', { root:"./views" });
+                  }
+              });
           }
       }
     )
@@ -82,59 +100,11 @@ let ownerController = {
           if(err)
           res.send(err)
           else {
-            //go to the home page
+            res.sendFile('registeredUserProfilePage.html',{root:"./views"});
           }
         })
       }
     })
-  },
-
-  logIn:function(req,res){
-
-      Profile.findOne({username: req.body.username}, function(err, profile) {
-          if (!profile) {
-              // display a message informing the user that the username is empty
-          } else {
-
-            //
-
-            //   Owner.findOne({profile:profileID}, function (err, ))
-              if (req.body.password === profile.password) {
-                  if (profile.isRegisteredUser) {
-                      profileID = profile._id;
-                      RegisteredUser.findOne({profile: profileID}, function (err, registeredUser){
-                          let userID = registeredUser._id;
-                          req.session.data = {UserID: userID, Profile:profile}
-                          res.sendFile('registeredUserProfilePage.html',{root:"./views"});
-                      })
-
-                  }
-                  else {
-                      Owner.findOne({profile: profileID}, function (err, owner){
-                          let userID = owner._id;
-                          let companyName = owner.companyName
-                          let businessPageID = owner.businessPage;
-                          BusinessPage.findOne({_id:businessPageID}, function (err, businessPage) {
-                                if (err)
-                                    res.send(err)
-                                else {
-                                    req.session.data = {UserID: userID, CompanyName: companyName, Profile:profile, BusinessPage: businessPage}
-                                    res.sendFile('ownerProfilePage.html',{root:"./views"});
-                                }
-
-                          })
-
-
-                      })
-                  }
-                //   req.session.data = {CompanyName:};
-                  res.sendFile('ownerProfilePage.html',{root:"./views"});
-                  //send the data to the frontend
-              } else {
-                  // display a message informing the user that the password is wrong
-              }
-          }
-      });
   },
 
   ownerLogsOut:function(req,res){
@@ -144,25 +114,21 @@ let ownerController = {
 
     viewProfile:function(req, res) {
 
-        // let profileId = req.session.data.profile;
+        let profileId = req.session.data.profile;
 
         Profile.findOne({_id:profileId}, function(err, profile) {
             if(err) {
                 res.send(err.message)
-                // console.log(err);
             }
             else {
-                // res.send(profile);
                 res.sendFile('ownerProfilePage.html', { root:"./views" });
-                //send the profile to the frontend
             }
 
         })
     },
     editProfile:function(req,res){
       let body = req.body;
-      // let profileId = req.session.data.profile;
-      let profileId = mongoose.Types.ObjectId("58e69a9f727fd51fdd784ad4");
+      let profileId = req.session.data.profile;
 
       Profile.update({_id:profileId},{$set:{firstName:body.firstName,lastName:body.lastName,Password:body.Password,
           email:body.email,mobileNumber:body.mobileNumber,address:body.address,gender:body.gender}},function(err,results){
@@ -177,8 +143,8 @@ let ownerController = {
 
     editBusinessPage:function(req,res){
       let body = req.body;
-      // let businessPageId = req.session.data.businessPage;
-      let businessPageId = mongoose.Types.ObjectId("58e8c0a54c696e01a6646ccb");
+      let businessPageId = req.session.data.BusinessPage._id;
+
       BusinessPage.update({_id:businessPageId},{$set:{name:body.name,profileImg:body.profileImg,images:body.images,description:body.description,
         addresses:body.addresses,phoneNumber:body.phoneNumber}},function(err,businessPage){
           if(err)
@@ -191,7 +157,12 @@ let ownerController = {
 
     addPlace:function(req, res) {
 
-      let body = req.body
+      let body = req.body;
+
+      if(body.mustPay==undefined)
+        body.mustPay= 'false';
+
+      let businessPageId = req.session.data.BusinessPage._id;
       let anEvent = new AnEvent({
         name: body.name,
         description: body.description,
@@ -202,43 +173,48 @@ let ownerController = {
       })
       anEvent.save(function(err, anEvent) {
         if (err)
-          res.send(err.message)
+          res.send(err)
         else{
           let place = new Place({anEvent:anEvent._id,openingTimes:body.openingTimes,period:body.period});
           place.save(function(err, place) {
             if (err)
-              res.send(err.message)
+              res.send(err)
             else{
-              //refresh
-              res.send("done")
-              // console.log(res);
+              BusinessPage.update({_id: businessPageId},{$push: {events: anEvent}},function(err,result){
+                if(err)
+                  res.send(err)
+                else {
+                  res.sendFile('viewBusinessPage.html', { root:"./views" });
+                }
+              })
             }
           })
-
         }
-
       })
     },
 
     editPlace:function(req,res){
-      let body = req.body
-      let placeId = body.placeId
-    //   let placeId = mongoose.Types.ObjectId("58e3c4ba9fa4e9164f0714c0");
-      eventController.editEvent(req,res);
+      let body = req.body;
+      let eventId = req.session.data.eventID;
       Place.update(
-        {_id: placeId},{$set: {
+        {anEvent: eventId},{$set: {
           openingTimes: body.openingTimes,
           period: body.period
         }}, function(err, place) {
                 if(err)
                     res.send(err);
                 else
-                    res.send(place)
+                  eventController.editEvent(req,res);
             })
     },
 
     addTrip:function(req, res) {
       let body = req.body
+
+      if(body.mustPay==undefined)
+        body.mustPay= 'false';
+
+      let businessPageId = req.session.data.BusinessPage._id;
       let anEvent = new AnEvent({
         name: body.name,
         description: body.description,
@@ -257,8 +233,13 @@ let ownerController = {
             if (err)
               res.send(err)
             else{
-              //refresh
-               res.send(result)
+              BusinessPage.update({_id: businessPageId},{$push: {events: anEvent}},function(err,result){
+                if(err)
+                  res.send(err)
+                else {
+                  res.sendFile('viewBusinessPage.html', { root:"./views" });
+                }
+              })
             }
           })
         }
@@ -267,52 +248,54 @@ let ownerController = {
 
     editTrip:function(req,res){
       let body = req.body
-      let tripId = body.tripId
-    //   let tripId = mongoose.Types.ObjectId("58e3d3fbc633a71fa3b716a3");
-      eventController.editEvent(req,res);
+      let eventId = req.session.data.eventID
+
       Trip.update(
-        {_id: tripId},{$set: {
+        {anEvent: eventId},{$set: {
           startDate: body.startDate,
           endDate: body.endDate,
           maxPeople: body.maxPeople
       }}, function(err, result) {
             if (err)
                 res.send(err)
-            else
-                res.send(result)
+            else{
+              eventController.editEvent(req,res);
+            }
       }
       )
     },
 
     removePlace:function(req,res){
       let body = req.body;
-      let placeId = body.placeId
-    //   let placeId = mongoose.Types.ObjectId("58e3c4ba9fa4e9164f0714c0");
-      let eventId = body.eventId
-    //   let eventId = mongoose.Types.ObjectId("58e3c4ba9fa4e9164f0714bf");
-
-      eventController.removeEvent(req,res,eventId);
-    //   eventController.removeEvent(req,res,"58e3c4ba9fa4e9164f0714bf");
-      Place.remove({ _id: placeId }, function(err, result) {
+      let eventId = req.body._id;
+      console.log(eventId);
+      Place.remove({ anEvent: eventId }, function(err, result) {
           if (err)
             res.send(err)
-          else
-            res.send(result)
+          else{
+            console.log(result.result);
+            eventController.removeEvent(req,res);
+          }
       });
     },
     // the same as removePlace so it was not tested
     removeTrip:function(req,res){
       let body = req.body;
-      let tripId = body.tripId
-      let eventId = body.eventId
-      eventController.removeEvent(req,res,eventId);
-      Trip.remove({ _id: tripId });
+      let eventId = req.body._id
+      console.log(eventId);
+      Trip.remove({ anEvent: eventId }, function(err, result) {
+          if (err)
+            res.send(err)
+          else{
+            console.log(result.result);
+            eventController.removeEvent(req,res);
+          }
+      });
     },
     ownerViewsBusinessPage:function(req, res) {
-      //  console.log("test");
 
-        // let businessPageId = req.session.data.businessPage;
-       let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
+        let businessPageId = req.session.data.BusinessPage._id;
+      //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
 
         BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
 
@@ -322,9 +305,14 @@ let ownerController = {
             else {
                 let events = [];
                 let bool = new Array(businessPage.events.length);
+
                 for (let i = 0; i < businessPage.events.length; i++) {
                   bool[i] = false;
                 }
+
+                if(businessPage.events.length==0)
+                  res.json({"businessPage":businessPage,"events":[]});
+
                 for (let i = 0; i < businessPage.events.length; i++) {
                     let eventId = businessPage.events[i];
                     let element = {"event":"","place":"","trip":""};
@@ -351,7 +339,7 @@ let ownerController = {
                                 andRes = andRes&&bool[i]
 
                               if(andRes)
-                                res.json({"businessPage":businessPage,"events":events,"actor":"owner"});
+                                res.json({"businessPage":businessPage,"events":events});
                             }
                           })
                         }else{
@@ -369,7 +357,7 @@ let ownerController = {
                                 andRes = andRes&&bool[i]
 
                               if(andRes)
-                                res.json({"businessPage":businessPage,"events":events,"actor":"owner"});
+                                res.json({"businessPage":businessPage,"events":events});
                             }
                           })
                         }

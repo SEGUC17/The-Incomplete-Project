@@ -31,7 +31,7 @@
 
   <div class="search container-fluid">
 
-    <form method="post" action="/owner/addTrip">
+    <form method="post" action="/owner/addPlace" id="form">
 
       <div class="form-group">
        <label for="name">Name:</label>
@@ -40,7 +40,7 @@
 
       <div class="form-group">
        <label for="Description">Description:</label>
-       <input ng-model="description" type="text" class="form-control" name="Description" id="Description" required="true">
+       <input ng-model="description" type="text" class="form-control" name="description" id="Description" required="true">
       </div>
 
       <div class="form-group">
@@ -55,7 +55,7 @@
 
       <div class="form-group">
           <label for="image">Image</label>
-          <input type="file" name="image" accept="image/*" id="image">
+          <input type="file" name="pic" accept="image/*" id="image">
       </div>
 
       <div class="form-group" style="visibility: hidden;display: none">
@@ -63,19 +63,14 @@
           <input type="checkbox" name="isPlace" value="true" id="isPlace">
       </div>
 
-      <div class="form-group">
-       <label for="maxPeople">Max People:</label>
-       <input ng-model="maxPeople" type="text" class="form-control" name="maxPeople" id="maxPeople" required="true">
-      </div>
-
       <div>
         <label >Opening times</label>
         <fieldset  data-ng-repeat="choice in choices">
-          <input type="datetime" class="form-control" name="choice.name" value="2000-01-01T08:32Z">
-          <button class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
+          <input type="datetime" class="form-control" name="openingTimes" value="Fri Sep 16 2011 19:05:17 GMT+0900 (JST)">
+          <button type="button" class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
         </fieldset>
 
-        <button class="addfields" ng-click="addNewChoice()">Add fields</button></br>
+        <button type="button" class="addfields" ng-click="addNewChoice()">Add fields</button></br>
       </div>
 
       <div class="form-group">
@@ -83,7 +78,8 @@
        <input ng-model="period" type="Number" class="form-control" name="period" id="period" required="true">
       </div>
 
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="button" class="btn btn-default" id="btn">Submit</button>
+      <!-- <button type="submit" class="btn btn-default" id="submit">"""Submit"""</button> -->
       <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
 
     </form>
@@ -92,6 +88,7 @@
       <script src="/public/libs/angular/angular.js"></script>
       <script src="/public/libs/angular-ui-router/release/angular-ui-router.js"></script>
       <script src="../addPlace.js"></script>
+
   </div>
 
 </body>

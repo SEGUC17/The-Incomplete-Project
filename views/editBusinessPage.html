@@ -35,7 +35,7 @@
 
       <div class="form-group">
        <label for="name">Name:</label>
-       <input ng-model="name" type="text" class="form-control" name="name" id="name" required="true" ng-model="firstName">
+       <input ng-model="name" type="text" class="form-control" name="name" id="name" required="true">
       </div>
 
       <div class="form-group">
@@ -49,7 +49,7 @@
       </div>
 
       <label>Addresses:</label>
-      <div class="form-group" ng-repeat="Address in Addresses">
+      <div class="form-group" ng-repeat="Address in addresses">
        <input type="text" class="form-control" name="addresses" id="address" value="{{Address}}">
       </div>
 

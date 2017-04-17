@@ -15,7 +15,7 @@
 
 <body>
   <nav class="navbar navbar-default">
-      <div class="container-fluid">
+    <div class="container-fluid">
 
           <div class="navbar-header">
               <a class="navbar-brand" href="/">Logo</a>
@@ -76,18 +76,22 @@
 
         <div ng-if="actor=='owner'">
           <form ng-if="event.event.isPlace" method="post" action="/owner/removePlace">
+            <input ng-model="event.event._id" type="text" class="form-control" name="_id" required="true" style="visibility:hidden;display:none">
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
 
           <form ng-if="!event.event.isPlace" method="post" action="/owner/removeTrip">
+            <input ng-model="event.event._id" type="text" class="form-control" name="_id" required="true" style="visibility:hidden;display:none">
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
 
-          <form ng-if="event.event.isPlace" method="get" action="/owner/editPlace">
+          <form ng-if="event.event.isPlace" method="post" action="/owner/editPlace">
+            <input ng-model="event.event._id" type="text" class="form-control" name="_id" required="true" style="visibility:hidden;display:none">
             <button type="submit" class="btn btn-primary">Edit</button>
           </form>
 
-          <form ng-if="!event.event.isPlace" method="get" action="/owner/editTrip">
+          <form ng-if="!event.event.isPlace" method="post" action="/owner/editTrip">
+            <input ng-model="event.event._id" type="text" class="form-control" name="_id" required="true" style="visibility:hidden;display:none">
             <button type="submit" class="btn btn-primary">Edit</button>
           </form>
         </div>
@@ -96,10 +100,10 @@
         <p>description: {{event.event.description}}</p>
         <p>price: {{event.event.price}}</p>
 
-        <img ng-if="" src = {{event.event.image}} width="100px"/>
+        <img src = {{event.event.image}} width="100px"/>
 
 
-        <!-- lessa image date format-->
+        <!-- lessa image-->
 
 
 
@@ -121,10 +125,13 @@
         </div>
 
         <!-- abdelfattah event.event._id hatgeblak id-->
-        <button type="button" class="btn btn-primary">Pay</button>
+        <div ng-if="actor=='user'">
 
-        <div ng-if="!event.event.mustPay">
-          <button type="button" class="btn btn-primary">Book</button>
+          <button  type="button" class="btn btn-primary">Pay</button>
+
+          <div ng-if="!event.event.mustPay">
+            <button type="button" class="btn btn-primary">Book</button>
+          </div>
         </div>
         <!-- abdelfattah -->
 

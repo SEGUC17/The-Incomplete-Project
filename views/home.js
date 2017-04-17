@@ -1,6 +1,10 @@
 var myApp = angular.module('myApp', []);
 
 myApp.controller('homeController', function($scope, $http, $timeout, $interval, $window){
+  $http.get("http://localhost:8080/actor.json").then(function(response){
+    $scope.actor = response.data.actor;
+   });
+
     $scope.popularBusinessPagesList = "popularBusinessPagesList.html";
     $scope.searchBusinessPagesList = "searchBusinessPagesList.html";
     $http.get("http://localhost:8080/visitor/popularBusinessPages").then(function(collection){

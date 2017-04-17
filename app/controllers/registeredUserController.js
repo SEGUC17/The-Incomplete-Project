@@ -1,7 +1,8 @@
 let RegisteredUser = require('../models/RegisteredUser');
 let Profile = require('../models/Profile');
 var mongoose = require('mongoose');
-
+let Owner = require('../models/Owner');
+let BusinessPage = require('../models/BusinessPage')
 
 
 let RegisteredUserController = {
@@ -10,22 +11,18 @@ let RegisteredUserController = {
 
         Profile.findOne({username: req.body.username}, function(err, profile) {
             if (!profile) {
-                // display a message informing the user that the username is empty
+                res.send("username not found");
             } else {
+                if (req.body.Password === profile.Password) {
+									profileID = profile._id;
+                  if (profile.isRegisteredUser) {
+                      RegisteredUser.findOne({profile: profileID}, function (err, registeredUser){
+                          let userID = registeredUser._id;
+                          req.session.data = {UserID: userID, Profile:profile};
+                          res.sendFile('registeredUserProfilePage.html',{root:"./views"});
+                      })
 
-              //
-
-              //   Owner.findOne({profile:profileID}, function (err, ))
-                if (req.body.password === profile.password) {
-                    if (profile.isRegisteredUser) {
-						profileID = profile._id;
-                        RegisteredUser.findOne({profile: profileID}, function (err, registeredUser){
-                            let userID = registeredUser._id;
-                            req.session.data = {UserID: userID, Profile:profile}
-                            res.sendFile('registeredUserProfilePage.html',{root:"./views"});
-                        })
-
-                    }
+                  }
                     else {
                         Owner.findOne({profile: profileID}, function (err, owner){
                             let userID = owner._id;
@@ -35,7 +32,7 @@ let RegisteredUserController = {
                                   if (err)
                                       res.send(err)
                                   else {
-                                      req.session.data = {UserID: userID, CompanyName: companyName,Profile:profile, BusinessPage: businessPage}
+                                      req.session.data = {UserID: userID, CompanyName: companyName,Profile:profile, BusinessPage: businessPage};
                                       res.sendFile('ownerProfilePage.html',{root:"./views"});
                                   }
 
@@ -44,11 +41,8 @@ let RegisteredUserController = {
 
                         })
                     }
-                  //   req.session.data = {CompanyName:};
-                    res.sendFile('ownerProfilePage.html',{root:"./views"});
-                    //send the data to the frontend
                 } else {
-                    // display a message informing the user that the password is wrong
+                    res.send("wrong password");
                 }
             }
         });
@@ -116,7 +110,7 @@ let RegisteredUserController = {
 			 res.send(err)
 		 else {
 			 let regUser = new RegisteredUser({
-					 _id:profile._id
+					 profile:profile._id
 			 })
 
 			 regUser.save(function(err,user){
@@ -131,81 +125,7 @@ let RegisteredUserController = {
 			 })
 		 }
 		});
-  },
-	userViewsBusinessPage:function(req, res) {
-    //  console.log("test");
-
-      // let businessPageId = req.session.data.businessPage;
-     let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
-
-		 BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
-
-				 if(err) {
-					 res.send(err.message)
-				 }
-				 else {
-						 let events = [];
-						 let bool = new Array(businessPage.events.length);
-						 for (let i = 0; i < businessPage.events.length; i++) {
-							 bool[i] = false;
-						 }
-						 for (let i = 0; i < businessPage.events.length; i++) {
-								 let eventId = businessPage.events[i];
-								 let element = {"event":"","place":"","trip":""};
-
-								 AnEvent.findOne({_id:eventId}, function(err, anEvent) {
-									 if(err) {
-										 res.send(err)
-									 }
-									 else {
-
-										 element.event = anEvent;
-										 if(anEvent.isPlace){
-											 Place.findOne({anEvent:eventId}, function(err, place) {
-												 if(err) {
-													 res.send(err)
-												 }
-												 else {
-													 element.place = place;
-													 events.push(element);
-													 bool[i] = true;
-													 let andRes = true;
-
-													 for (let i = 0; i < businessPage.events.length; i++)
-														 andRes = andRes&&bool[i]
-
-													 if(andRes)
-														 res.json({"businessPage":businessPage,"events":events,"actor":"user"});
-												 }
-											 })
-										 }else{
-											 Trip.findOne({anEvent:eventId}, function(err, trip) {
-												 if(err) {
-													 res.send(err)
-												 }
-												 else {
-													 element.trip = trip;
-													 events.push(element);
-													 bool[i] = true;
-													 let andRes = true;
-
-													 for (let i = 0; i < businessPage.events.length; i++)
-														 andRes = andRes&&bool[i]
-
-													 if(andRes)
-														 res.json({"businessPage":businessPage,"events":events,"actor":"user"});
-												 }
-											 })
-										 }
-
-									 }
-
-								 })
-						 }
-				 }
-		 })
- }
-
+  }
 }
 
 module.exports = RegisteredUserController;

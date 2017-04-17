@@ -6,8 +6,9 @@ var ownerController = require("./controllers/ownerController");
 var visitorController = require("./controllers/visitorController");
 var bookingController = require("./controllers/bookingController");
 var registeredUserController = require("./controllers/registeredUserController");
-
-
+var Place = require("./models/Place");
+var Trip = require("./models/Trip");
+var anEvent = require("./models/Event");
 
 
 	// app.get('/api/me', passport.authenticate('basic', { session: false }), function(req, res) {
@@ -55,9 +56,9 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.json(req.session.data);
 	});
 
-	router.post('/Login',function(req,res){
-		res.sendFile('profile.html',{root:"./views"});
-	});
+	// router.post('/Login',function(req,res){
+	// 	res.sendFile('profile.html',{root:"./views"});
+	// });
 
 
 	router.get('/a',function(req,res){
@@ -67,9 +68,6 @@ var registeredUserController = require("./controllers/registeredUserController")
 	router.get('/visitor/viewBusinessPage',function(req,res){
 		res.sendFile('viewBusinessPage.html', { root:"./views" });
 	});
-
-
-	router.get('/user/viewBusinessPage.json',registeredUserController.userViewsBusinessPage);
 
 	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
 
@@ -81,8 +79,8 @@ var registeredUserController = require("./controllers/registeredUserController")
 	router.get('/visitor/login', function(req,res){
 		res.sendFile('login.html', { root:"./views" });
 	});
-	router.post('/visitor/login', registeredUserController.logIn);
 
+	router.post('/visitor/login', registeredUserController.logIn);
 
 	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
 	router.get('/visitor/popularBusinessPages', visitorController.popularBusinessPages);
@@ -108,30 +106,97 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.sendFile('editBusinessPage.html', { root:"./views" });
 	});
 
-	router.get('/owner/editBusinessPag.json',function(req,res){
-		res.json(req.session.BusinessPage);
+	router.get('/owner/editBusinessPage.json',function(req,res){
+		console.log(req.session.data.BusinessPage);
+		res.json(req.session.data.BusinessPage);
 	});
 
 	router.post('/owner/editBusinessPage',ownerController.editBusinessPage);
 
-	router.post('/owner/addPlace',ownerController.addPlace);
-	router.post('/owner/editPlace',ownerController.editPlace);
-
-	router.get('/owner/addTrip',function(req,res){
-		res.sendFile('addTrip.html', { root:"./views" });
-	});
 
 	router.get('/owner/addPlace',function(req,res){
 		res.sendFile('addPlace.html', { root:"./views" });
 	});
+	router.post('/owner/addPlace',ownerController.addPlace);
 
+	router.post('/owner/editPlace',function(req,res){
+		req.session.data.eventID = req.body._id;
+		res.sendFile('editPlace.html', { root:"./views" });
+	});
+
+	router.get('/owner/editPlace.json',function(req,res){
+		let id = req.session.data.eventID;
+		anEvent.findOne({_id:id},function(err,AnEvent){
+			if(err)
+				res.send(err.message)
+			else{
+				Place.findOne({anEvent:id},function(err,place){
+					if(err)
+						res.send(err.message);
+					else {
+						console.log(AnEvent);
+						res.json({"event":AnEvent,"place":place});
+					}
+				})
+			}
+		});
+
+	});
+	router.post('/owner/editPlace.post',ownerController.editPlace);
+
+
+	router.get('/owner/addTrip',function(req,res){
+		res.sendFile('addTrip.html', { root:"./views" });
+	});
 	router.post('/owner/addTrip',ownerController.addTrip);
-	router.post('/owner/editTrip',ownerController.editTrip);
 
-	// router.post('/owner/removePlace',ownerController.removePlace);
-	// router.post('/owner/removeTrip',ownerController.removeTrip);
+	router.post('/owner/editTrip',function(req,res){
+		req.session.data.eventID = req.body._id;
+		res.sendFile('editTrip.html', { root:"./views" });
+	});
+
+	router.get('/owner/editTrip.json',function(req,res){
+		let id = req.session.data.eventID;
+		anEvent.findOne({_id:id},function(err,AnEvent){
+			if(err)
+				res.send(err.message)
+			else{
+				Trip.findOne({anEvent:id},function(err,trip){
+					if(err)
+						res.send(err.message);
+					else {
+						// console.log(AnEvent);
+						res.json({"event":AnEvent,"trip":trip});
+					}
+				})
+			}
+		});
+
+	});
+	router.post('/owner/editTrip.post',ownerController.editTrip);
+
+	router.post('/owner/removePlace',ownerController.removePlace);
+	router.post('/owner/removeTrip',ownerController.removeTrip);
 
 	router.get('/logOut', ownerController.ownerLogsOut);
+
+	router.get('/actor.json',function(req,res){
+		let actor="";
+		if(req.session==undefined){
+			actor = "visitor";
+		}else{
+			if(req.session.data==undefined)
+				actor = "visitor"
+			else {
+				if(req.session.data.Profile.isRegisteredUser)
+					actor = 'user'
+				else {
+					actor = 'owner'
+				}
+			}
+		}
+		res.json({"actor":actor});
+	})
 
 	router.post('/test', function(req,res){
 		res.send(req.body);
