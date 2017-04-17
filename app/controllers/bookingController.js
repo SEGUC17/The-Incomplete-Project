@@ -93,12 +93,6 @@ else { if(Trip.maxPeople==payersCount) {
     );
  }
 
-
-
-
-
-
-
 };
 
 module.exports = bookingController;

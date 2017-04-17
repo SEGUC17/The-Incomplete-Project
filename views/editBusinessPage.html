@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="editBusinessPage">
+
+<head>
+    <title>Edit My BusinessPage</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="login.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+
+          <div class="navbar-header">
+              <a class="navbar-brand" href="/">Logo</a>
+          </div>
+
+          <div class="collapse navbar-collapse">
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/owner/ownerViewsBusinessPage">View My Business Page</a></li>
+                  <li><a href="/logOut">Log Out</a></li>
+              </ul>
+          </div>
+
+      </div>
+  </nav>
+
+  <div class="search container-fluid">
+
+    <form method="post" action="/owner/editBusinessPage">
+
+      <div class="form-group">
+       <label for="name">Name:</label>
+       <input ng-model="name" type="text" class="form-control" name="name" id="name" required="true" ng-model="firstName">
+      </div>
+
+      <div class="form-group">
+       <label for="Description">Description:</label>
+       <input ng-model="description" type="text" class="form-control" name="Description" id="Description" required="true">
+      </div>
+
+      <label>Phone Numbers:</label>
+      <div class="form-group" ng-repeat="phoneNumber in phoneNumbers">
+       <input type="text" class="form-control" name="phoneNumbers" id="phoneNumber" value="{{phoneNumber}}">
+      </div>
+
+      <label>Addresses:</label>
+      <div class="form-group" ng-repeat="Address in Addresses">
+       <input type="text" class="form-control" name="addresses" id="address" value="{{Address}}">
+      </div>
+
+      <button type="submit" class="btn btn-default">Submit</button>
+      <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
+
+    </form>
+
+
+      <script src="/public/libs/angular/angular.js"></script>
+      <script src="/public/libs/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="../editBusinessPage.js"></script>
+  </div>
+
+</body>
+
+</html>
