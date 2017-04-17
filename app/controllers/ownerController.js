@@ -144,12 +144,11 @@ let ownerController = {
     viewProfile:function(req, res) {
 
         // let profileId = req.session.data.profile;
-        let profileId = mongoose.Types.ObjectId("58e3b0870b1c69d2d177861c");
 
         Profile.findOne({_id:profileId}, function(err, profile) {
             if(err) {
                 res.send(err.message)
-                console.log(err);
+                // console.log(err);
             }
             else {
                 // res.send(profile);
@@ -161,13 +160,13 @@ let ownerController = {
     },
     editProfile:function(req,res){
       let body = req.body;
-      let profileId = req.session.data.profile;
-      // let profileId = mongoose.Types.ObjectId("58e3aafe0b1c69d2d1778619");
+      // let profileId = req.session.data.profile;
+      let profileId = mongoose.Types.ObjectId("58e69a9f727fd51fdd784ad4");
 
       Profile.update({_id:profileId},{$set:{firstName:body.firstName,lastName:body.lastName,Password:body.Password,
           email:body.email,mobileNumber:body.mobileNumber,address:body.address,gender:body.gender}},function(err,results){
           if(err)
-            console.log(err.message);
+            res.send(err.message)
           else {
             req.session.data.Profile = profile;
             res.sendFile('registeredUserProfilePage.html',{root:"./views"});
@@ -177,12 +176,12 @@ let ownerController = {
 
     editBusinessPage:function(req,res){
       let body = req.body;
-      let businessPageId = req.session.data.businessPage;
-      // let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
+      // let businessPageId = req.session.data.businessPage;
+      let businessPageId = mongoose.Types.ObjectId("58e8c0a54c696e01a6646ccb");
       BusinessPage.update({_id:businessPageId},{$set:{name:body.name,profileImg:body.profileImg,images:body.images,description:body.description,
         addresses:body.addresses,phoneNumber:body.phoneNumber}},function(err,businessPage){
           if(err)
-            console.log(err.message);
+            res.send(err.message)
           else {
             res.sendFile('viewBusinessPage.html', { root:"./views" });
           }
@@ -202,16 +201,16 @@ let ownerController = {
       })
       anEvent.save(function(err, anEvent) {
         if (err)
-          res.send(err)
+          res.send(err.message)
         else{
           let place = new Place({anEvent:anEvent._id,openingTimes:body.openingTimes,period:body.period});
-          place.save(function(err, res) {
+          place.save(function(err, place) {
             if (err)
-              res.send(err)
+              res.send(err.message)
             else{
               //refresh
-              res.send(res)
-              console.log(res);
+              res.send("done")
+              // console.log(res);
             }
           })
 

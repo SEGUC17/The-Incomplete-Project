@@ -14,7 +14,11 @@ let RegisteredUserController = {
             } else {
                 if (req.body.password === results.password) {
                     req.session.data = results;
-					res.sendFile('registeredUserProfilePage.html',{root:"./views"});
+
+										if(req.body.isRegisteredUser==true)
+										res.sendFile('registeredUserProfilePage.html',{root:"./views"});
+										else
+										res.sendFile('ownerProfilePage.html',{root:"./views"});
                     //send the data to the frontend
                 } else {
                     // display a message informing the user that the password is wrong
