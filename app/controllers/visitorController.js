@@ -7,6 +7,35 @@ let mongoose = require('mongoose');
 
 let visitorController = {
 
+  popularBusinessPages:function(req, res) {
+    var businessPagesResult = [];
+    // get all businessPages
+    BusinessPage.find(function(err, businessPages) {
+        if(err){
+          res.send(err.message)
+        }
+        else {
+          var test = [];
+          for (var i = 0; i < businessPages.length; i++) {
+            test.push(businessPages[i]);
+          }
+          var max =0 ;
+          for (var i = 0; i < 6 && i < businessPages.length; i++) {
+            for (var j = 0; j < test.length; j++) {
+            if(test[max].numberOfViews<test[j].numberOfViews)
+              max = j;
+            }
+          businessPagesResult.push(test[max]);
+          test.splice(max,1);
+          max=0;
+          }
+        }
+          res.json({"popularBusinessPagesResult" : businessPagesResult});
+
+    });
+
+  },
+
   searchBusinessPages:function(req, res) {
     let body = req.body;
     var searchWord = body.searchWord;
@@ -24,8 +53,7 @@ let visitorController = {
             }
           }
 
-
-          //send businessPagesResult to the frontend
+          res.json({"SearchBusinessPagesResult" : businessPagesResult});
 
         }
   	});
@@ -38,6 +66,7 @@ let visitorController = {
       let businessPageId = req.session.data.businessPage;
     //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
     BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
+
 
         if(err) {
           res.send(err.message)

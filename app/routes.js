@@ -23,6 +23,10 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.sendFile('signup.html',{root:"./views"});
 	});
 
+	router.get('/visitor/RequestPage',function(req,res){
+		res.sendFile('requestPage.html',{root:"./views"});
+	});
+
 	router.post('/visitor/SignUp', registeredUserController.register);
 
 	router.get('/registeredUser/Profile',function(req,res){
@@ -64,15 +68,20 @@ var registeredUserController = require("./controllers/registeredUserController")
 		res.sendFile('viewBusinessPage.html', { root:"./views" });
 	});
 
+
 	router.get('/user/viewBusinessPage.json',registeredUserController.userViewsBusinessPage);
 
 	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
 
-	router.get('/visitor/login', function(req,res){
-		res.sendFile('signup.html', { root:"./views" });
-	});
 
+	router.get('/visitor/login', function(req,res){
+		res.sendFile('login.html', { root:"./views" });
+	});
 	router.post('/visitor/login', registeredUserController.logIn);
+
+
+	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
+	router.get('/visitor/popularBusinessPages', visitorController.popularBusinessPages);
 
 
 	router.post('/booking/placeBook2', bookingController.placeBook2);
