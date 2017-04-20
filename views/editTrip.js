@@ -1,4 +1,4 @@
-angular.module('myApp', []).controller('addPlace', function($scope,$document) {
+angular.module('myApp', []).controller('editTrip', function($scope,$http) {
 
   // let form = document.getElementById('form');
   let btn = document.getElementById('btn');
@@ -31,16 +31,11 @@ angular.module('myApp', []).controller('addPlace', function($scope,$document) {
     }
   }
 
-  $scope.choices = [{id: 'choice1','name':"openingTimes"}];
+  $http.get("http://localhost:8080/owner/editTrip.json").then(function(response){
+    $scope.event = response.data.event;
+    $scope.trip = response.data.trip;
+    alert($scope.event.toSource());
+    alert($scope.trip.toSource());
 
-  $scope.addNewChoice = function() {
-    var newItemNo = $scope.choices.length+1;
-    $scope.choices.push({'id':'choice'+newItemNo,'name':"openingTimes"});
-  };
-
-  $scope.removeChoice = function() {
-    var lastItem = $scope.choices.length-1;
-    $scope.choices.splice(lastItem);
-  };
-
+  });
 });

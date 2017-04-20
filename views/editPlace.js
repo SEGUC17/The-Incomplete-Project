@@ -1,5 +1,5 @@
-angular.module('myApp', []).controller('addPlace', function($scope,$document) {
-
+angular.module('myApp', []).controller('editPlace', function($scope,$http) {
+  
   // let form = document.getElementById('form');
   let btn = document.getElementById('btn');
   btn.onclick = function() {
@@ -31,7 +31,11 @@ angular.module('myApp', []).controller('addPlace', function($scope,$document) {
     }
   }
 
-  $scope.choices = [{id: 'choice1','name':"openingTimes"}];
+  $http.get("http://localhost:8080/owner/editPlace.json").then(function(response){
+    $scope.event = response.data.event;
+    $scope.place = response.data.place;
+  });
+  $scope.choices = [];
 
   $scope.addNewChoice = function() {
     var newItemNo = $scope.choices.length+1;

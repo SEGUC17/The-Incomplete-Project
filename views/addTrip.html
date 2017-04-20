@@ -31,21 +31,21 @@
 
   <div class="search container-fluid">
 
-    <form method="post" action="/owner/addTrip">
+    <form method="post" action="/owner/addTrip" id="form">
 
       <div class="form-group">
        <label for="name">Name:</label>
-       <input ng-model="name" type="text" class="form-control" name="name" id="name" required="true">
+       <input type="text" class="form-control" name="name" id="name" required="true">
       </div>
 
       <div class="form-group">
        <label for="Description">Description:</label>
-       <input ng-model="description" type="text" class="form-control" name="Description" id="Description" required="true">
+       <input  type="text" class="form-control" name="description" id="Description" required="true">
       </div>
 
       <div class="form-group">
        <label for="price">Price:</label>
-       <input ng-model="price" type="text" class="form-control" name="price" id="name" required="true">
+       <input  type="text" class="form-control" name="price" id="name" required="true">
       </div>
 
       <div class="form-group">
@@ -55,7 +55,7 @@
 
       <div class="form-group">
           <label for="image">Image</label>
-          <input type="file" name="image" accept="image/*" id="image">
+          <input type="file" name="pic" accept="image/*" id="image">
       </div>
 
       <div class="form-group" style="visibility: hidden;display: none">
@@ -65,20 +65,22 @@
 
       <div class="form-group">
        <label for="startDate">Start Date:</label>
-       <input ng-model="startDate" type="datetime" class="form-control" name="startDate" value="2000-01-01T08:32Z" id="startDate" required="true">
+       <input type="datetime" class="form-control" name="startDate" value="Fri Sep 16 2011 19:05:17 GMT+0900 (JST)" id="startDate" required="true">
       </div>
 
       <div class="form-group">
        <label for="endDate">End Date:</label>
-       <input ng-model="endDate" type="datetime" class="form-control" name="endDate" value="2000-01-01T08:32Z" id="endDate" required="true">
+       <input type="datetime" class="form-control" name="endDate" value="Fri Sep 16 2011 19:05:17 GMT+0900 (JST)" id="endDate" required="true">
       </div>
 
       <div class="form-group">
        <label for="maxPeople">Max People:</label>
-       <input ng-model="maxPeople" type="text" class="form-control" name="maxPeople" id="maxPeople" required="true">
+       <input type="text" class="form-control" name="maxPeople" id="maxPeople" required="true">
       </div>
 
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="button" class="btn btn-default" id="btn">Submit</button>
+
+
       <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
 
     </form>
@@ -86,6 +88,7 @@
 
       <script src="/public/libs/angular/angular.js"></script>
       <script src="/public/libs/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="../addTrip.js"></script>
   </div>
 
 </body>

@@ -1,5 +1,6 @@
-angular.module('myApp', []).controller('addPlace', function($scope,$document) {
+angular.module('myApp', []).controller('addTrip', function($scope,$document) {
 
+  // alert("asdfas");
   // let form = document.getElementById('form');
   let btn = document.getElementById('btn');
   btn.onclick = function() {
@@ -30,17 +31,5 @@ angular.module('myApp', []).controller('addPlace', function($scope,$document) {
       form.submit();
     }
   }
-
-  $scope.choices = [{id: 'choice1','name':"openingTimes"}];
-
-  $scope.addNewChoice = function() {
-    var newItemNo = $scope.choices.length+1;
-    $scope.choices.push({'id':'choice'+newItemNo,'name':"openingTimes"});
-  };
-
-  $scope.removeChoice = function() {
-    var lastItem = $scope.choices.length-1;
-    $scope.choices.splice(lastItem);
-  };
 
 });

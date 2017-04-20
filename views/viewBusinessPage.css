@@ -1,5 +1,5 @@
 body{
-  border-style: solid;
+  /*border-style: solid;*/
 }
 
 #profileImg{
@@ -28,4 +28,11 @@ body{
 }
 .events{
   border-style: solid;
+  border-radius: 10px;
+  border-color: grey;
+  margin:5px;
+}
+
+#imgs{
+  display: inline-block;
 }

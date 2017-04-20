@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- <html ng-app="myApp" ng-controller="signup"> -->
-<html ng-app="myApp" ng-controller="profile">
+<html ng-app="myApp" ng-controller="registeredUserProfilePage">
 
 <head>
     <title>Edit My Profile</title>
@@ -35,35 +35,35 @@
 
       <div class="form-group">
        <label for="firstName">First Name:</label>
-       <input type="text" class="form-control" name="firstName" id="firstName" required="true" ng-model="firstName">
+       <input ng-model="firstName" type="text" class="form-control" name="firstName" id="firstName" required="true" ng-model="firstName">
       </div>
 
       <div class="form-group">
        <label for="lastName">Last Name:</label>
-       <input type="text" class="form-control" name="lastName" id="lastName" required="true">
+       <input ng-model="lastName" type="text" class="form-control" name="lastName" id="lastName" required="true">
       </div>
 
       <div class="form-group">
-       <label for="Password">Password:</label>
-       <input type="Password" class="form-control" name="Password" id="Password" required="true">
+       <label for="password">Password:</label>
+       <input ng-model="password" type="password" class="form-control" name="Password" id="password" required="true">
       </div>
 
       <div class="form-group">
        <label for="email">Email:</label>
-       <input type="email" class="form-control" name="email" id="email" required="true">
+       <input ng-model="email" type="email" class="form-control" name="email" id="email" required="true">
       </div>
 
       <div class="form-group">
        <label for="mobileNumber">Mobile Number:</label>
-       <input type="text" class="form-control" name="mobileNumber" id="mobileNumber" required="true">
+       <input ng-model="mobileNumber" type="text" class="form-control" name="mobileNumber" id="mobileNumber" required="true">
       </div>
 
       <div class="form-group">
        <label for="address">Address:</label>
-       <input type="text" class="form-control" name="address" id="address">
+       <input ng-model="address" type="text" class="form-control" name="address" id="address">
       </div>
 
-      <div class="radio">
+      <div class="radio" ng-model="gender">
        <label><input type="radio" name="gender" value="male" checked>Male</label>
        <label><input type="radio" name="gender" value="female">Female</label>
       </div>
@@ -76,6 +76,7 @@
 
       <script src="/public/libs/angular/angular.js"></script>
       <script src="/public/libs/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="../registeredUserProfilePage.js"></script>
   </div>
 
 </body>

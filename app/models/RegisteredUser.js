@@ -4,7 +4,8 @@ var registeredUserSchema = mongoose.Schema({
 
     profile:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'profiles'
+        ref:'profiles',
+        required:true
     }
 
 });
