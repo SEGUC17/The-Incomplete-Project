@@ -9,6 +9,9 @@ var registeredUserController = require("./controllers/registeredUserController")
 var Place = require("./models/Place");
 var Trip = require("./models/Trip");
 var anEvent = require("./models/Event");
+var mongoose = require("mongoose");
+var Profile = require("./models/Profile");
+var RegisteredUser = require("./models/RegisteredUser");
 
 
 	// app.get('/api/me', passport.authenticate('basic', { session: false }), function(req, res) {
@@ -17,8 +20,18 @@ var anEvent = require("./models/Event");
 
 	router.get('/',function(req,res){
 		// res.json("hey");
+		// let id  = mongoose.Types.ObjectId("58f54b642ea6402633d794aa");
+		//
+		// RegisteredUser.findOne({_id: id}, function(err, registeredUser) {
+		// 	let userID = registeredUser._id;
+		// 	let profileID = registeredUser.profile;
+		// 	Profile.findOne({_id: profileID}, function(err, profile){
+		// 		req.session.data = {UserID: userID, Profile: profile};
+		// 	})
+		// })
+
 		res.sendFile('home.html',{root:"./views"});
-	});
+	})
 
 	router.get('/visitor/SignUp',function(req,res){
 		res.sendFile('signup.html',{root:"./views"});
@@ -86,7 +99,48 @@ var anEvent = require("./models/Event");
 	router.get('/visitor/popularBusinessPages', visitorController.popularBusinessPages);
 
 
+
+/*
+	router.post('/charge', function(req, res) {
+	console.log(req);
+	    var stripeToken = req.body.id;
+
+	    var charge = stripe.charges.create({
+	        amount: 10000, // amount in cents, again
+	        currency: "usd",
+	        card: stripeToken,
+	        description: "email@email.com"
+	    }, function(err, charge) {
+	        if (err && err.type === 'StripeCardError') {
+	            console.log(JSON.stringify(err, null, 2));
+	        }
+	        res.send("completed payment!");
+	    });
+	});
+*/
+
+
+	router.post('/booking/charge', bookingController.charge);
+  router.post('/booking/tripPay', bookingController.tripPay);
+  router.post('/booking/placePay', bookingController.placePay);
+
+	router.post('/booking/placeBook2View', function(req,res){
+		req.session.data.eventId = req.body.eventId;
+		res.sendFile('placeBook2View.html', { root:"./views" });
+	});
+
+	router.get('/booking/placeBook2View.json', function(req,res){
+		Place.findOne({anEvent: req.session.data.eventId}, function (err, place) {
+			res.json({openingTimes:place.openingTimes});
+		});
+		// req.session.data.placeId = req.body.eventId;
+		// res.sendFile('placeBook2View.html', { root:"./views" });
+	});
+
 	router.post('/booking/placeBook2', bookingController.placeBook2);
+
+	router.post('/booking/tripBook2', bookingController.tripBook2);
+
 	router.post('/owner/register', ownerController.register);
 	router.post('/requestBusinessPage', pendingRequestsController.requestsPageCreation);
 	router.get('/owner/viewProfile', ownerController.viewProfile);
@@ -133,7 +187,6 @@ var anEvent = require("./models/Event");
 					if(err)
 						res.send(err.message);
 					else {
-						console.log(AnEvent);
 						res.json({"event":AnEvent,"place":place});
 					}
 				})
@@ -181,7 +234,6 @@ var anEvent = require("./models/Event");
 
 	router.get('/actor.json',function(req,res){
 		let actor="";
-		console.log(req.session);
 		if(req.session==undefined){
 			actor = "visitor";
 		}else{
@@ -204,7 +256,6 @@ var anEvent = require("./models/Event");
 	})
 
 	router.post('/viewsBusinessPage',function(req,res){
-		console.log(req.body);
 		if(req.session==undefined){
 			actor = "visitor";
 			req.session.data = req.body._id
@@ -228,6 +279,10 @@ var anEvent = require("./models/Event");
 	});
 
 	router.get('/viewsBusinessPage.json',visitorController.viewsBusinessPage);
+
+	router.post('/event.json',function(req,res){
+
+	});
 
 	router.post('/test', function(req,res){
 		res.send(req.body);

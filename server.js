@@ -1,8 +1,3 @@
-/*
-Secret Key: sk_test_aFldNEUKYSuPZ63JQa2hhGVD
-Publish Key: pk_test_xquclYSbmBZnHxkNCvqEPbR7
-Used for payment methods
-*/
 
 var express       = require('express');
 var mongoose      = require('mongoose');
@@ -41,7 +36,10 @@ app.use(bodyParser.urlencoded({limit:'50mb',extended:false}));
 app.use(bodyParser.json());
 app.set('view engine','html');
 // mongoose.connect(DB_URI);
+
+
 app.use(routes);
+
 
 
 
