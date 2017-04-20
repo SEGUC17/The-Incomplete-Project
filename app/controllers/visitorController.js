@@ -58,6 +58,102 @@ let visitorController = {
         }
   	});
 
+  },
+  viewsBusinessPage:function(req, res) {
+
+    let businessPageId ;
+    if(req.session==undefined){
+			actor = "visitor";
+			businessPageId=req.session.data
+		}else{
+			if(req.session.data==undefined){
+				actor = "visitor"
+				businessPageId=req.session.data
+			}
+			else {
+				if(req.session.data.UserID==undefined){
+					actor = "visitor"
+					businessPageId=req.session.data
+				}
+				else{
+					actor = 'user'
+					businessPageId=req.session.data.businessPageId
+				}
+			}
+		}
+    //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
+
+      BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
+
+          if(err) {
+            res.send(err.message)
+          }
+          else {
+              let events = [];
+              let bool = new Array(businessPage.events.length);
+
+              for (let i = 0; i < businessPage.events.length; i++) {
+                bool[i] = false;
+              }
+
+              if(businessPage.events.length==0)
+                res.json({"businessPage":businessPage,"events":[]});
+
+              for (let i = 0; i < businessPage.events.length; i++) {
+                  let eventId = businessPage.events[i];
+                  let element = {"event":"","place":"","trip":""};
+
+                  AnEvent.findOne({_id:eventId}, function(err, anEvent) {
+                    if(err) {
+                      res.send(err)
+                    }
+                    else {
+
+                      element.event = anEvent;
+                      if(anEvent.isPlace){
+                        Place.findOne({anEvent:eventId}, function(err, place) {
+                          if(err) {
+                            res.send(err)
+                          }
+                          else {
+                            element.place = place;
+                            events.push(element);
+                            bool[i] = true;
+                            let andRes = true;
+
+                            for (let i = 0; i < businessPage.events.length; i++)
+                              andRes = andRes&&bool[i]
+
+                            if(andRes)
+                              res.json({"businessPage":businessPage,"events":events});
+                          }
+                        })
+                      }else{
+                        Trip.findOne({anEvent:eventId}, function(err, trip) {
+                          if(err) {
+                            res.send(err)
+                          }
+                          else {
+                            element.trip = trip;
+                            events.push(element);
+                            bool[i] = true;
+                            let andRes = true;
+
+                            for (let i = 0; i < businessPage.events.length; i++)
+                              andRes = andRes&&bool[i]
+
+                            if(andRes)
+                              res.json({"businessPage":businessPage,"events":events});
+                          }
+                        })
+                      }
+
+                    }
+
+                  })
+              }
+          }
+      })
   }
 }
 

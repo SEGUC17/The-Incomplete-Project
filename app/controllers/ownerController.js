@@ -150,6 +150,13 @@ let ownerController = {
           if(err)
             res.send(err.message)
           else {
+            BusinessPage.findOne({_id:businessPageId},function(err,businessPage){
+              if(err)
+                res.send(err.message)
+              else {
+                req.session.data.BusinessPage = businessPage
+              }
+            })
             res.sendFile('viewBusinessPage.html', { root:"./views" });
           }
         });

@@ -94,6 +94,34 @@ let RegisteredUserController = {
 	},
 	register:function(req,res){
 		let body = req.body
+
+		Profile.findOne({username: req.body.username}, function(err, profile) {
+			if(err)
+				res.send(err)
+			else{
+				if(profile)
+					res.send('username already used');
+			}
+		})
+
+		Profile.findOne({email: req.body.email}, function(err, profile) {
+			if(err)
+				res.send(err)
+			else{
+				if(profile)
+					res.send('email already used');
+			}
+		})
+
+		Profile.findOne({mobileNumber: req.body.mobileNumber}, function(err, profile) {
+			if(err)
+				res.send(err)
+			else{
+				if(profile)
+					res.send('mobileNumber already used');
+			}
+		})
+
 		let profile = new Profile({
 			 firstName: body.firstName,
 			 lastName: body.lastName,

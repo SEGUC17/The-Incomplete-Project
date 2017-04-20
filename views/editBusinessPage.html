@@ -31,16 +31,16 @@
 
   <div class="search container-fluid">
 
-    <form method="post" action="/owner/editBusinessPage">
+    <form method="post" action="/owner/editBusinessPage" id="form">
 
-      <div class="form-group">
+      <div class="form-group" id="form">
        <label for="name">Name:</label>
        <input ng-model="name" type="text" class="form-control" name="name" id="name" required="true">
       </div>
 
       <div class="form-group">
        <label for="Description">Description:</label>
-       <input ng-model="description" type="text" class="form-control" name="Description" id="Description" required="true">
+       <input ng-model="description" type="text" class="form-control" name="description" id="Description" required="true">
       </div>
 
       <label>Phone Numbers:</label>
@@ -53,7 +53,29 @@
        <input type="text" class="form-control" name="addresses" id="address" value="{{Address}}">
       </div>
 
-      <button type="submit" class="btn btn-default">Submit</button>
+      <div class="form-group">
+       <label for="profileImg">profile picture:</label>
+       <input type="file" name="profilePic" accept="image/*" id="profilePic">
+      </div>
+
+      <div>
+        <label >Images</label>
+        <fieldset  data-ng-repeat="choice in choices">
+          <input type="file" accept="image/*" class = "images" id="{{choice.id}}">
+          <!-- <p>"choice.id"</p> -->
+          <button type="button" class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
+        </fieldset>
+
+        <button type="button" class="addfields" ng-click="addNewChoice()">Add fields</button></br>
+      </div>
+
+      <!-- <div class="form-group">
+       <label for="images">images:</label>
+       <input type="file" class="form-control" name="images" id="images" required="true">
+      </div> -->
+
+      <button type="button" class="btn btn-default" id="btn">Submit</button>
+      <!-- <button type="submit" class="btn btn-default">Submit</button> -->
       <a href="javascript:history.back()" class="btn btn-default">Cancel</a>
 
     </form>

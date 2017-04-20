@@ -107,7 +107,6 @@ var anEvent = require("./models/Event");
 	});
 
 	router.get('/owner/editBusinessPage.json',function(req,res){
-		console.log(req.session.data.BusinessPage);
 		res.json(req.session.data.BusinessPage);
 	});
 
@@ -182,21 +181,53 @@ var anEvent = require("./models/Event");
 
 	router.get('/actor.json',function(req,res){
 		let actor="";
+		console.log(req.session);
 		if(req.session==undefined){
 			actor = "visitor";
 		}else{
 			if(req.session.data==undefined)
 				actor = "visitor"
 			else {
-				if(req.session.data.Profile.isRegisteredUser)
-					actor = 'user'
-				else {
-					actor = 'owner'
+				if(req.session.data.UserID==undefined){
+					actor = "visitor"
+				}
+				else{
+					if(req.session.data.Profile.isRegisteredUser)
+						actor = 'user'
+					else {
+						actor = 'owner'
+					}
 				}
 			}
 		}
 		res.json({"actor":actor});
 	})
+
+	router.post('/viewsBusinessPage',function(req,res){
+		console.log(req.body);
+		if(req.session==undefined){
+			actor = "visitor";
+			req.session.data = req.body._id
+		}else{
+			if(req.session.data==undefined){
+				actor = "visitor"
+				req.session.data = req.body._id
+			}
+			else {
+				if(req.session.data.UserID==undefined){
+					actor = "visitor"
+					req.session.data = req.body._id
+				}
+				else{
+					actor = 'user'
+					req.session.data.businessPageId = req.body._id
+				}
+			}
+		}
+		res.sendFile('viewBusinessPage.html', { root:"./views" });
+	});
+
+	router.get('/viewsBusinessPage.json',visitorController.viewsBusinessPage);
 
 	router.post('/test', function(req,res){
 		res.send(req.body);

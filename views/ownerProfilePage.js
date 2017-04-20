@@ -20,4 +20,8 @@ angular.module('myApp', []).controller('ownerProfilePage', function($scope, $htt
       $scope.events = response.data.BusinessPage.events;
     });
 
+    $http.get("http://localhost:8080/actor.json").then(function(response){
+      $scope.actor = response.data.actor;
+    });
+
 });

@@ -18,7 +18,8 @@
     <div class="container-fluid">
 
           <div class="navbar-header">
-              <a class="navbar-brand" href="/">Logo</a>
+              <a ng-if="actor!='owner'" class="navbar-brand" href="/">Logo</a>
+              <a ng-if="actor=='owner'" class="navbar-brand" href="/owner/ownerViewsBusinessPage">Logo</a>
           </div>
 
           <div class="collapse navbar-collapse">
@@ -57,9 +58,9 @@
     </div>
 
 
-    <!-- <div ng-repeat="image in images">
-      <img src={{image}} width="250px"/>
-    </div> -->
+    <div ng-repeat="image in images" id="imgs">
+      <img src={{image}} width="100px"/>
+    </div></br>
 
     <a ng-if="actor=='owner'" href="/owner/editBusinessPage" class="btn btn-default">Edit My BusinessPage</a>
 
