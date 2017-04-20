@@ -86,7 +86,32 @@ var anEvent = require("./models/Event");
 	router.get('/visitor/popularBusinessPages', visitorController.popularBusinessPages);
 
 
+
+/*
+	router.post('/charge', function(req, res) {
+	console.log(req);
+	    var stripeToken = req.body.id;
+
+	    var charge = stripe.charges.create({
+	        amount: 10000, // amount in cents, again
+	        currency: "usd",
+	        card: stripeToken,
+	        description: "email@email.com"
+	    }, function(err, charge) {
+	        if (err && err.type === 'StripeCardError') {
+	            console.log(JSON.stringify(err, null, 2));
+	        }
+	        res.send("completed payment!");
+	    });
+	});
+*/
+
+  
+	router.post('/booking/charge', bookingController.charge);
+  router.post('/booking/tripPay', bookingController.tripPay);
+  router.post('/booking/placePay', bookingController.placePay);
 	router.post('/booking/placeBook2', bookingController.placeBook2);
+	router.post('/booking/tripBook2', bookingController.tripBook2);
 	router.post('/owner/register', ownerController.register);
 	router.post('/requestBusinessPage', pendingRequestsController.requestsPageCreation);
 	router.get('/owner/viewProfile', ownerController.viewProfile);

@@ -1,7 +1,9 @@
+var stripe= require("stripe")("sk_test_aFldNEUKYSuPZ63JQa2hhGVD");
 var RegisteredUser = require('../models/RegisteredUser');
 var AnEvent = require('../models/Event');
 var Place = require('../models/Place');
 var Trip = require('../models/Trip');
+var mongoose = require('mongoose');
 
 
 var bookingController= {
@@ -58,8 +60,8 @@ else { if(Trip.maxPeople==payersCount) {
     // Another way using (findByIdAndUpdate)
    placeBook2:function(req,res){
      var userid= req.body.userid
-     var time = req.body.time
      var placeID = req.body.placeID
+     var time = req.body.time
 
      Place.findByIdAndUpdate(
         placeID,
@@ -77,9 +79,9 @@ else { if(Trip.maxPeople==payersCount) {
 
   tripBook2:function(req,res){
     var userid= req.body.userid
-    var tripID = req.body.placeID
+    var tripID = req.body.tripID
 
-    Place.findByIdAndUpdate(
+    Trip.findByIdAndUpdate(
        tripID,
        {$push: {"bookedByAt": {registeredUser: userid}}},
        {safe: true, upsert: true, new : true},
@@ -91,7 +93,64 @@ else { if(Trip.maxPeople==payersCount) {
            }
        }
     );
- }
+ },
+
+ placePay:function(req,res){
+   var userid= req.body.userid
+   var placeID = req.body.placeID
+   var time = req.body.time
+
+   Place.findByIdAndUpdate(
+      placeID,
+      {$push: {"bookedByAtWithPaying": {registeredUser: userid, time: time}}},
+      {safe: true, upsert: true, new : true},
+      function(err, Place) {
+          if(err)
+          console.log(err);
+          else {
+            console.log(Place);
+          }
+      }
+   );
+},
+
+
+ tripPay:function(req,res){
+   var userid= req.body.userid
+   var tripID = req.body.tripID
+
+   Trip.findByIdAndUpdate(
+      tripID,
+      {$push: {"bookedByAtWithPaying": {registeredUser: userid}}},
+      {safe: true, upsert: true, new : true},
+      function(err, Trip) {
+          if(err)
+          console.log(err);
+          else {
+            console.log(Trip);
+          }
+      }
+   );
+},
+
+
+charge:function(req, res) {
+    var stripeToken = req.body.stripeToken
+    var price = req.body.price
+    var email = req.body.email
+
+    var charge = stripe.charges.create({
+        amount: price,
+        currency: "EGP",
+        card: stripeToken,
+        description: email
+    }, function(err, charge) {
+        if (err && err.type === 'StripeCardError') {
+            console.log(JSON.stringify(err, null, 2));
+        }
+        console.log("completed payment!");
+    });
+}
 
 };
 
