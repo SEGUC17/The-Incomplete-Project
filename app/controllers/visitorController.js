@@ -67,11 +67,11 @@ let visitorController = {
     //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
     BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
 
-
         if(err) {
           res.send(err.message)
         }
         else {
+            businessPage.numberOfViews = businessPage.numberOfViews + 1;
             let events = [];
             let bool = new Array(businessPage.events.length);
             for (let i = 0; i < businessPage.events.length; i++) {

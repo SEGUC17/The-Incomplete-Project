@@ -52,7 +52,7 @@
         <div ng-repeat="popularBusinessPage in popularBusinessPages">
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src={{popularBusinessPage.image}} alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         {{popularBusinessPage.name}}</h4>
@@ -84,7 +84,7 @@
         <div ng-repeat="searchBusinessPage in searchBusinessPages">
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src={{searchBusinessPage.image}} alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         {{searchBusinessPage.name}}</h4>
