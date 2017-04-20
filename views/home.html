@@ -19,7 +19,7 @@
         <div class="container-fluid">
 
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Home</a>
+                <a class="navbar-brand"  ng-click= "refreshClick()">Home</a>
             </div>
 
             <div class="collapse navbar-collapse">
@@ -37,15 +37,6 @@
     <div class="search">
         <form class="content navbar-form">
             <div class="input-group">
-
-                <div class="input-group-btn dropdown">
-                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose Area <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    <li><a>Cairo</a></li>
-                    <li><a>Alex</a></li>
-                  </ul>
-                </div>
-
                 <input type="text" ng-model="searchWord" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
                 <div class="input-group-btn">
                     <button class="btn btn-default" ng-model = "pressed" ng-click= "searchClick()" type="submit"><i class="glyphicon glyphicon-search"></i></button>
@@ -58,16 +49,65 @@
     <div class="well well-sm">
         <strong>Popular Business Pages</strong>
     </div>
-      <div ng-include = "popularBusinessPagesList"></div>
+    <div id="popularBusniessPagesList" class="row list-group">
+        <div ng-repeat="popularBusinessPage in popularBusinessPages">
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src={{popularBusinessPage.image}} alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        {{popularBusinessPage.name}}</h4>
+                        <p class="group inner list-group-item-text">
+                            {{popularBusinessPage.description}}</p>
+                            <p class="group inner list-group-item-text">
+                                {{popularBusinessPage.phonenumber}}</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">
+                                </p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" >check it</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     </div>
 
     <div ng-show= "pressed" class="container">
-    <div class="well well-sm" >
+    <div class="well well-sm">
         <strong>{{searchWord}}</strong>
     </div>
-      <div ng-include = "searchBusinessPagesList"></div>
+    <div id="searchBusniessPagesList" class="row list-group">
+        <div ng-repeat="searchBusinessPage in searchBusinessPages">
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src={{searchBusinessPage.image}} alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        {{searchBusinessPage.name}}</h4>
+                        <p class="group inner list-group-item-text">
+                            {{searchBusinessPage.description}}</p>
+                            <p class="group inner list-group-item-text">
+                                {{searchBusinessPage.phonenumber}}</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">
+                                </p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" >check it</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
+    </div>
+    </div>
 </body>
 
 </html>

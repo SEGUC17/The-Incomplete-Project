@@ -53,13 +53,12 @@ let visitorController = {
             }
           }
 
-          res.json({"SearchBusinessPagesResult" : businessPagesResult});
+          res.json({"searchBusinessPagesResult" : businessPagesResult});
 
         }
   	});
 
   }
-
 }
 
 
