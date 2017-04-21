@@ -1,6 +1,4 @@
 angular.module('myApp', []).controller('editTrip', function($scope,$http) {
-
-  // let form = document.getElementById('form');
   let btn = document.getElementById('btn');
   btn.onclick = function() {
 

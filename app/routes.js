@@ -13,23 +13,7 @@ var mongoose = require("mongoose");
 var Profile = require("./models/Profile");
 var RegisteredUser = require("./models/RegisteredUser");
 
-
-	// app.get('/api/me', passport.authenticate('basic', { session: false }), function(req, res) {
-	// 	res.json(req.user);
-	// });
-
 	router.get('/',function(req,res){
-		// res.json("hey");
-		// let id  = mongoose.Types.ObjectId("58f54b642ea6402633d794aa");
-		//
-		// RegisteredUser.findOne({_id: id}, function(err, registeredUser) {
-		// 	let userID = registeredUser._id;
-		// 	let profileID = registeredUser.profile;
-		// 	Profile.findOne({_id: profileID}, function(err, profile){
-		// 		req.session.data = {UserID: userID, Profile: profile};
-		// 	})
-		// })
-
 		res.sendFile('home.html',{root:"./views"});
 	})
 
@@ -68,11 +52,6 @@ var RegisteredUser = require("./models/RegisteredUser");
 	router.get('/owner/Profile.json',function(req,res){
 		res.json(req.session.data);
 	});
-
-	// router.post('/Login',function(req,res){
-	// 	res.sendFile('profile.html',{root:"./views"});
-	// });
-
 
 	router.get('/a',function(req,res){
 		res.send("hey");
@@ -121,8 +100,8 @@ var RegisteredUser = require("./models/RegisteredUser");
 
 
 	router.post('/booking/charge', bookingController.charge);
-  router.post('/booking/tripPay', bookingController.tripPay);
-  router.post('/booking/placePay', bookingController.placePay);
+  	router.post('/booking/tripPay', bookingController.tripPay);
+  	router.post('/booking/placePay', bookingController.placePay);
 
 	router.post('/booking/placeBook2View', function(req,res){
 		req.session.data.eventId = req.body.eventId;
@@ -149,12 +128,7 @@ var RegisteredUser = require("./models/RegisteredUser");
 		res.sendFile('viewBusinessPage.html', { root:"./views" });
 	});
 
-	// router.get('/owner/ownerViewsBusinessPage.json',function(req,res){
-	// 	res.json(req.session.data.BusinessPage);
-	// });
-
 	router.get('/owner/ownerViewsBusinessPage.json',ownerController.ownerViewsBusinessPage);
-
 
 	router.get('/owner/editBusinessPage',function(req,res){
 		res.sendFile('editBusinessPage.html', { root:"./views" });
@@ -217,7 +191,6 @@ var RegisteredUser = require("./models/RegisteredUser");
 					if(err)
 						res.send(err.message);
 					else {
-						// console.log(AnEvent);
 						res.json({"event":AnEvent,"trip":trip});
 					}
 				})

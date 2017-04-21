@@ -5,10 +5,6 @@ myApp.controller('homeController', function($scope, $http, $timeout, $interval, 
   $http.get("http://localhost:8080/actor.json").then(function(response){
     $scope.actor = response.data.actor;
    });
-
-    // $scope.popularBusinessPagesList = "popularBusinessPagesList.html";
-    // $scope.searchBusinessPagesList = "searchBusinessPagesList.html";
-
     $http.get("http://localhost:8080/visitor/popularBusinessPages").then(function(collection){
     $scope.popularBusinessPagesResult = collection.data.popularBusinessPagesResult;
     $scope.popularBusinessPagesResult  == JSON.stringify($scope.popularBusinessPagesResult);
@@ -25,7 +21,6 @@ myApp.controller('homeController', function($scope, $http, $timeout, $interval, 
     $scope.pressed = true;
     console.log($scope.searchBusinessPagesResult);
    });
-  //  var searchBusinessPages = $scope.searchBusinessPagesResult ;
   };
   $scope.refreshClick = function () { $window.location.reload(); };
 });

@@ -26,7 +26,6 @@
               <ul class="nav navbar-nav navbar-right">
                   <li ng-if="actor!=visitor"><a href="/Logout">Logout</a></li>
                   <li ng-if="actor==visitor"><a href="/Login">Profile</a></li>
-                  <!-- <li ng-if="actor==visitor"><a href="/surf">Request a Page</a></li> -->
               </ul>
           </div>
 
@@ -102,12 +101,6 @@
         <p>price: {{event.event.price}}</p>
 
         <img src = {{event.event.image}} width="100px"/>
-
-
-        <!-- lessa image-->
-
-
-
         <div ng-if="event.event.isPlace">
 
           <div class="data">openingTimes :
@@ -125,7 +118,6 @@
           <p>Max People: {{event.trip.maxPeople}}</p>
         </div>
 
-        <!-- abdelfattah event.event._id hatgeblak id-->
         <div ng-if="actor=='user'">
 
           <button  type="button" class="btn btn-primary">Pay</button>
@@ -133,20 +125,16 @@
           <div ng-if="!event.event.mustPay">
             <form ng-if="!event.event.isPlace" method="post" action="/booking/tripBook2">
               <input ng-model="event.event._id" type="text" class="form-control" name="eventId" required="true" style="visibility:hidden;display:none">
-              <!-- {{event.event._id}} -->
               <button type="submit" class="btn btn-primary">book trip</button>
             </form>
 
             <form ng-if="event.event.isPlace" method="post" action="/booking/placeBook2View">
               <input ng-model="event.event._id" type="text" class="form-control" name="eventId" required="true" style="visibility:hidden;display:none">
-              <!-- {{event.event._id}} -->
               <button type="submit" class="btn btn-primary">book place</button>
             </form>
           </div>
 
         </div>
-        <!-- abdelfattah -->
-
       </div>
 
     </div>
