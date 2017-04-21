@@ -1,10 +1,4 @@
 angular.module('myApp', []).controller('registeredUserProfilePage', function($scope, $http) {
-
-    // alert("aba");
-
-    // var self = this;
-    // $scope.myWelcome="first";
-
     $http.get("http://localhost:8080/registeredUser/Profile.json").then(function(response){
       $scope.userID = response.data.UserID;
       $scope.firstName = response.data.Profile.firstName;

@@ -1,6 +1,4 @@
 angular.module('myApp', []).controller('addPlace', function($scope,$document) {
-
-  // let form = document.getElementById('form');
   let btn = document.getElementById('btn');
   btn.onclick = function() {
 

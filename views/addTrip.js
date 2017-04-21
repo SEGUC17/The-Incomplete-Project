@@ -1,7 +1,4 @@
 angular.module('myApp', []).controller('addTrip', function($scope,$document) {
-
-  // alert("asdfas");
-  // let form = document.getElementById('form');
   let btn = document.getElementById('btn');
   btn.onclick = function() {
 

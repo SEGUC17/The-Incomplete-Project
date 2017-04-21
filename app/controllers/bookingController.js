@@ -62,14 +62,12 @@ else { if(Trip.maxPeople==payersCount) {
      let userid= req.session.data.UserID;
      let eventID = req.session.data.eventId;
      let time = req.body.time;
-    //  console.log(time);
      let bool = true;
 
      Place.findOne({anEvent:eventID},function(err,place){
        if(err)
          res.send(err);
        else{
-        //  console.log(place);
 
          if(place.bookedByAt!=null){
 

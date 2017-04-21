@@ -42,28 +42,19 @@ let eventController = {
 
   removeEvent:function(req,res){
     let businessPageId = req.session.data.BusinessPage._id;
-    // let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
-    // console.log(businessPageId2);
-    // console.log(businessPageId);
     let eventId = req.body._id;
     let id = mongoose.Types.ObjectId(eventId);
-    // console.log(eventId);
-    // console.log(id);
     BusinessPage.update(
       {_id: businessPageId},
       {$pull: {events: id}}, function(err, result1) {
           if (err){
-            // console.log(err);
             res.send(err)
           }
           else {
-            // console.log(result1);
-            // res.send(result1);
               AnEvent.remove({ _id: eventId }, function(err, result2) {
                   if (err)
                     res.send(err)
                   else{
-                    // console.log(result2.result);
                     res.sendFile('viewBusinessPage.html', { root:"./views" });
                   }
               });
@@ -235,7 +226,7 @@ let ownerController = {
         if (err)
           res.send(err)
         else{
-          let trip = new Trip({anEvent:anEvent._id,startDate:body.startDate,endDate:body.endDate,maxPeople:body.maxPeople});// take care
+          let trip = new Trip({anEvent:anEvent._id,startDate:body.startDate,endDate:body.endDate,maxPeople:body.maxPeople});
           trip.save(function(err, result) {
             if (err)
               res.send(err)
@@ -285,7 +276,6 @@ let ownerController = {
           }
       });
     },
-    // the same as removePlace so it was not tested
     removeTrip:function(req,res){
       let body = req.body;
       let eventId = req.body._id
@@ -300,10 +290,7 @@ let ownerController = {
       });
     },
     ownerViewsBusinessPage:function(req, res) {
-
         let businessPageId = req.session.data.BusinessPage._id;
-      //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
-
         BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
 
             if(err) {

@@ -27,8 +27,6 @@ var placeSchema = mongoose.Schema({
 
     openingTimes:{
       type:[Date]
-      // ,
-      // required:true
     },
 
     //minutes
