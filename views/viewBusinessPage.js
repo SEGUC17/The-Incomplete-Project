@@ -11,7 +11,7 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http
           $scope.profileImg = response.data.businessPage.profileImg;
           $scope.images = response.data.businessPage.images;
           $scope.events = response.data.events;
-          $scope.events = response.data.events;
+
         });
       }
       else{

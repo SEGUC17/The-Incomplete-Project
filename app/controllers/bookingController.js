@@ -244,16 +244,17 @@ else { if(Trip.maxPeople==payersCount) {
           }
       }
    );
-},
+}
 
-
+/*
+,
 charge:function(req, res) {
     let stripeToken = req.body.stripeToken
     let price = req.body.price
     let email = req.body.email
 
     let charge = stripe.charges.create({
-        amount: price,
+        amount: 1000,
         currency: "EGP",
         card: stripeToken,
         description: email
@@ -263,7 +264,8 @@ charge:function(req, res) {
         }
         console.log("completed payment!");
     });
-}
+   }
+ */
 
 };
 

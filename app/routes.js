@@ -12,6 +12,8 @@ var anEvent = require("./models/Event");
 var mongoose = require("mongoose");
 var Profile = require("./models/Profile");
 var RegisteredUser = require("./models/RegisteredUser");
+var stripe= require("stripe")("sk_test_aFldNEUKYSuPZ63JQa2hhGVD"); //Secret Key for payment method
+
 
 
 	// app.get('/api/me', passport.authenticate('basic', { session: false }), function(req, res) {
@@ -99,28 +101,69 @@ var RegisteredUser = require("./models/RegisteredUser");
 	router.get('/visitor/popularBusinessPages', visitorController.popularBusinessPages);
 
 
+//-----------------------------------------------------------------------------------------------
 
-/*
+
+
+router.get('/payButton',function(req,res){
+	res.sendFile('payButton.html', { root:"./views" });
+});
+
+	router.post('/payButton',function(req,res){
+		req.session.data.eventID = req.body.eventID;
+		req.session.data.eventPrice= req.body.eventPrice;
+		res.redirect('/charge');
+	});
+
+
+	router.get('/charge',function(req,res){
+		res.sendFile('charge.html', { root:"./views" });
+	});
+
 	router.post('/charge', function(req, res) {
-	console.log(req);
-	    var stripeToken = req.body.id;
 
+	    var stripeToken = req.body.chargeObj;
 	    var charge = stripe.charges.create({
-	        amount: 10000, // amount in cents, again
-	        currency: "usd",
+	        amount: 1000,     //req.session.data.eventPrice,  // amount
+	        currency: "EGP",
 	        card: stripeToken,
 	        description: "email@email.com"
 	    }, function(err, charge) {
 	        if (err && err.type === 'StripeCardError') {
 	            console.log(JSON.stringify(err, null, 2));
 	        }
+				else{
+					/*
+						//
+						let userid  = req.session.data.userID
+						let eventID = req.session.data.eventID
+
+						anEvent.findByIdAndUpdate(
+							 eventID,
+							 {$push: {"bookedByAtWithPaying": {registeredUser: userid}}},
+							 {safe: true, upsert: true, new : true},
+							 function(err, Trip) {
+									 if(err)
+									 console.log(err);
+									 else {
+										 console.log(Trip);
+									 }
+							 }
+						);
+
+						*/
 	        res.send("completed payment!");
+				//
+
+				}
 	    });
 	});
-*/
 
 
-	router.post('/booking/charge', bookingController.charge);
+
+
+//-----------------------------------------------------------------------------------------------
+	//router.post('/booking/charge', bookingController.charge);
   router.post('/booking/tripPay', bookingController.tripPay);
   router.post('/booking/placePay', bookingController.placePay);
 
@@ -136,6 +179,16 @@ var RegisteredUser = require("./models/RegisteredUser");
 		// req.session.data.placeId = req.body.eventId;
 		// res.sendFile('placeBook2View.html', { root:"./views" });
 	});
+
+
+
+
+
+
+
+
+
+
 
 	router.post('/booking/placeBook2', bookingController.placeBook2);
 

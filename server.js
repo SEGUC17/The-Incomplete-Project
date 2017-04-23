@@ -32,6 +32,7 @@ app.use(expressSession({
 }));
 
 app.use(express.static(__dirname+ '/views'));
+app.use('/bower_components',  express.static(__dirname + '/public/libs'));
 app.use(bodyParser.urlencoded({limit:'50mb',extended:false}));
 app.use(bodyParser.json());
 app.set('view engine','html');

@@ -10,7 +10,7 @@
 </head>
 
 
-	<body ng-app="myApp" ng-controller="payCtrl">
+	<body ng-app="myApp" ng-controller="chargeCtrl">
 
     <form stripe-form="stripeCallback" name="checkoutForm">>
         <input ng-model="number" placeholder="Card Number"
@@ -32,11 +32,11 @@
 		<script src="http://cdn.rawgit.com/laurihy/angular-payments/2472bc9befa256780d106a8e53a9dea12b7341ed/lib/angular-payments.js"></script>
 
     <script type="text/javascript"
-        src="bower_components/angular-payments/lib/angular-payments.js">
+      src="bower_components/angular-payments/lib/angular-payments.js">
      </script>
 
 		<!-- our code -->
-		<script src="pay.js"></script>
+		<script src="charge.js"></script>
 	</body>
 
 </html>

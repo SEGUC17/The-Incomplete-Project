@@ -139,13 +139,20 @@
 
             <form ng-if="event.event.isPlace" method="post" action="/booking/placeBook2View">
               <input ng-model="event.event._id" type="text" class="form-control" name="eventId" required="true" style="visibility:hidden;display:none">
+              <!-- <input ng-model="event.event.price" type="text" class="form-control" name="price" required="true" style="visibility:hidden;display:none"> -->
               <!-- {{event.event._id}} -->
               <button type="submit" class="btn btn-primary">book place</button>
             </form>
           </div>
 
         </div>
-        <!-- abdelfattah -->
+
+        <form method="post" action="/payButton">
+          <input type="text" class="form-control" name="eventId" required="true" style="visibility:hidden;display:none">
+          <input type="text" class="form-control" name="eventPrice" required="true" style="visibility:hidden;display:none">
+          <button type="submit" class="btn btn-success">PAY</button>
+
+        </form>
 
       </div>
 
