@@ -1,5 +1,4 @@
 window.addEventListener("load", function() {
-  alert("hey");
   // let btn = document.getElementById("submit");
   // let btn = document.getElementById("form");
   //

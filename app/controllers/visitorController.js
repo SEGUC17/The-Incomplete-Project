@@ -81,7 +81,6 @@ let visitorController = {
 				}
 			}
 		}
-    //  let businessPageId = mongoose.Types.ObjectId("58e3b08e0b1c69d2d177861d");
 
       BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
 

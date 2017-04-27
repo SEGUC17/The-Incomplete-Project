@@ -48,10 +48,8 @@ let RegisteredUserController = {
         });
     },
 
-	//B.5
 	viewProfile:function(req, res) {
-		//  let profileId = req.session.data.profile;
-		 let profileId = mongoose.Types.ObjectId("58e3b0870b1c69d2d177861c");
+		 let profileId = req.session.data.profile;
         Profile.findOne(profileId, function(err, profile) {
             if(err) {
                 res.send(err.message)
@@ -71,7 +69,6 @@ let RegisteredUserController = {
 	editProfile:function(req, res) {
 	 let body = req.body;
 	 let profileId = req.session.data.Profile._id;
-     // let profileId = mongoose.Types.ObjectId("58e3aafe0b1c69d2d1778619");
 	 console.log(profileId);
      Profile.update({_id:profileId},{$set:{firstName:body.firstName,lastName:body.lastName,
         Password:body.Password,email:body.email,mobileNumber:body.mobileNumber,address:body.address,gender:body.gender}},function(err,results){

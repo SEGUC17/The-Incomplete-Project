@@ -43,7 +43,6 @@ angular.module('myApp', []).controller('editBusinessPage', function($scope,$http
               let file = img.files[0];
               let fr = new FileReader();
               fr.readAsDataURL(file);
-              // alert(i);
               fr.onload = function() {
                   let data = fr.result;
                   let avatar_input = document.createElement("input");
@@ -62,8 +61,7 @@ angular.module('myApp', []).controller('editBusinessPage', function($scope,$http
                     alert(bool[j]);
                     alert(j);
                     andRes = andRes&&bool[j];
-                  }
-                  // alert(andRes);
+                  };
                   if(andRes&&(!profilePic.files||!profilePic.files[0])){
                     form.submit();
                   }
