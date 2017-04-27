@@ -13,9 +13,15 @@ var mongoose = require("mongoose");
 var Profile = require("./models/Profile");
 var RegisteredUser = require("./models/RegisteredUser");
 
-	router.get('/',function(req,res){
-		res.sendFile('home.html',{root:"./views"});
-	})
+// router.get('/',function(req,res){
+// 	res.sendFile('home.html',{root:"./views"});
+// })
+
+router.get('/', function(req, res) {
+	var jsonResponse = [];
+	jsonResponse.push({ "text": "Hi. " + (Math.random() * 5 + 1).toFixed(0) + " is a lucky number..." });
+	res.send(jsonResponse);
+});
 
 	router.get('/visitor/SignUp',function(req,res){
 		res.sendFile('signup.html',{root:"./views"});
