@@ -3,7 +3,7 @@ let Profile = require('../models/Profile');
 var mongoose = require('mongoose');
 let Owner = require('../models/Owner');
 let BusinessPage = require('../models/BusinessPage')
-
+let AnEvent = require('../models/Event')
 
 let RegisteredUserController = {
 
@@ -69,7 +69,6 @@ let RegisteredUserController = {
 	editProfile:function(req, res) {
 	 let body = req.body;
 	 let profileId = req.session.data.Profile._id;
-	 console.log(profileId);
      Profile.update({_id:profileId},{$set:{firstName:body.firstName,lastName:body.lastName,
         Password:body.Password,email:body.email,mobileNumber:body.mobileNumber,address:body.address,gender:body.gender}},function(err,results){
           if(err)
@@ -79,7 +78,7 @@ let RegisteredUserController = {
 					if (err)
 						res.send(err);
 					else {
-						console.log(profile);
+
 				  	req.session.data.Profile = profile;
 						res.sendFile('registeredUserProfilePage.html',{root:"./views"});
 					}
@@ -154,18 +153,19 @@ let RegisteredUserController = {
 
   rateBusinessPage:function(req, res) {
 
-	  name = req.body.name;
-	  rating = req.body.rating;
+	  let name = req.body.name;
+	  let rating = req.body.rating;
+	  let username = req.session.data.Profile.username;
 
 	  BusinessPage.findOne({name: name}, function(err, businessPage) {
 
 		if (err)
 			res,send(err);
 		else {
-
-			var newRate = RegisteredUserController.updateRate(rating, businessPage.rate, businessPage.numberOfRatings);
-			businessPage.rate = newRate.rate;
+			var newRate = RegisteredUserController.updateRate(rating, businessPage.rate.value, businessPage.numberOfRatings);
+			businessPage.rate.value = newRate.rate;
 			businessPage.numberOfRatings = newRate.numberOfRatings;
+			businessPage.rate.usernames.push(username);
 
 			businessPage.save(function(err, updatedBusinessPage) {
 				if (err)
@@ -181,10 +181,37 @@ let RegisteredUserController = {
 
   },
 
+  rateEvent:function(req, res) {
+
+	  let eventID = req.body.eventID;
+	  let rating = req.body.rating;
+	  let username = req.session.data.Profile.username;
+
+	  AnEvent.findOne({_id: eventID}, function(err, anEvent) {
+
+		if (err)
+			res,send(err);
+		else {
+			var newRate = RegisteredUserController.updateRate(rating, anEvent.rate.value, anEvent.numberOfRatings);
+			anEvent.rate.value = newRate.rate;
+			anEvent.numberOfRatings = newRate.numberOfRatings;
+			anEvent.rate.usernames.push(username);
+
+			anEvent.save(function(err, result) {
+				if (err)
+				res.send(err);
+				else {
+					res.send("success")
+				}
+			})
+
+		}
+
+	  })
+
+  },
+
   updateRate: function(rating, currentRate, numberOfRatings) {
-	  console.log(rating);
-	  console.log(currentRate);
-	  console.log(numberOfRatings);
 	  var newRate = {}
 	  newRate.rate = (currentRate * numberOfRatings + rating) / (++numberOfRatings)
 	  newRate.numberOfRatings = numberOfRatings;
@@ -192,5 +219,6 @@ let RegisteredUserController = {
   }
 
 }
+
 
 module.exports = RegisteredUserController;

@@ -55,14 +55,15 @@ new StarRating();
 angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http) {
 
     $scope.r = function(value) {
-        // alert("s")
+
         $http({
             url: '/businessPage/rate',
             method: "POST",
-            data: {rating : value, name: $scope.name}
+            data: {rating : value, name: $scope.name, username: $scope.username}
         })
         .then(function(response) {
 
+            $scope.yourRating = value;
             alert("you gave this page " + value + " stars");
             location.reload();
 
@@ -74,8 +75,43 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http
 
     }
 
-    $scope.test = function() {
-        $scope.hello = "hello"
+    $scope.rateEvent = function(value, eventID) {
+        $http({
+            url: '/businessPage/event/rate',
+            method: "POST",
+            data: {rating : value, name: $scope.name, username: $scope.username, eventID: eventID}
+        })
+        .then(function(response) {
+            $scope.yourEventRating = value;
+            alert("you gave this event " + value + " stars");
+            location.reload();
+
+        },
+        function(response) { // optional
+            alert(response.error);
+        });
+        // $scope.rating = value;
+    }
+
+    $scope.rateContains = function(usernames, username) {
+        for (var i = 0; i < usernames.length; i++) {
+            if (usernames[i] === username) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    $scope.showEventRate = function(usernames) {
+
+        for (var i = 0; i < usernames.length; i++) {
+            if (usernames[i] === $scope.username) {
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
 
@@ -93,8 +129,8 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http
     //     });
     // }
 
-    $http.get("http://localhost:8080/actor.json").then(function(response){
-      $scope.actor = response.data.actor;
+    $http.get("http://localhost:8080/actor.json").then(function(response1){
+      $scope.actor = response1.data.actor;
       if($scope.actor=='owner'){
         $http.get("http://localhost:8080/owner/ownerViewsBusinessPage.json").then(function(response){
           $scope.name = response.data.businessPage.name;
@@ -104,11 +140,11 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http
           $scope.profileImg = response.data.businessPage.profileImg;
           $scope.images = response.data.businessPage.images;
           $scope.events = response.data.events;
-          $scope.events = response.data.events;
         });
       }
       else{
         $http.get("http://localhost:8080/viewsBusinessPage.json").then(function(response){
+        //   alert(response.data.toSource());
           $scope.name = response.data.businessPage.name;
           $scope.description = response.data.businessPage.description;
           $scope.phoneNumber = response.data.businessPage.phoneNumber;
@@ -116,9 +152,16 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http
           $scope.profileImg = response.data.businessPage.profileImg;
           $scope.images = response.data.businessPage.images;
           $scope.events = response.data.events;
-          $scope.rate = response.data.businessPage.rate;
+
+          $scope.rate = response.data.businessPage.rate.value;
+
+          $scope.username = response.data.username;
+          $scope.usernames = response.data.businessPage.rate.usernames;
+          $scope.showRate = !$scope.rateContains($scope.usernames, $scope.username)
+        //   $scope.eventRate = !$scope.showEventRate($scope.usernames, $scope.username)
 
         });
+        // alert("AJSDF");
       }
     });
 

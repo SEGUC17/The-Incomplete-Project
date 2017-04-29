@@ -60,19 +60,34 @@
       </div>
     </div>
 
-    <div class="visitors-rates">
-        <p>Visitors gave this page an average rating of {{rate| number: 3}} out of 5.</p>
+
+    <div class="rating-container">
+
+        <div class="visitors-rates">
+            <p>Visitors gave this page an average rating of {{rate| number: 1}} out of 5.</p>
+        </div>
+
+        <div class="before-rating" ng-show="actor=='user' && showRate">
+            <div class="your-rating">
+                <p>How many stars do you give this page.</p>
+            </div>
+
+            <div id="rating">
+                <span ng-click="r(1)">★</span>
+                <span ng-click="r(2)">★</span>
+                <span ng-click="r(3)">★</span>
+                <span ng-click="r(4)">★</span>
+                <span ng-click="r(5)">★</span>
+            </div>
+        </div>
+
+        <div class="after-rating" ng-show="actor=='user' && !showRate">
+            <p>you gave this page {{yourRating}} stars</p>
+        </div>
+
     </div>
 
-    <div id="rating">
-        <!-- <div class="rating2" ng-if="actor=='user'"> -->
-          <span ng-click="r(1)">★</span>
-          <span ng-click="r(2)">★</span>
-          <span ng-click="r(3)">★</span>
-          <span ng-click="r(4)">★</span>
-          <span ng-click="r(5)">★</span>
-        <!-- </div> -->
-    </div>
+
 
     <a ng-if="actor=='owner'" href="/owner/editBusinessPage" class="btn btn-default">Edit My BusinessPage</a>
 
@@ -129,6 +144,31 @@
           <p>Start Date: {{event.trip.startDate}}</p>
           <p>End Date: {{event.trip.endDate}}</p>
           <p>Max People: {{event.trip.maxPeople}}</p>
+        </div>
+
+        <div class="rating-container">
+
+            <div class="visitors-rates">
+                <p>Visitors gave this event an average rating of {{event.event.rate.value| number: 1}} out of 5.</p>
+            </div>
+            <div class="before-rating" ng-show="actor=='user' && !showEventRate(event.event.rate.usernames)">
+                <div class="your-rating">
+                    <p>How many stars do you give this event.</p>
+                </div>
+
+                <div id="rating">
+                    <span ng-click="rateEvent(1, event.event._id)">★</span>
+                    <span ng-click="rateEvent(2, event.event._id)">★</span>
+                    <span ng-click="rateEvent(3, event.event._id)">★</span>
+                    <span ng-click="rateEvent(4, event.event._id)">★</span>
+                    <span ng-click="rateEvent(5, event.event._id)">★</span>
+                </div>
+            </div>
+
+            <div class="after-rating" ng-show="actor=='user' && !showEventRate(event.event.rate.usernames)">
+                <p>you gave this page {{yourEventRating}} stars</p>
+            </div>
+
         </div>
 
         <div ng-if="actor=='user'">

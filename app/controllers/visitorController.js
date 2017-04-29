@@ -62,22 +62,28 @@ let visitorController = {
   viewsBusinessPage:function(req, res) {
 
     let businessPageId ;
+    let username ;
+
     if(req.session==undefined){
 			actor = "visitor";
 			businessPageId=req.session.data
+            username = "";
 		}else{
 			if(req.session.data==undefined){
 				actor = "visitor"
 				businessPageId=req.session.data
+                username = "";
 			}
 			else {
 				if(req.session.data.UserID==undefined){
 					actor = "visitor"
 					businessPageId=req.session.data
+                    username = "";
 				}
 				else{
 					actor = 'user'
 					businessPageId=req.session.data.businessPageId
+                    username = req.session.data.Profile.username;
 				}
 			}
 		}
@@ -96,7 +102,7 @@ let visitorController = {
               }
 
               if(businessPage.events.length==0)
-                res.json({"businessPage":businessPage,"events":[]});
+                res.json({"businessPage":businessPage,"events":[],"username": username});
 
               for (let i = 0; i < businessPage.events.length; i++) {
                   let eventId = businessPage.events[i];
@@ -123,8 +129,9 @@ let visitorController = {
                             for (let i = 0; i < businessPage.events.length; i++)
                               andRes = andRes&&bool[i]
 
-                            if(andRes)
-                              res.json({"businessPage":businessPage,"events":events});
+                            if(andRes){
+                                res.json({"businessPage":businessPage,"events":events, "username": username});
+                            }
                           }
                         })
                       }else{
@@ -141,8 +148,10 @@ let visitorController = {
                             for (let i = 0; i < businessPage.events.length; i++)
                               andRes = andRes&&bool[i]
 
-                            if(andRes)
-                              res.json({"businessPage":businessPage,"events":events});
+                            if(andRes){
+                                res.json({"businessPage":businessPage,"events":events, "username": username});
+                            }
+
                           }
                         })
                       }

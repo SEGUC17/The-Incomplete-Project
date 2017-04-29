@@ -5,6 +5,7 @@ angular.module('myApp', []).controller('editBusinessPage', function($scope,$http
       $scope.description = response.data.description;
       $scope.phoneNumbers = response.data.phoneNumber;
       $scope.addresses = response.data.addresses;
+      $scope.rate = response.data.rate.value;
     });
 
     $scope.choices = [];
@@ -30,7 +31,6 @@ angular.module('myApp', []).controller('editBusinessPage', function($scope,$http
         bool[i] = false;
       }
 
-      alert($scope.choices.length);
       for (let i = 0; i < $scope.choices.length; i++) {
         let id = "choice"+(i+1);
         let img = document.getElementById(id);
@@ -53,13 +53,9 @@ angular.module('myApp', []).controller('editBusinessPage', function($scope,$http
                   form.appendChild(avatar_input);
 
                   bool[i] = true;
-                  alert(bool[i]);
-                  alert(i);
                   let andRes = true;
 
                   for (let j = 0; j < $scope.choices.length; j++){
-                    alert(bool[j]);
-                    alert(j);
                     andRes = andRes&&bool[j];
                   };
                   if(andRes&&(!profilePic.files||!profilePic.files[0])){

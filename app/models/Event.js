@@ -26,10 +26,30 @@ var eventSchema = mongoose.Schema({
     image:{
         type:String
     },
+
     // true for place , false for trip
     isPlace:{
         type:Boolean,
         default:false
+    },
+
+    rate:{
+        usernames:[{
+            type:String,
+            required:true,
+            unique:true
+        }],
+        value:{
+            type:Number,
+            required:true,
+            default: 0
+        }
+    },
+
+    numberOfRatings:{
+        type:Number,
+        required:true,
+        default: 0
     }
 })
 

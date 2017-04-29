@@ -26,7 +26,7 @@
 
 
 
-.rating2 span {
+#rating span {
   cursor: pointer;
   font-size: 20px;
   padding: 0 10px;
@@ -38,7 +38,7 @@
   transform-origin: center bottom;
 }
 
-.rating2 span.hover {
+#rating span.hover {
   color: #fd0;
   opacity: 1;
   transform: rotateX(0deg);
