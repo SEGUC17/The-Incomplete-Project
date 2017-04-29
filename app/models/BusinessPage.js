@@ -39,15 +39,22 @@ var businessPageSchema = mongoose.Schema({
     },
 
     rate:{
-        type:Number,
-        required:true,
-        default: 0,
+        usernames:[{
+            type:String,
+            required:true,
+            unique:true
+        }],
+        value:{
+            type:Number,
+            required:true,
+            default: 0
+        }
     },
 
     numberOfRatings:{
         type:Number,
         required:true,
-        default: 0,
+        default: 0
     }
 
 })

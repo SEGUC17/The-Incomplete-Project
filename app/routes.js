@@ -138,6 +138,7 @@ router.get('/',function(req,res){
 	});
 
 	router.post('/businessPage/rate', registeredUserController.rateBusinessPage);
+	router.post('/businessPage/event/rate', registeredUserController.rateEvent);
 
 	router.get('/owner/ownerViewsBusinessPage.json',ownerController.ownerViewsBusinessPage);
 

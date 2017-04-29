@@ -266,12 +266,10 @@ let ownerController = {
     removePlace:function(req,res){
       let body = req.body;
       let eventId = req.body._id;
-      console.log(eventId);
       Place.remove({ anEvent: eventId }, function(err, result) {
           if (err)
             res.send(err)
           else{
-            console.log(result.result);
             eventController.removeEvent(req,res);
           }
       });
@@ -279,18 +277,17 @@ let ownerController = {
     removeTrip:function(req,res){
       let body = req.body;
       let eventId = req.body._id
-      console.log(eventId);
       Trip.remove({ anEvent: eventId }, function(err, result) {
           if (err)
             res.send(err)
           else{
-            console.log(result.result);
             eventController.removeEvent(req,res);
           }
       });
     },
     ownerViewsBusinessPage:function(req, res) {
         let businessPageId = req.session.data.BusinessPage._id;
+        let username = req.session.data.Profile.username;
         BusinessPage.findOne({_id:businessPageId}, function(err, businessPage) {
 
             if(err) {
@@ -305,7 +302,7 @@ let ownerController = {
                 }
 
                 if(businessPage.events.length==0)
-                  res.json({"businessPage":businessPage,"events":[]});
+                  res.json({"businessPage":businessPage,"events":[],"username": username});
 
                 for (let i = 0; i < businessPage.events.length; i++) {
                     let eventId = businessPage.events[i];
@@ -333,7 +330,7 @@ let ownerController = {
                                 andRes = andRes&&bool[i]
 
                               if(andRes)
-                                res.json({"businessPage":businessPage,"events":events});
+                                res.json({"businessPage":businessPage,"events":events, "username": username});
                             }
                           })
                         }else{
@@ -351,7 +348,7 @@ let ownerController = {
                                 andRes = andRes&&bool[i]
 
                               if(andRes)
-                                res.json({"businessPage":businessPage,"events":events});
+                                res.json({"businessPage":businessPage,"events":events, "username": username});
                             }
                           })
                         }
