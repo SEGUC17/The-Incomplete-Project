@@ -150,7 +150,47 @@ let RegisteredUserController = {
 			 })
 		 }
 		});
+  },
+
+  rateBusinessPage:function(req, res) {
+
+	  name = req.body.name;
+	  rating = req.body.rating;
+
+	  BusinessPage.findOne({name: name}, function(err, businessPage) {
+
+		if (err)
+			res,send(err);
+		else {
+
+			var newRate = RegisteredUserController.updateRate(rating, businessPage.rate, businessPage.numberOfRatings);
+			businessPage.rate = newRate.rate;
+			businessPage.numberOfRatings = newRate.numberOfRatings;
+
+			businessPage.save(function(err, updatedBusinessPage) {
+				if (err)
+				res.send(err);
+				else {
+					res.send("success")
+				}
+			})
+
+		}
+
+	  })
+
+  },
+
+  updateRate: function(rating, currentRate, numberOfRatings) {
+	  console.log(rating);
+	  console.log(currentRate);
+	  console.log(numberOfRatings);
+	  var newRate = {}
+	  newRate.rate = (currentRate * numberOfRatings + rating) / (++numberOfRatings)
+	  newRate.numberOfRatings = numberOfRatings;
+	  return newRate;
   }
+
 }
 
 module.exports = RegisteredUserController;

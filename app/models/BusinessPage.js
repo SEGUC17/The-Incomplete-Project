@@ -36,7 +36,20 @@ var businessPageSchema = mongoose.Schema({
     numberOfViews:{
         type:Number,
         required:false
+    },
+
+    rate:{
+        type:Number,
+        required:true,
+        default: 0,
+    },
+
+    numberOfRatings:{
+        type:Number,
+        required:true,
+        default: 0,
     }
+
 })
 
 var BusinessPage = mongoose.model("businesspages", businessPageSchema);
