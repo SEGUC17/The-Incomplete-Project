@@ -34,9 +34,10 @@
 
   <div class="search container-fluid">
 
-    <img src={{profileImg}} width="250px" id="profileImg"/>
 
     <div id="info">
+
+      <img src={{profileImg}} width="250px" id="profileImg"/>
 
       <div class="data">name: {{name}}</div>
       <div class="data">Description: {{description}}</div>
@@ -54,12 +55,24 @@
         </div>
       </div>
 
+      <div ng-repeat="image in images" id="imgs">
+          <img src={{image}} width="100px"/>
+      </div>
     </div>
 
+    <div class="visitors-rates">
+        <p>Visitors gave this page an average rating of {{rate| number: 3}} out of 5.</p>
+    </div>
 
-    <div ng-repeat="image in images" id="imgs">
-      <img src={{image}} width="100px"/>
-    </div></br>
+    <div id="rating">
+        <!-- <div class="rating2" ng-if="actor=='user'"> -->
+          <span ng-click="r(1)">★</span>
+          <span ng-click="r(2)">★</span>
+          <span ng-click="r(3)">★</span>
+          <span ng-click="r(4)">★</span>
+          <span ng-click="r(5)">★</span>
+        <!-- </div> -->
+    </div>
 
     <a ng-if="actor=='owner'" href="/owner/editBusinessPage" class="btn btn-default">Edit My BusinessPage</a>
 

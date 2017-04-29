@@ -13,18 +13,18 @@ var mongoose = require("mongoose");
 var Profile = require("./models/Profile");
 var RegisteredUser = require("./models/RegisteredUser");
 
-// router.get('/',function(req,res){
-// 	res.sendFile('home.html',{root:"./views"});
-// })
+router.get('/',function(req,res){
+	res.sendFile('home.html',{root:"./views"});
+})
 
-router.get('/', function(req, res) {
-	res.send({
- "messages": [
-   {"text": "Welcome to our store!"},
-   {"text": "How can I help you?"}
- ]
-});
-});
+// router.get('/', function(req, res) {
+// 	res.send({
+//  "messages": [
+//    {"text": "Welcome to our store!"},
+//    {"text": "How can I help you?"}
+//  ]
+// });
+// });
 
 	router.get('/visitor/SignUp',function(req,res){
 		res.sendFile('signup.html',{root:"./views"});
@@ -136,6 +136,8 @@ router.get('/', function(req, res) {
 	router.get('/owner/ownerViewsBusinessPage',function(req,res){
 		res.sendFile('viewBusinessPage.html', { root:"./views" });
 	});
+
+	router.post('/businessPage/rate', registeredUserController.rateBusinessPage);
 
 	router.get('/owner/ownerViewsBusinessPage.json',ownerController.ownerViewsBusinessPage);
 
