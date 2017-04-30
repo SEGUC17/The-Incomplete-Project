@@ -72,7 +72,7 @@
                 <p>How many stars do you give this page.</p>
             </div>
 
-            <div id="rating">
+            <div class="rating">
                 <span ng-click="r(1)">★</span>
                 <span ng-click="r(2)">★</span>
                 <span ng-click="r(3)">★</span>
@@ -156,7 +156,7 @@
                     <p>How many stars do you give this event.</p>
                 </div>
 
-                <div id="rating">
+                <div class="rating">
                     <span ng-click="rateEvent(1, event.event._id)">★</span>
                     <span ng-click="rateEvent(2, event.event._id)">★</span>
                     <span ng-click="rateEvent(3, event.event._id)">★</span>
@@ -165,7 +165,7 @@
                 </div>
             </div>
 
-            <div class="after-rating" ng-show="actor=='user' && !showEventRate(event.event.rate.usernames)">
+            <div class="after-rating" ng-show="actor=='user' && showEventRate(event.event.rate.usernames)">
                 <p>you gave this page {{yourEventRating}} stars</p>
             </div>
 
