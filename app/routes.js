@@ -13,18 +13,9 @@ var mongoose = require("mongoose");
 var Profile = require("./models/Profile");
 var RegisteredUser = require("./models/RegisteredUser");
 
-router.get('/',function(req,res){
-	res.sendFile('home.html',{root:"./views"});
-})
-
-// router.get('/', function(req, res) {
-// 	res.send({
-//  "messages": [
-//    {"text": "Welcome to our store!"},
-//    {"text": "How can I help you?"}
-//  ]
-// });
-// });
+	router.get('/',function(req,res){
+		res.sendFile('home.html',{root:"./views"});
+	})
 
 	router.get('/visitor/SignUp',function(req,res){
 		res.sendFile('signup.html',{root:"./views"});
@@ -86,28 +77,6 @@ router.get('/',function(req,res){
 	router.post('/visitor/searchBusinessPages', visitorController.searchBusinessPages);
 	router.get('/visitor/popularBusinessPages', visitorController.popularBusinessPages);
 
-
-
-/*
-	router.post('/charge', function(req, res) {
-	console.log(req);
-	    var stripeToken = req.body.id;
-
-	    var charge = stripe.charges.create({
-	        amount: 10000, // amount in cents, again
-	        currency: "usd",
-	        card: stripeToken,
-	        description: "email@email.com"
-	    }, function(err, charge) {
-	        if (err && err.type === 'StripeCardError') {
-	            console.log(JSON.stringify(err, null, 2));
-	        }
-	        res.send("completed payment!");
-	    });
-	});
-*/
-
-
 	router.post('/booking/charge', bookingController.charge);
   	router.post('/booking/tripPay', bookingController.tripPay);
   	router.post('/booking/placePay', bookingController.placePay);
@@ -121,8 +90,7 @@ router.get('/',function(req,res){
 		Place.findOne({anEvent: req.session.data.eventId}, function (err, place) {
 			res.json({openingTimes:place.openingTimes});
 		});
-		// req.session.data.placeId = req.body.eventId;
-		// res.sendFile('placeBook2View.html', { root:"./views" });
+
 	});
 
 	router.post('/booking/placeBook2', bookingController.placeBook2);

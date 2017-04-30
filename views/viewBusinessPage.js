@@ -10,12 +10,12 @@ function StarRating() {
  * Initialize
  */
 StarRating.prototype.init = function() {
-  this.stars = document.querySelectorAll('#rating span');
+  this.stars = document.querySelectorAll('.rating span');
   for (var i = 0; i < this.stars.length; i++) {
     this.stars[i].setAttribute('data-count', i);
     this.stars[i].addEventListener('mouseenter', this.enterStarListener.bind(this));
   }
-  document.querySelector('#rating').addEventListener('mouseleave', this.leaveStarListener.bind(this));
+  document.querySelector('.rating').addEventListener('mouseleave', this.leaveStarListener.bind(this));
 };
 
 /**
@@ -27,7 +27,7 @@ StarRating.prototype.enterStarListener = function(e) {
 };
 
 /**
- * This method is fired when the user leaves the #rating element, effectively removing all hover states.
+ * This method is fired when the user leaves the .rating element, effectively removing all hover states.
  */
 StarRating.prototype.leaveStarListener = function() {
   this.fillStarsUpToElement(null);
@@ -54,6 +54,7 @@ new StarRating();
 
 angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http) {
 
+    // this function rates businessPages
     $scope.r = function(value) {
 
         $http({
@@ -68,10 +69,9 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http
             location.reload();
 
         },
-        function(response) { // optional
+        function(response) {
             alert(response.error);
         });
-        // $scope.rating = value;
 
     }
 
@@ -87,10 +87,10 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http
             location.reload();
 
         },
-        function(response) { // optional
+        function(response) {
             alert(response.error);
         });
-        // $scope.rating = value;
+
     }
 
     $scope.rateContains = function(usernames, username) {
@@ -114,21 +114,6 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http
 
     }
 
-
-    // function sendData($scope) {
-    //     $http({
-    //         url: 'request-url',
-    //         method: "POST",
-    //         data: { 'message' : message }
-    //     })
-    //     .then(function(response) {
-    //             // success
-    //     },
-    //     function(response) { // optional
-    //             // failed
-    //     });
-    // }
-
     $http.get("http://localhost:8080/actor.json").then(function(response1){
       $scope.actor = response1.data.actor;
       if($scope.actor=='owner'){
@@ -144,7 +129,7 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http
       }
       else{
         $http.get("http://localhost:8080/viewsBusinessPage.json").then(function(response){
-        //   alert(response.data.toSource());
+
           $scope.name = response.data.businessPage.name;
           $scope.description = response.data.businessPage.description;
           $scope.phoneNumber = response.data.businessPage.phoneNumber;
@@ -158,10 +143,8 @@ angular.module('myApp', []).controller('viewBusinessPage', function($scope,$http
           $scope.username = response.data.username;
           $scope.usernames = response.data.businessPage.rate.usernames;
           $scope.showRate = !$scope.rateContains($scope.usernames, $scope.username)
-        //   $scope.eventRate = !$scope.showEventRate($scope.usernames, $scope.username)
 
         });
-        // alert("AJSDF");
       }
     });
 
